@@ -78,24 +78,26 @@ const SkillCard: React.FC<SkillCardProps> = ({
 
   return (
     <button
-      className={`w-full h-full p-4 cursor-pointer transition-colors duration-200 flex flex-col relative rounded-xl overflow-hidden ${
+      className={`p-3 rounded-lg cursor-pointer transition-all duration-200 h-full w-full flex flex-col relative ${
         isHighlighted
-          ? "bg-gradient-to-br from-[#3a1f37] to-[#2a1526] border border-[#e39fc2]/30 shadow-md"
-          : "bg-[#382736] hover:bg-[#3a2839] border border-transparent hover:border-[#e39fc2]/20"
+          ? "bg-[#4e3a4d] text-[#f5eaf4] border border-[#e6a2ce] soft-glow"
+          : "bg-[#3a2939] hover:bg-[#4e3a4d] border border-transparent hover:border-[#e6a2ce]/20"
       }`}
       onClick={onClick}
     >
-      <div className="flex items-center mb-3">
-        <div className="text-xl mr-2">{displayIcon}</div>
-        <div>
+      <div className="flex items-center mb-2.5">
+        <div className="mr-2.5 p-1.5 bg-[#2e1e2e] rounded-full shadow-md flex items-center justify-center w-10 h-10">
+          <span className="text-xl">{displayIcon}</span>
+        </div>
+        <div className="flex-1">
           <h3
             className={`font-medium text-base ${
-              isHighlighted ? "text-[#f4c1d8]" : "text-[#e39fc2]"
+              isHighlighted ? "text-[#f4c6e2]" : "text-[#e6a2ce]"
             }`}
           >
             {subtitle}
           </h3>
-          <div className="text-xs text-[#c4b2c3] uppercase tracking-wide">
+          <div className="text-xs text-[#d5c0d4] uppercase tracking-wide">
             {title}
           </div>
         </div>
@@ -103,15 +105,21 @@ const SkillCard: React.FC<SkillCardProps> = ({
 
       {isHighlighted && (
         <div className="my-2">
-          <div className="h-0.5 w-16 bg-gradient-to-r from-[#e39fc2] to-transparent rounded-full"></div>
+          <div className="h-0.5 w-16 bg-gradient-to-r from-[#e6a2ce] to-transparent rounded-full"></div>
         </div>
       )}
 
-      <div className="mt-auto pt-2 border-t border-[#4d3a4c] text-xs text-[#c4b2c3] text-center">
+      <div className="mt-auto pt-2 border-t border-[#5d4a5c] text-xs text-[#d5c0d4] text-center">
         {isHighlighted ? (
-          <span className="text-[#f4c1d8]">• Your specialty •</span>
+          <span className="text-[#f4c6e2] flex items-center justify-center">
+            <span className="mr-1.5">•</span>Your specialty
+            <span className="ml-1.5">•</span>
+          </span>
         ) : (
-          <span>Tap to learn more</span>
+          <span className="flex items-center justify-center">
+            <span className="mr-1.5 text-[#e6a2ce] text-xs">✧</span>
+            Tap to learn more
+          </span>
         )}
       </div>
     </button>
@@ -164,12 +172,12 @@ const MainSkills: React.FC = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 h-full">
-          <div
-            className={`relative h-full ${
-              themeStyle === "soft" ? "p-1.5" : ""
-            }`}
-          >
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 h-full ${
+            themeStyle === "soft" ? "gap-0.5 p-0.5" : ""
+          }`}
+        >
+          <div className={`relative h-full ${themeStyle === "soft" ? "" : ""}`}>
             <SkillCard
               title="Academic"
               subtitle="Student"
@@ -185,9 +193,7 @@ const MainSkills: React.FC = () => {
 
           <div
             className={`relative h-full ${
-              themeStyle === "soft"
-                ? "p-1.5"
-                : "border-t md:border-t-0 theme-border"
+              themeStyle === "soft" ? "" : "border-t md:border-t-0 theme-border"
             }`}
           >
             <SkillCard
@@ -205,9 +211,7 @@ const MainSkills: React.FC = () => {
 
           <div
             className={`relative h-full ${
-              themeStyle === "soft"
-                ? "p-1.5"
-                : "border-t md:border-t-0 theme-border"
+              themeStyle === "soft" ? "" : "border-t md:border-t-0 theme-border"
             }`}
           >
             <SkillCard

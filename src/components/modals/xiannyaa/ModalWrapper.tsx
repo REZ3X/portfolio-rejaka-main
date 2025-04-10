@@ -11,10 +11,17 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({ children, onClose }) => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
 
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    
+    window.addEventListener("keydown", handleEsc);
+    
     return () => {
       document.body.style.overflow = originalStyle;
+      window.removeEventListener("keydown", handleEsc);
     };
-  }, []);
+  }, [onClose]);
 
   return createPortal(
     <div
@@ -30,10 +37,11 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({ children, onClose }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        backdropFilter: "blur(3px)",
+        backgroundColor: "rgba(33, 20, 33, 0.85)",
+        backdropFilter: "blur(6px)",
         zIndex: 9999,
       }}
+      className="animate-in fade-in duration-300"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -44,6 +52,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({ children, onClose }) => {
           maxWidth: "100%",
           maxHeight: "100%",
         }}
+        className="animate-in zoom-in-95 duration-300"
       >
         {children}
       </div>

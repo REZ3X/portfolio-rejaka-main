@@ -39,60 +39,6 @@ const Loader: React.FC = () => {
     "Ready to launch!",
   ];
 
-  useEffect(() => {
-    setMounted(true);
-
-    let animationId: number;
-    let lastTime = 0;
-
-    const animate = (time: number) => {
-      if (lastTime === 0) lastTime = time;
-      const deltaTime = time - lastTime;
-      lastTime = time;
-
-      setRotationY((prevY) => prevY + deltaTime * 0.05);
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(progressInterval);
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 5) + 1;
-      });
-    }, 200);
-
-    const lineInterval = setInterval(() => {
-      setCurrentLine((prev) => {
-        if (prev >= bootLines.length - 1) {
-          clearInterval(lineInterval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 700);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      clearInterval(cursorInterval);
-      clearInterval(progressInterval);
-      clearInterval(lineInterval);
-    };
-  }, []);
-
-  if (!mounted) {
-    return <div className="fixed inset-0 bg-[#060a10] z-50"></div>;
-  }
-
   return (
     <div className="fixed inset-0 bg-[#060a10] z-50 font-mono text-[#e0e0e0] p-4 overflow-auto flex flex-col">
       <div className="max-w-3xl mx-auto w-full flex-grow">

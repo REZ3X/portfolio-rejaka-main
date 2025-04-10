@@ -13,6 +13,7 @@ import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
 import Terminal from "@/components/terminal/Terminal";
 import Loader from "./Loader";
+import FeminineLoader from "./FeminineLoader";
 import { UserProvider, useUser } from "@/context/UserContext";
 import { osData } from "@/data/OSData";
 import { usersData } from "@/data/UsersData";
@@ -28,36 +29,39 @@ import MailForm from "@/components/modals/MailForm";
 const MainContent = () => {
   const { activeUser, themeStyle } = useUser();
   const userData = usersData[activeUser];
-  const [isLoading, setIsLoading] = useState(true);
+  const [isApplicationReady, setIsApplicationReady] = useState(false);
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    document.documentElement.setAttribute("data-theme", themeStyle);
-  }, [themeStyle]);
-
   useEffect(() => {
-    const checkPageLoad = () => {
-      if (document.readyState === "complete") {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1500);
-        return true;
+    document.documentElement.setAttribute("data-theme", themeStyle);
+
+    const isPageLoaded = document.readyState === "complete";
+
+    const markAppAsReady = () => {
+      const overlay = document.querySelector(".theme-transition-overlay");
+      if (overlay) {
+        overlay.classList.remove("active");
+        setTimeout(() => overlay.remove(), 300);
       }
-      return false;
+
+      const delay = isPageLoaded ? 800 : 1500;
+      setTimeout(() => {
+        setIsApplicationReady(true);
+      }, delay);
     };
 
-    if (!checkPageLoad()) {
-      window.addEventListener("load", checkPageLoad);
+    if (isPageLoaded) {
+      markAppAsReady();
+    } else {
+      window.addEventListener("load", markAppAsReady, { once: true });
 
-      const timeoutId = setTimeout(() => {
-        setIsLoading(false);
-      }, 8000);
+      const timeoutId = setTimeout(markAppAsReady, 4000);
       return () => {
-        window.removeEventListener("load", checkPageLoad);
+        window.removeEventListener("load", markAppAsReady);
         clearTimeout(timeoutId);
       };
     }
-  }, []);
+  }, [themeStyle]);
 
   const openModal = (modalType: string) => {
     setActiveModal(modalType);
@@ -67,8 +71,8 @@ const MainContent = () => {
     setActiveModal(null);
   };
 
-  if (isLoading) {
-    return <Loader />;
+  if (!isApplicationReady) {
+    return themeStyle === "soft" ? <FeminineLoader /> : <Loader />;
   }
 
   return (

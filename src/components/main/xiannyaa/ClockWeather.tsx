@@ -86,7 +86,7 @@ const ClockWeather: React.FC = () => {
   return (
     <div className="theme-bg-primary theme-text-primary p-5 rounded-2xl shadow-md h-full flex flex-col soft-card">
       <div className="flex flex-col items-center flex-grow">
-        {/* Clock */}
+        {}
         <div className="text-center mb-6 mt-3">
           <h2 className="text-[#e39fc2] font-medium text-lg mb-2">My Clock</h2>
           <div className="text-4xl font-light theme-text-primary mb-3">
@@ -95,10 +95,10 @@ const ClockWeather: React.FC = () => {
           <div className="text-sm theme-text-secondary">{formattedDate}</div>
         </div>
 
-        {/* Divider */}
+        {}
         <div className="w-32 h-0.5 bg-gradient-to-r from-[#e39fc2] to-transparent rounded-full my-4"></div>
 
-        {/* Weather */}
+        {}
         <div className="text-center mt-2">
           <h2 className="text-[#e39fc2] font-medium text-lg mb-4">Weather</h2>
           {weather.loading ? (
@@ -134,7 +134,7 @@ const ClockWeather: React.FC = () => {
           )}
         </div>
 
-        {/* Footer note */}
+        {}
         <div className="mt-auto pt-3 text-center">
           <div className="text-xs text-[#c4b2c3]">♥ Have a wonderful day ♥</div>
         </div>

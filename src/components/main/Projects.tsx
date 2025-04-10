@@ -39,22 +39,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     </button>
   ) : (
     <button
-      className="p-3 border border-[#574655] rounded-xl cursor-pointer hover:border-[#e39fc2] transition-colors duration-200 flex flex-col bg-[#382736] hover:bg-[#3a2839] soft-card"
+      className="p-3 border border-[#5d4a5c] rounded-xl cursor-pointer hover:border-[#e6a2ce] transition-all duration-200 flex flex-col bg-[#3a2939] hover:bg-[#4e3a4d] soft-card group"
       onClick={onClick}
     >
       <div className="mb-2">
         <div
-          className="w-1/4 h-1 mb-2 rounded-full"
+          className="w-1/3 h-1.5 mb-2 rounded-full"
           style={{ backgroundColor: color }}
         ></div>
-        <h3 className="text-[#e39fc2] font-medium text-base truncate">
+        <h3 className="text-[#e6a2ce] font-medium text-base truncate group-hover:text-[#f4c6e2] transition-colors">
           {title}
         </h3>
-        <div className="text-sm text-[#c4b2c3] mt-1">{category}</div>
+        <div className="text-sm text-[#d5c0d4] mt-1">{category}</div>
       </div>
 
-      <div className="mt-auto text-xs text-right text-[#c4b2c3]">
-        View details →
+      <div className="mt-auto text-xs text-right text-[#d5c0d4] group-hover:text-[#e6a2ce] transition-colors">
+        View details{" "}
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+          →
+        </span>
       </div>
     </button>
   );

@@ -54,7 +54,7 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
           animation: "fadeIn 0.4s ease-out forwards",
         }}
       >
-        {/* Header with decoration */}
+        {}
         <div className="sticky top-0 z-10 border-b border-[#574655] bg-gradient-to-r from-[#3a1f37] to-[#2c1927] p-4 flex justify-between items-center">
           <div className="flex items-center">
             <div className="w-1 h-8 bg-[#e39fc2] rounded-full mr-3"></div>
@@ -73,9 +73,9 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
           </button>
         </div>
 
-        {/* Content area */}
+        {}
         <div className="p-6 overflow-auto max-h-[calc(80vh-72px)]">
-          {/* Optional: Decorative elements */}
+          {}
           <div className="absolute top-16 right-4 opacity-10 -z-10">
             <div className="text-8xl text-[#e39fc2]">✉️</div>
           </div>
@@ -186,7 +186,7 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
             </form>
           )}
 
-          {/* Footer decoration */}
+          {}
           <div className="mt-8 flex justify-center">
             <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#e39fc2] to-transparent rounded-full"></div>
           </div>

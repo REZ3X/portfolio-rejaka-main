@@ -1,7 +1,6 @@
 export const personalityData = {
     fullName: "Rejaka Abimanyu Susanto",
     alias: "rez3x",
-    // profileImage: "/images/profile.jpg", // Uncomment and update with your image path
     bio: "Full-stack developer with a passion for Linux and cybersecurity. Exploring the digital realm one terminal command at a time.",
     links: [
       { name: "GitHub", url: "https://github.com/username" },

@@ -52,9 +52,19 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     }
 
     if (currentTheme !== newTheme) {
-      if (typeof window !== "undefined") {
-        window.location.reload();
-      }
+      const overlay = document.createElement("div");
+      overlay.className = "theme-transition-overlay";
+      document.body.appendChild(overlay);
+
+      void overlay.offsetWidth;
+
+      overlay.classList.add("active");
+
+      setTimeout(() => {
+        if (typeof window !== "undefined") {
+          window.location.reload();
+        }
+      }, 300);
     } else {
       setActiveUser(user);
 

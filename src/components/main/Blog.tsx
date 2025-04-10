@@ -26,7 +26,7 @@ const Blog: React.FC = () => {
         }
 
         const data = await response.json();
-        setBlogPosts(data.slice(0, 4)); // Fetch 4 posts instead of 3
+        setBlogPosts(data.slice(0, 4));
       } catch (error) {
         console.error(error);
         setError("Failed to load blog posts");
@@ -38,14 +38,12 @@ const Blog: React.FC = () => {
     fetchBlogFeed();
   }, []);
 
-  // Helper function to decode HTML entities
   const decodeHtmlEntities = (text: string): string => {
     const textArea = document.createElement("textarea");
     textArea.innerHTML = text;
     return textArea.value;
   };
 
-  // Format date to a more readable format
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString("id-ID", {
       day: "numeric",
@@ -66,24 +64,20 @@ const Blog: React.FC = () => {
 
         <div className="p-3 flex-grow">
           {isLoading ? (
-            // Loading state
             <div className="flex items-center justify-center h-full">
               <div className="text-xs text-[#393d46]">Loading posts...</div>
             </div>
           ) : error ? (
-            // Error state
             <div className="flex items-center justify-center h-full">
               <div className="text-xs text-[#e0e0e0]">{error}</div>
             </div>
           ) : blogPosts.length === 0 ? (
-            // Empty state
             <div className="flex items-center justify-center h-full">
               <div className="text-xs text-[#e0e0e0]">
                 No blog posts available
               </div>
             </div>
           ) : (
-            // Blog posts list - displaying 4 posts
             <div className="space-y-3">
               {blogPosts.map((post, index) => (
                 <a
@@ -110,7 +104,7 @@ const Blog: React.FC = () => {
 
         <div className="p-1.5 border-t border-[#393d46] text-center">
           <a
-            href="https://yourblog.com" // Update with your actual blog URL
+            href="https://yourblog.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-[#00adb4] hover:underline inline-block py-0.5 px-2"
@@ -122,7 +116,6 @@ const Blog: React.FC = () => {
     );
   }
 
-  // Soft theme version
   return (
     <div className="theme-font theme-bg-primary theme-text-primary rounded-2xl shadow-md h-full flex flex-col soft-card overflow-hidden">
       <div className="p-4 bg-gradient-to-r from-[#3a1f37] to-[#2c1927] flex items-center">
@@ -131,14 +124,12 @@ const Blog: React.FC = () => {
 
       <div className="p-3 flex-grow">
         {isLoading ? (
-          // Loading state - styled for soft theme
           <div className="flex items-center justify-center h-full">
             <div className="text-sm text-[#c4b2c3] animate-pulse">
               Loading my articles...
             </div>
           </div>
         ) : error ? (
-          // Error state - styled for soft theme
           <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="text-3xl mb-2">😢</div>
             <div className="text-sm text-[#f0e6ef] mb-1">
@@ -149,7 +140,6 @@ const Blog: React.FC = () => {
             </div>
           </div>
         ) : blogPosts.length === 0 ? (
-          // Empty state - styled for soft theme
           <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="text-3xl mb-2">✨</div>
             <div className="text-sm text-[#f0e6ef]">No articles yet</div>
@@ -158,7 +148,6 @@ const Blog: React.FC = () => {
             </div>
           </div>
         ) : (
-          // Blog posts list - styled for soft theme
           <div className="space-y-3">
             {blogPosts.map((post, index) => (
               <a
@@ -185,7 +174,7 @@ const Blog: React.FC = () => {
 
       <div className="p-3 border-t border-[#574655] text-center">
         <a
-          href="https://yourblog.com" // Update with your actual blog URL
+          href="https://yourblog.com" 
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-1.5 text-sm rounded-full bg-[#3a1f37] text-[#e39fc2] hover:bg-[#463343] inline-block"
