@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Allow all crawlers to access all content
+Sitemap: https://rejaka.me/sitemap.xml
+
+# Specific rules for major crawlers
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Slurp
+Allow: /
+
+# Block certain directories if needed (uncomment if you have private areas)
+# Disallow: /private/
+# Disallow: /admin/
+
+# Crawl delay to control crawl rate (optional)
+# Crawl-delay: 10
