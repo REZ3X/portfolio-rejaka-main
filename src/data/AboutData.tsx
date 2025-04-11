@@ -116,7 +116,7 @@ export const aboutDataByUser: Record<UserAlias, AboutDataType> = {
   },
   xiannyaa: {
     ...baseAboutData,
-    title: "Creative Authir",
+    title: "Creative Author",
     subtitle: "Crafting digital narratives that blend technology with artistic expression",
     tags: ["Writing","Storytelling", "Mixed Media"],
     sections: [

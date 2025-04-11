@@ -115,7 +115,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
       <div className="mt-auto pt-2 border-t border-[#5d4a5c] text-xs text-[#d5c0d4] text-center">
         {isHighlighted ? (
           <span className="text-[#f4c6e2] flex items-center justify-center">
-            <span className="mr-1.5">•</span>Your specialty
+            <span className="mr-1.5">•</span>My specialty
             <span className="ml-1.5">•</span>
           </span>
         ) : (
