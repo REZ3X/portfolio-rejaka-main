@@ -53,13 +53,13 @@ interface Experience {
     
     achievements: [
       {
-        title: "Top Ten Team in ",
-        issuer: "OSS Community Alliance",
+        title: "Top Ten Team in Student Coding Competition",
+        issuer: "Fusiontech by Yogyakarta Tech University",
         year: "2025",
-        description: "Recognized for significant contributions to React ecosystem projects and developer tooling libraries."
+        description: "Participated in a coding competition and secured a spot in the top ten teams, showcasing my problem-solving skills and teamwork."
       },
       {
-        title: "Finalist in agasitas Web Building Competition",
+        title: "Finalist in Web Building Competition",
         issuer: "GSS by Sagasitas",
         year: "2024",
         description: "Lead developer for an accessibility-focused web application that won first place in the annual showcase."
