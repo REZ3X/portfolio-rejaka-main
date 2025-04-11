@@ -27,10 +27,10 @@ const quicksand = Quicksand({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rejaka.me"),
   title: {
-    template: "%s | Rejaka Abimanyu | Full-Stack Developer",
-    default: "Rejaka Abimanyu | Full-Stack Developer, Game Maker & Author",
+    template: "%s | Rejaka Abimanyu | Web Developer",
+    default: "Rejaka Abimanyu | Web Developer Portfolio",
   },
-  description: "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
+  description: "Explore the portfolio of Rejaka Abimanyu Susanto, a web developer and author showcasing creative projects and technical expertise.",
   keywords: ["Rejaka", "Rejaka Abimanyu", "Full Stack Developer", "Web Development", "Game Maker", "Author", "Portfolio", "Database Engineer", "Rejaka Abimanyu Susanto", "rez3x", "abim", "xiannyaa"],
   authors: [
     { name: "Rejaka Abimanyu Susanto", url: "https://rejaka.me" }
