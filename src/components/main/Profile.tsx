@@ -49,9 +49,9 @@ const Profile: React.FC<ProfileProps> = ({
           </div>
 
           <div className="text-center md:text-left mb-3">
-            <h2 className="theme-accent-primary text-xl font-bold">
+            <h1 className="theme-accent-primary text-xl font-bold">
               {fullName}
-            </h2>
+            </h1>
             <div className="flex items-center mt-1">
               <span className="theme-text-secondary">alias</span>
               <span className="ml-2 px-2 py-0.5 bg-[#202832] border border-[#107f84] theme-accent-primary">
@@ -135,9 +135,9 @@ const Profile: React.FC<ProfileProps> = ({
         </div>
 
         <div className="text-center mb-4">
-          <h2 className="theme-accent-primary text-xl font-medium mb-1">
+          <h1 className="theme-accent-primary text-xl font-medium mb-1">
             {fullName}
-          </h2>
+          </h1>
           <div className="inline-block px-3 py-1 rounded-full theme-bg-secondary theme-text-primary text-sm font-light">
             @{alias}
           </div>
