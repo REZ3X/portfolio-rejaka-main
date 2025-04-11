@@ -54,9 +54,12 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
         <div className="p-4">
           <div className="mb-6">
             <p className="text-sm leading-relaxed mb-4">
-              As a web developer, I specialize in creating responsive,
-              accessible, and interactive web applications. My focus is on
-              delivering clean code and intuitive user experiences.
+              I’m a web developer passionate about crafting responsive and
+              accessible digital experiences. Beyond the front end, I’m
+              expanding into full-stack development and database engineering —
+              driven by a desire to understand the full architecture of the
+              systems I build. I&apos;m also exploring game development, pushing the
+              boundaries of how technology and creativity can collide.
             </p>
           </div>
 
@@ -68,11 +71,11 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>React / Next.js</span>
+                    <span>React</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>TypeScript</span>
+                    <span>CSS3</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
@@ -80,7 +83,7 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Redux / Context API</span>
+                    <span>Vite</span>
                   </li>
                 </ul>
               </div>
@@ -90,19 +93,33 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Node.js / Express</span>
+                    <span>Node.js</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>GraphQL / REST</span>
+                    <span>MySQL / Aiven</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>MongoDB / PostgreSQL</span>
+                    <span>MongoDB / Atlas</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="border border-[#393d46] p-3">
+                <h4 className="text-[#00adb4] font-bold mb-2">Full Stack</h4>
+                <ul className="text-sm space-y-1">
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Next.js</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Authentication systems</span>
+                    <span>JavaScript</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>TypeScript</span>
                   </li>
                 </ul>
               </div>
@@ -116,70 +133,49 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Docker</span>
+                    <span>Vercel</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>CI/CD pipelines</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>Vercel / Netlify</span>
+                    <span>Virtual Private Server</span>
                   </li>
                 </ul>
               </div>
-            </div>
-          </div>
 
-          <div className="mb-6">
-            <h3 className="text-[#00adb4] text-lg mb-2">Recent Projects</h3>
-            <div className="space-y-4">
               <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold">
-                  E-commerce Platform
-                </h4>
-                <p className="text-sm my-1">
-                  Full-featured online store with payment processing, inventory
-                  management, and admin dashboard.
-                </p>
-                <div className="flex flex-wrap gap-1 mt-2">
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    React
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    Node.js
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    MongoDB
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    Stripe
-                  </span>
-                </div>
+                <h4 className="text-[#00adb4] font-bold mb-2">Tools</h4>
+                <ul className="text-sm space-y-1">
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>VS Code</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>WebStorm IDE</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>DB Tools</span>
+                  </li>
+                </ul>
               </div>
 
               <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold">
-                  Content Management System
-                </h4>
-                <p className="text-sm my-1">
-                  Custom CMS built for a digital publication, featuring markdown
-                  support and publishing workflow.
-                </p>
-                <div className="flex flex-wrap gap-1 mt-2">
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    Next.js
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    TypeScript
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    PostgreSQL
-                  </span>
-                  <span className="text-xs bg-[#202832] px-1.5 py-0.5 border border-[#393d46]">
-                    AWS
-                  </span>
-                </div>
+                <h4 className="text-[#00adb4] font-bold mb-2">Other</h4>
+                <ul className="text-sm space-y-1">
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Cloudflare</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Godot Engine</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>GDScript</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

@@ -43,13 +43,16 @@ const SkillCard: React.FC<SkillCardProps> = ({
           } border-r border-[#393d46] flex items-center justify-center`}
         >
           <div
-            className={`vertical-text font-bold text-sm tracking-wider uppercase ${
+            className={`vertical-text font-bold text-xs sm:text-sm tracking-wider uppercase ${
               isHighlighted ? "text-[#00d6e0]" : "text-[#00adb4]"
-            }`}
+            } truncate max-h-full`}
             style={{
               writingMode: "vertical-rl",
               transform: "rotate(180deg)",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.05em",
+              maxHeight: "calc(100% - 16px)",
+              padding: "8px 0",
+              overflow: "hidden",
             }}
           >
             {title}

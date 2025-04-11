@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useUser } from "@/context/UserContext";
 
 const ClockWeather: React.FC = () => {
   const [time, setTime] = useState(new Date());

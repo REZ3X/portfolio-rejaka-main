@@ -1,12 +1,29 @@
 import { UserAlias } from "@/context/UserContext";
 
+type ModalType =
+  | "about"
+  | "programmer"
+  | "academic"
+  | "creative"
+  | "projects"
+  | "experience"
+  | "contact";
+
 export interface CommandResult {
   success: boolean;
   message: string;
-  action?: {
-    type: "openModal" | "changeUser" | "clearTerminal";
-    payload?: any;
-  };
+  action?:
+    | {
+        type: "openModal";
+        payload: ModalType;
+      }
+    | {
+        type: "changeUser";
+        payload: UserAlias;
+      }
+    | {
+        type: "clearTerminal";
+      };
 }
 
 export const processCommand = (
@@ -97,7 +114,7 @@ contact.js`,
       }
 
       const filename = args[0];
-      const validFiles = {
+      const validFiles: Record<string, ModalType> = {
         "about.js": "about",
         "programmer.js": "programmer",
         "academic.js": "academic",
@@ -107,7 +124,7 @@ contact.js`,
         "contact.js": "contact",
       };
 
-      if (validFiles[filename]) {
+      if (Object.prototype.hasOwnProperty.call(validFiles, filename)) {
         return {
           success: true,
           message: `Executing ${filename}...`,

@@ -168,11 +168,15 @@ const LinksContact: React.FC = () => {
 
           <div className="p-2 grid grid-cols-1 gap-2 flex-grow">
             <div className="space-y-2">
-              {linksContactData.contactInfo.map(renderTerminalLinkItem)}
+              {linksContactData.contactInfo.map((item) =>
+                renderTerminalLinkItem(item as LinkItem)
+              )}
             </div>
 
             <div className="grid grid-cols-3 gap-2">
-              {linksContactData.socialLinks.map(renderTerminalLinkItem)}
+              {linksContactData.socialLinks.map((item) =>
+                renderTerminalLinkItem(item as LinkItem)
+              )}
             </div>
           </div>
 
@@ -200,14 +204,17 @@ const LinksContact: React.FC = () => {
 
         <div className="p-3 grid grid-cols-1 gap-3 flex-grow overflow-auto">
           <div className="space-y-3">
-            {linksContactData.contactInfo.map(renderSoftLinkItem)}
+            {linksContactData.contactInfo.map((item) =>
+              renderSoftLinkItem(item as LinkItem)
+            )}
           </div>
 
           <div className="grid grid-cols-3 gap-2 mt-2">
-            {linksContactData.socialLinks.map(renderSoftLinkItem)}
+            {linksContactData.socialLinks.map((item) =>
+              renderSoftLinkItem(item as LinkItem)
+            )}
           </div>
         </div>
-
         <div className="mt-auto p-2 text-xs text-[#c4b2c3] text-center border-t border-[#574655]">
           Feel free to reach out any time ✨
         </div>

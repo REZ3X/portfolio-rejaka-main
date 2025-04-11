@@ -44,48 +44,11 @@ const XiannyaaCreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
 
           <div className="mb-6">
             <p className="text-[#f0e6ef] leading-relaxed mb-4">
-              Beyond coding, I'm passionate about creative writing. As an
-              author, I explore the intersection of technology, humanity, and
-              speculative futures through various formats and genres, always
-              with a touch of emotion and imagination.
+              While I build with code by day, I weave stories by heart. As an
+              author, I’m drawn to the fragile line between the digital and the
+              deeply human — exploring imagined futures, personal longing, and
+              the quiet beauty of connection through every word I write.
             </p>
-          </div>
-
-          <div className="mb-8">
-            <h3 className="text-[#e39fc2] text-lg font-medium mb-4 flex items-center">
-              <span className="mr-2 text-sm">✦</span>
-              Published Works
-              <div className="flex-grow ml-3 h-px bg-gradient-to-r from-[#574655] to-transparent"></div>
-            </h3>
-            <div className="space-y-4">
-              <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
-                <h4 className="text-[#e39fc2] font-medium mb-1">
-                  "Digital Horizons" (Short Story Collection)
-                </h4>
-                <p className="text-sm text-[#c4b2c3] mb-3">
-                  Published 2023 • TechFiction Press
-                </p>
-                <p className="text-sm text-[#f0e6ef]">
-                  A collection of ten speculative fiction stories exploring
-                  near-future technologies and their impact on society, with a
-                  focus on human relationships.
-                </p>
-              </div>
-
-              <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
-                <h4 className="text-[#e39fc2] font-medium mb-1">
-                  "The Compiler" (Novel)
-                </h4>
-                <p className="text-sm text-[#c4b2c3] mb-3">
-                  Published 2022 • Quantum Books
-                </p>
-                <p className="text-sm text-[#f0e6ef]">
-                  A science fiction novel set in a world where programmers are
-                  viewed as modern-day wizards, manipulating reality through
-                  code, while navigating complex emotional connections.
-                </p>
-              </div>
-            </div>
           </div>
 
           <div className="mb-8">
@@ -99,26 +62,48 @@ const XiannyaaCreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
                 <h4 className="text-[#e39fc2] font-medium mb-3 text-center">
                   Genres
                 </h4>
-                <ul className="text-sm space-y-2">
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Science Fiction</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Speculative Fiction</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">
-                      Technical Non-Fiction
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Creative Essays</span>
-                  </li>
-                </ul>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Fantasy</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Fiction</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Action</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Medieval</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Teen</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Light Romance</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Boys&apos; Love</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[#e39fc2] mr-2">✦</span>
+                        <span className="text-[#f0e6ef]">Technical</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div className="border border-[#574655] rounded-xl p-4 bg-[#382736]">
@@ -128,19 +113,15 @@ const XiannyaaCreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-2">
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Short Stories</span>
+                    <span className="text-[#f0e6ef]">Short Story</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Novels</span>
+                    <span className="text-[#f0e6ef]">Light Novel</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
                     <span className="text-[#f0e6ef]">Technical Blogs</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Screenplays</span>
                   </li>
                 </ul>
               </div>
@@ -150,26 +131,28 @@ const XiannyaaCreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
           <div className="mb-8">
             <h3 className="text-[#e39fc2] text-lg font-medium mb-4 flex items-center">
               <span className="mr-2 text-sm">✦</span>
-              Current Projects
+              Current Status
               <div className="flex-grow ml-3 h-px bg-gradient-to-r from-[#574655] to-transparent"></div>
             </h3>
             <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
               <h4 className="text-[#e39fc2] font-medium mb-3">
-                "Code as Poetry" (Anthology)
+                Trying to break free from writer&apos;s block
               </h4>
               <p className="text-sm text-[#f0e6ef] mb-3">
-                A collaborative anthology exploring the aesthetic aspects of
-                programming languages, co-edited with other developer-writers.
+                Currently navigating through creative obstacles and seeking new
+                sources of inspiration. Taking time to explore different
+                narrative techniques and gather ideas for future stories.
               </p>
               <div className="mt-3 w-full bg-[#463343] h-2.5 rounded-full overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-[#b4688f] to-[#e39fc2] h-full rounded-full"
-                  style={{ width: "65%" }}
+                  className="bg-gradient-to-r from-[#b4688f] to-[#e39fc2] h-full rounded-full animate-pulse-slow"
+                  style={{ width: "25%" }}
                 ></div>
               </div>
-              <p className="text-xs text-right mt-1 text-[#c4b2c3]">
-                65% Complete • Expected 2025
-              </p>
+              <div className="flex justify-between mt-2 text-xs text-[#c4b2c3]">
+                <span>Writer&apos;s block</span>
+                <span>Creative freedom</span>
+              </div>
             </div>
           </div>
 
@@ -181,28 +164,17 @@ const XiannyaaCreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
             </h3>
             <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
               <p className="text-sm text-[#f0e6ef] mb-3">
-                Besides creative writing, I maintain a technical blog where I
-                share tutorials, insights, and experiences from my development
-                journey. My articles have been featured in publications like:
+                Besides creative writing, I occasionally share my thoughts and
+                discoveries through technical articles on:
               </p>
               <ul className="text-sm space-y-2 pl-2">
                 <li className="flex items-start">
                   <span className="text-[#e39fc2] mr-2">✦</span>
-                  <span className="text-[#f0e6ef]">
-                    Dev.to (Top Contributor 2023)
-                  </span>
+                  <span className="text-[#f0e6ef]">Medium</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-[#e39fc2] mr-2">✦</span>
-                  <span className="text-[#f0e6ef]">
-                    Medium (JavaScript Monthly)
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#e39fc2] mr-2">✦</span>
-                  <span className="text-[#f0e6ef]">
-                    CSS-Tricks (Guest Author)
-                  </span>
+                  <span className="text-[#f0e6ef]">My Personal Blog</span>
                 </li>
               </ul>
             </div>

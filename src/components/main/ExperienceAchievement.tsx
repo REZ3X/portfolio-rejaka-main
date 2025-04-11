@@ -8,8 +8,8 @@ const ExperienceAchievement: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { themeStyle } = useUser();
 
-  const latestExperience = experienceData.experience[0];
-  const latestAchievement = experienceData.achievements[0];
+  const latestExperience = experienceData.experience[1];
+  const latestAchievement = experienceData.achievements[2];
 
   if (themeStyle === "terminal") {
     return (
@@ -36,7 +36,7 @@ const ExperienceAchievement: React.FC = () => {
             <div className="border border-[#393d46] p-3 flex-1">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-[#00adb4] font-bold text-sm">
-                  Latest Experience
+                  Important Experience
                 </h3>
                 <span className="text-xs text-[#393d46]">
                   {latestExperience.period}
@@ -63,7 +63,7 @@ const ExperienceAchievement: React.FC = () => {
             <div className="border border-[#393d46] p-3 flex-1">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-[#00adb4] font-bold text-sm">
-                  Latest Achievement
+                  Biggest Achievement
                 </h3>
                 <span className="text-xs text-[#393d46]">
                   {latestAchievement.year}
@@ -112,7 +112,7 @@ const ExperienceAchievement: React.FC = () => {
           <div className="rounded-xl border border-[#574655] p-4 bg-[#382736] flex-1">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[#e39fc2] font-medium text-base">
-                Latest Role
+                Important Role
               </h3>
               <span className="text-sm text-[#c4b2c3] px-2 py-0.5 bg-[#463343] rounded-full">
                 {latestExperience.period}
@@ -139,7 +139,7 @@ const ExperienceAchievement: React.FC = () => {
           <div className="rounded-xl border border-[#574655] p-4 bg-[#382736] flex-1">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[#e39fc2] font-medium text-base">
-                Latest Achievement
+                Biggest Achievement
               </h3>
               <span className="text-sm text-[#c4b2c3] px-2 py-0.5 bg-[#463343] rounded-full">
                 {latestAchievement.year}

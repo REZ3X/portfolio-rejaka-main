@@ -56,10 +56,11 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
         <div className="p-4">
           <div className="mb-6">
             <p className="text-sm leading-relaxed mb-4">
-              My academic journey has provided me with a strong foundation in
-              computer science principles and research methodologies. I'm
-              constantly expanding my knowledge through formal education and
-              self-directed learning.
+              My academic journey began at a vocational high school where I’ve
+              been building a solid foundation in computer science, focusing on
+              both theoretical concepts and practical applications. I actively
+              deepen my understanding through coursework, personal projects, and
+              self-directed learning beyond the classroom.
             </p>
           </div>
 
@@ -68,27 +69,39 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
             <div className="space-y-4">
               <div className="border border-[#393d46] p-3">
                 <h4 className="text-[#00adb4] font-bold">
-                  BSc in Computer Science
+                  System Information Network and Application Major
                 </h4>
                 <p className="text-sm text-[#393d46]">
-                  University of Technology • 2018-2022
+                  Depok Sleman 2nd State Vocational High School • 2023-Present
                 </p>
                 <p className="text-sm mt-2">
-                  Specialized in Software Engineering and Distributed Systems.
-                  Graduated with honors.
+                  Currently pursuing a degree in System Information Network and
+                  Application, focusing on web development, server and network
+                  management.
                 </p>
               </div>
 
               <div className="border border-[#393d46] p-3">
                 <h4 className="text-[#00adb4] font-bold">
-                  MSc in Computer Science
+                  Best Graduate of the Year
                 </h4>
                 <p className="text-sm text-[#393d46]">
-                  University of Technology • 2022-Present
+                  Yogyakarta 6th State Junior High School • 2020-2023
                 </p>
                 <p className="text-sm mt-2">
-                  Focusing on Human-Computer Interaction and Web Technologies.
-                  Expected graduation in 2024.
+                  Graduated with honors, recognized for outstanding academic
+                  performance and contributions to school activities.
+                </p>
+              </div>
+
+              <div className="border border-[#393d46] p-3">
+                <h4 className="text-[#00adb4] font-bold">Elementary Student</h4>
+                <p className="text-sm text-[#393d46]">
+                  Glagah State Elementary School • 2014-2020
+                </p>
+                <p className="text-sm mt-2">
+                  Completed elementary education with a focus on foundational
+                  subjects.
                 </p>
               </div>
             </div>
@@ -103,6 +116,19 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
                   <div className="w-full bg-[#202832] h-3">
                     <div
                       className="bg-[#00adb4] h-3"
+                      style={{ width: "75%" }}
+                    ></div>
+                  </div>
+                  <span className="ml-2 text-xs">Intermediate</span>
+                </div>
+              </div>
+
+              <div className="border border-[#393d46] p-3">
+                <h4 className="text-[#00adb4] font-bold mb-2">Indonesia</h4>
+                <div className="flex items-center">
+                  <div className="w-full bg-[#202832] h-3">
+                    <div
+                      className="bg-[#00adb4] h-3"
                       style={{ width: "95%" }}
                     ></div>
                   </div>
@@ -111,84 +137,43 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
               </div>
 
               <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold mb-2">Spanish</h4>
+                <h4 className="text-[#00adb4] font-bold mb-2">Javanese</h4>
                 <div className="flex items-center">
                   <div className="w-full bg-[#202832] h-3">
                     <div
                       className="bg-[#00adb4] h-3"
-                      style={{ width: "75%" }}
+                      style={{ width: "90%" }}
                     ></div>
                   </div>
-                  <span className="ml-2 text-xs">Fluent</span>
-                </div>
-              </div>
-
-              <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold mb-2">French</h4>
-                <div className="flex items-center">
-                  <div className="w-full bg-[#202832] h-3">
-                    <div
-                      className="bg-[#00adb4] h-3"
-                      style={{ width: "60%" }}
-                    ></div>
-                  </div>
-                  <span className="ml-2 text-xs">Intermediate</span>
-                </div>
-              </div>
-
-              <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold mb-2">Japanese</h4>
-                <div className="flex items-center">
-                  <div className="w-full bg-[#202832] h-3">
-                    <div
-                      className="bg-[#00adb4] h-3"
-                      style={{ width: "30%" }}
-                    ></div>
-                  </div>
-                  <span className="ml-2 text-xs">Basic</span>
+                  <span className="ml-2 text-xs">Native</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-[#00adb4] text-lg mb-2">Research</h3>
+            <h3 className="text-[#00adb4] text-lg mb-2">Core Focus Areas</h3>
             <div className="space-y-4">
               <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold">Published Papers</h4>
-                <ul className="text-sm space-y-2 mt-2">
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>
-                      "Improving Web Accessibility through AI-assisted Interface
-                      Design" (2023)
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>
-                      "Patterns for Responsive Web Design in Educational
-                      Applications" (2022)
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="border border-[#393d46] p-3">
                 <h4 className="text-[#00adb4] font-bold">
-                  Current Research Focus
+                  System Information Network Application
                 </h4>
                 <ul className="text-sm space-y-2 mt-2">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>
-                      User Experience Optimization for Cross-platform
-                      Applications
-                    </span>
+                    <span>Network Infrastructure Design and Management</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Cognitive Load Reduction in Web Interfaces</span>
+                    <span>Server Administration and System Security</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Web Application Development</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Database Management and Integration</span>
                   </li>
                 </ul>
               </div>

@@ -46,10 +46,12 @@ const XiannyaaProgrammerModal: React.FC<ProgrammerModalProps> = ({
 
           <div className="mb-6">
             <p className="text-[#f0e6ef] leading-relaxed mb-4">
-              As a web developer, I specialize in creating responsive,
-              accessible, and interactive web applications. My focus is on
-              delivering clean code and intuitive user experiences with an
-              emphasis on beautiful design.
+              I’m a web developer passionate about crafting responsive and
+              accessible digital experiences. Beyond the front end, I’m
+              expanding into full-stack development and database engineering —
+              driven by a desire to understand the full architecture of the
+              systems I build. I&apos;m also exploring game development, pushing the
+              boundaries of how technology and creativity can collide.
             </p>
           </div>
 
@@ -67,11 +69,11 @@ const XiannyaaProgrammerModal: React.FC<ProgrammerModalProps> = ({
                 <ul className="text-sm space-y-2">
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">React / Next.js</span>
+                    <span className="text-[#f0e6ef]">React</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">TypeScript</span>
+                    <span className="text-[#f0e6ef]">CSS3</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
@@ -79,7 +81,7 @@ const XiannyaaProgrammerModal: React.FC<ProgrammerModalProps> = ({
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Redux / Context API</span>
+                    <span className="text-[#f0e6ef]">Vite</span>
                   </li>
                 </ul>
               </div>
@@ -91,21 +93,35 @@ const XiannyaaProgrammerModal: React.FC<ProgrammerModalProps> = ({
                 <ul className="text-sm space-y-2">
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Node.js / Express</span>
+                    <span className="text-[#f0e6ef]">Node.js</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">GraphQL / REST</span>
+                    <span className="text-[#f0e6ef]">MySQL / Aiven</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">MongoDB / PostgreSQL</span>
+                    <span className="text-[#f0e6ef]">MongoDB / Atlas</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="border border-[#574655] rounded-xl p-4 bg-[#382736]">
+                <h4 className="text-[#e39fc2] font-medium mb-3 text-center">
+                  Full Stack
+                </h4>
+                <ul className="text-sm space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">Next.js</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">
-                      Authentication systems
-                    </span>
+                    <span className="text-[#f0e6ef]">JavaScript</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">TypeScript</span>
                   </li>
                 </ul>
               </div>
@@ -121,74 +137,57 @@ const XiannyaaProgrammerModal: React.FC<ProgrammerModalProps> = ({
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Docker</span>
+                    <span className="text-[#f0e6ef]">Vercel</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">CI/CD pipelines</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#e39fc2] mr-2">✦</span>
-                    <span className="text-[#f0e6ef]">Vercel / Netlify</span>
+                    <span className="text-[#f0e6ef]">Virtual Private Server</span>
                   </li>
                 </ul>
               </div>
-            </div>
-          </div>
 
-          <div className="mb-8">
-            <h3 className="text-[#e39fc2] text-lg font-medium mb-4 flex items-center">
-              <span className="mr-2 text-sm">✦</span>
-              Recent Projects
-              <div className="flex-grow ml-3 h-px bg-gradient-to-r from-[#574655] to-transparent"></div>
-            </h3>
-            <div className="space-y-4">
-              <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
-                <h4 className="text-[#e39fc2] font-medium mb-2">
-                  E-commerce Platform
+              <div className="border border-[#574655] rounded-xl p-4 bg-[#382736]">
+                <h4 className="text-[#e39fc2] font-medium mb-3 text-center">
+                  Tools
                 </h4>
-                <p className="text-sm text-[#f0e6ef] mb-3">
-                  Full-featured online store with payment processing, inventory
-                  management, and admin dashboard.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    React
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    Node.js
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    MongoDB
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    Stripe
-                  </span>
-                </div>
+                <ul className="text-sm space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">VS Code</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">WebStorm IDE</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">MySQL Workbench</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">MongoDB Compass</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="border border-[#574655] rounded-xl p-5 bg-[#382736]">
-                <h4 className="text-[#e39fc2] font-medium mb-2">
-                  Content Management System
+              <div className="border border-[#574655] rounded-xl p-4 bg-[#382736]">
+                <h4 className="text-[#e39fc2] font-medium mb-3 text-center">
+                  Network & Game Dev
                 </h4>
-                <p className="text-sm text-[#f0e6ef] mb-3">
-                  Custom CMS built for a digital publication, featuring markdown
-                  support and publishing workflow.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    Next.js
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    TypeScript
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    PostgreSQL
-                  </span>
-                  <span className="text-xs px-3 py-1 bg-[#463343] text-[#e39fc2] rounded-full">
-                    AWS
-                  </span>
-                </div>
+                <ul className="text-sm space-y-2">
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">Cloudflare</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">Godot Engine</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#e39fc2] mr-2">✦</span>
+                    <span className="text-[#f0e6ef]">GDScript</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

@@ -104,7 +104,7 @@ const Blog: React.FC = () => {
 
         <div className="p-1.5 border-t border-[#393d46] text-center">
           <a
-            href="https://yourblog.com"
+            href="https://blog.rejaka.me"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-[#00adb4] hover:underline inline-block py-0.5 px-2"
@@ -133,7 +133,7 @@ const Blog: React.FC = () => {
           <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="text-3xl mb-2">😢</div>
             <div className="text-sm text-[#f0e6ef] mb-1">
-              Couldn't load articles
+              Couldn&apos;t load articles
             </div>
             <div className="text-xs text-[#c4b2c3]">
               Please check back later
@@ -174,7 +174,7 @@ const Blog: React.FC = () => {
 
       <div className="p-3 border-t border-[#574655] text-center">
         <a
-          href="https://yourblog.com" 
+          href="https://blog.rejaka.me" 
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-1.5 text-sm rounded-full bg-[#3a1f37] text-[#e39fc2] hover:bg-[#463343] inline-block"

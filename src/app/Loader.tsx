@@ -6,7 +6,58 @@ const Loader: React.FC = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   const [rotationY, setRotationY] = useState(0);
-  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    let animationId: number;
+    let lastTime = 0;
+
+    const animate = (time: number) => {
+      if (lastTime === 0) lastTime = time;
+      const deltaTime = time - lastTime;
+      lastTime = time;
+
+      setRotationY((prevY) => prevY + deltaTime * 0.1);
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return Math.min(prev + 1, 100);
+      });
+    }, 50);
+
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    const bootLineInterval = setInterval(() => {
+      setCurrentLine((prev) => {
+        if (prev >= bootLines.length - 1) {
+          clearInterval(bootLineInterval);
+          return bootLines.length - 1;
+        }
+        return prev + 1;
+      });
+    }, 800);
+
+    return () => {
+      clearInterval(progressInterval);
+      clearInterval(cursorInterval);
+      clearInterval(bootLineInterval);
+    };
+  }, []);
 
   const customAsciiArt = `   
     ##############  ######     

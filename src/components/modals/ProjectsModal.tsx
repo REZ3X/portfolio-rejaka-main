@@ -255,9 +255,9 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                 <div
                   key={project.id}
                   className="border border-[#393d46] overflow-hidden cursor-pointer hover:border-[#00adb4] transition-colors duration-200"
-                  onClick={() =>
-                    setActiveTab("all") && openProjectModal(project.id)
-                  }
+                  onClick={() => {
+                    window.openProjectModal?.(project.id);
+                  }}
                 >
                   {project.thumbnail ? (
                     <div className="relative h-32">

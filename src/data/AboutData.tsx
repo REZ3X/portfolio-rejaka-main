@@ -52,84 +52,84 @@ export const aboutDataByUser: Record<UserAlias, AboutDataType> = {
     ...baseAboutData,
     title: "Growing Web Developer",
     subtitle: "Passionate about creating accessible, responsive web experiences with modern technologies",
-    tags: ["React", "TypeScript", "Node.js", "UI/UX", "Accessibility"],
+    tags: ["Programming", "Web Development", "Server"],
     sections: [
       {
         title: "My Journey",
         content: [
-          "I started my journey as a web developer three years ago, driven by a fascination with creating interactive experiences on the web. What began as a curiosity quickly evolved into a passion for crafting clean, efficient, and user-friendly applications.",
-          "Coming from a background in design, I bring a unique perspective to development that emphasizes both functionality and aesthetics. I believe that great software should not only work flawlessly but also provide an intuitive and enjoyable experience for users."
+          "I began my journey as a web developer two years ago, driven by a fascination with creating interactive experiences on the web. What started as a curiosity quickly evolved into a passion for building accessible and responsive web applications.",
+          "Coming from a usual student background, I bring a unique perspective that emphasizes both functionality and aesthetics. I believe in creating intuitive and enjoyable experiences for users."
         ]
       },
       {
         title: "My Approach",
         content: [
-          "I'm committed to writing clean, maintainable code that stands the test of time. I embrace modern development practices like test-driven development, continuous integration, and agile methodologies.",
-          "Accessibility is central to my development philosophy. I believe the web should be usable by everyone, regardless of their abilities or devices they use. This commitment drives me to learn and implement best practices for creating inclusive digital experiences."
+          "I'm committed to built quality web applications that stand the test of time. I embrace modern practices and methodologies, such as Agile development and continuous integration, to produce the best results.",
+          "Compactibility and inclusivity are central to my philosophy. I believe that what I create should be usable by everyone, regardless of their abilities or backgrounds. I strive to follow best practices in web accessibility (WCAG) and responsive design."
         ]
       },
       {
         title: "Current Focus",
         content: [
-          "Currently, I'm deepening my knowledge of React and TypeScript while exploring server-side rendering and static site generation with Next.js. I'm also interested in state management solutions and performance optimization techniques.",
-          "When I'm not coding, I enjoy contributing to open-source projects, writing technical articles, and mentoring aspiring developers. I believe in the power of knowledge sharing and community building in the tech industry."
+          "Currently, I'm deepening my knowledge of Next.js and TypeScript, exploring new techniques and technologies in the React ecosystem. I'm particularly interested in server-side rendering, static site generation, and building scalable applications.",
+          "When I'm not coding, I enjoy creatve works as Xiannyaa or doing academic research as Abim. I believe in the power of knowledge sharing and community building, and I try to actively contribute to open-source projects and participate in local tech meetups."
         ]
       }
     ],
     quote: {
-      text: "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
-      author: "Patrick McKenzie"
+      text: "Code is poetry — not because it rhymes, but because every line hides intention, emotion, and a secret waiting to be understood.",
+      author: "Unknown"
     }
   },
   abim: {
     ...baseAboutData,
-    title: "Academic Researcher",
-    subtitle: "Computer Science researcher focused on AI, machine learning, and emerging technologies",
-    tags: ["AI/ML", "Research", "Computer Science", "Data Science", "Teaching"],
+    title: "Curious Academic",
+    subtitle: "Driven by curiosity, guided by knowledge, and grounded in lifelong learning",
+    tags: ["Mathematics", "Language", "Critical Thinking", "Academia"],
     sections: [
       {
         title: "My Journey",
         content: [
-          "My academic journey began with a fundamental curiosity about how we can teach machines to learn. This led me to pursue advanced studies in computer science with a specialization in artificial intelligence and machine learning.",
-          "Through research positions and academic collaborations, I've worked on projects ranging from natural language processing to computer vision systems, always seeking to push the boundaries of what's possible."
+          "Since a young age, I've been captivated by the pursuit of understanding — not just the 'how' but the 'why' behind everything. This curiosity led me into the world of academic exploration, where each subject became a lens for deeper thought.",
+          "From analyzing the structure of language to unraveling the elegance of mathematical patterns, I've always been drawn to subjects that challenge the mind and sharpen reasoning."
         ]
       },
       {
         title: "My Approach",
         content: [
-          "My research methodology combines rigorous theoretical analysis with practical implementation and empirical validation. I believe that the most valuable insights come from bridging theory and practice.",
-          "I'm committed to open science and reproducible research. Sharing knowledge and building upon collective insights is how we advance the field as a whole."
+          "I approach learning with a mindset of discipline, reflection, and synthesis. I don’t just memorize — I seek to internalize, to find connections across ideas, and to question assumptions.",
+          "Whether preparing for exams or engaging in academic writing, I emphasize clarity, structure, and a deep understanding of the material. I value dialogue, feedback, and constant refinement of thought."
         ]
       },
       {
         title: "Current Focus",
         content: [
-          "My current research focuses on the intersection of deep learning and symbolic reasoning, aiming to create more robust and interpretable AI systems. I'm particularly interested in how we can embed causal reasoning into neural architectures.",
-          "I also dedicate time to teaching and mentoring students, believing that education is a crucial component of advancing our field. Helping others discover their potential in computer science is immensely rewarding."
+          "Right now, I’m delving deeper into advanced mathematics, philosophical logic, and linguistics. These subjects, while diverse, each offer powerful frameworks for understanding systems — from equations to human communication.",
+          "Beyond coursework, I enjoy tutoring, writing reflections on what I learn, and participating in academic forums. I believe that teaching others reinforces your own mastery, and that learning is most alive when shared."
         ]
       }
     ],
     quote: {
-      text: "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge.",
-      author: "Stephen Hawking"
+      text: "Real learning is not about filling your mind with facts — it’s about training your mind to think.",
+      author: "Unknown"
     }
   },
   xiannyaa: {
     ...baseAboutData,
-    title: "Creative Storyteller",
+    title: "Creative Authir",
     subtitle: "Crafting digital narratives that blend technology with artistic expression",
-    tags: ["Writing", "Digital Art", "Storytelling", "UX Design", "Mixed Media"],
+    tags: ["Writing","Storytelling", "Mixed Media"],
     sections: [
       {
         title: "My Journey",
         content: [
-          "My creative journey began at the intersection of technology and art. I've always been fascinated by how digital tools can enhance storytelling and create new forms of artistic expression.",
-          "Over the years, I've developed a multidisciplinary approach that combines elements of writing, visual design, and interactive media to create immersive narrative experiences."
+          "My creative journey began as a child sketching dreamscapes on the backs of homework sheets — long before I discovered how digital tools could breathe life into imagination.",
         ]
       },
       {
         title: "My Approach",
         content: [
+          "As an author, I’m fascinated by how narrative structure mirrors the human experience — nonlinear, textured, and alive with possibility.",
           "I believe in the power of stories to connect, inspire, and transform. My creative process involves both structured planning and intuitive exploration, allowing space for unexpected discoveries.",
           "I'm particularly interested in how interactive elements can enhance storytelling, giving audiences agency while guiding them through carefully crafted emotional journeys."
         ]
@@ -137,14 +137,14 @@ export const aboutDataByUser: Record<UserAlias, AboutDataType> = {
       {
         title: "Current Focus",
         content: [
-          "I'm currently exploring the potential of procedural narrative systems and how AI can be used as a creative collaborator rather than just a tool. I'm developing a series of digital short stories that evolve based on reader interaction.",
+          "I'm currently working on a series of digital novels that blend traditional storytelling with interactive elements, exploring themes of identity, memory, and the nature of reality.",
           "Alongside my creative projects, I run workshops on digital storytelling and mentor emerging creators who want to blend technical and artistic skills in their work."
         ]
       }
     ],
     quote: {
-      text: "The role of the artist is to make the revolution irresistible.",
-      author: "Toni Cade Bambara"
+      text: "Art is how we decorate space; stories are how we decorate time.",
+      author: "Unknwon"
     }
   }
 };

@@ -70,48 +70,11 @@ const CreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
         <div className="p-4">
           <div className="mb-6">
             <p className="text-sm leading-relaxed mb-4">
-              Beyond coding, I'm passionate about creative writing. As an
-              author, I explore the intersection of technology, humanity, and
-              speculative futures through various formats and genres.
+              While I build with code by day, I weave stories by heart. As an
+              author, I’m drawn to the fragile line between the digital and the
+              deeply human — exploring imagined futures, personal longing, and
+              the quiet beauty of connection through every word I write.
             </p>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="theme-accent-primary text-lg mb-2">
-              Published Works
-            </h3>
-            <div className="space-y-4">
-              <div
-                className={`border theme-border p-3 ${
-                  themeStyle === "soft" ? "rounded-lg" : ""
-                }`}
-              >
-                <h4 className="theme-accent-primary font-bold">
-                  "Digital Horizons" (Short Story Collection)
-                </h4>
-                <p className="text-sm theme-text-secondary">
-                  Published 2023 • TechFiction Press
-                </p>
-                <p className="text-sm mt-2">
-                  A collection of ten speculative fiction stories exploring
-                  near-future technologies and their impact on society.
-                </p>
-              </div>
-
-              <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold">
-                  "The Compiler" (Novel)
-                </h4>
-                <p className="text-sm text-[#393d46]">
-                  Published 2022 • Quantum Books
-                </p>
-                <p className="text-sm mt-2">
-                  A science fiction novel set in a world where programmers are
-                  viewed as modern-day wizards, manipulating reality through
-                  code.
-                </p>
-              </div>
-            </div>
           </div>
 
           <div className="mb-6">
@@ -122,19 +85,35 @@ const CreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Science Fiction</span>
+                    <span>Fantasy</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Speculative Fiction</span>
+                    <span>Fiction</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Action</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Medieval</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Teen</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Light Romance</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Boys&#39; Love</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
                     <span>Technical Non-Fiction</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>Creative Essays</span>
                   </li>
                 </ul>
               </div>
@@ -144,19 +123,15 @@ const CreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Short Stories</span>
+                    <span>Short Story</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Novels</span>
+                    <span>Light Novel</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
                     <span>Technical Blogs</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>Screenplays</span>
                   </li>
                 </ul>
               </div>
@@ -164,24 +139,25 @@ const CreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-[#00adb4] text-lg mb-2">Current Projects</h3>
+            <h3 className="text-[#00adb4] text-lg mb-2">Current Status</h3>
             <div className="border border-[#393d46] p-3">
               <h4 className="text-[#00adb4] font-bold">
-                "Code as Poetry" (Anthology)
+                Trying to break free from writer&apos;s block
               </h4>
               <p className="text-sm mt-2">
-                A collaborative anthology exploring the aesthetic aspects of
-                programming languages, co-edited with other developer-writers.
+                Currently navigating through creative obstacles and seeking new
+                sources of inspiration. Taking time to explore different
+                narrative techniques and gather ideas for future stories.
               </p>
-              <div className="mt-2 w-full bg-[#202832] h-3">
-                <div
-                  className="bg-[#00adb4] h-3"
-                  style={{ width: "65%" }}
-                ></div>
+              <div className="mt-2 flex items-center">
+                <div className="w-full bg-[#202832] h-3">
+                  <div
+                    className="bg-[#00adb4] h-3 animate-pulse"
+                    style={{ width: "25%" }}
+                  ></div>
+                </div>
+                <span className="ml-2 text-xs">Progress</span>
               </div>
-              <p className="text-xs text-right mt-1">
-                65% Complete • Expected 2025
-              </p>
             </div>
           </div>
 
@@ -189,22 +165,17 @@ const CreativeModal: React.FC<CreativeModalProps> = ({ onClose }) => {
             <h3 className="text-[#00adb4] text-lg mb-2">Technical Writing</h3>
             <div className="border border-[#393d46] p-3">
               <p className="text-sm">
-                Besides creative writing, I maintain a technical blog where I
-                share tutorials, insights, and experiences from my development
-                journey. My articles have been featured in publications like:
+                Besides creative writing, I occasionally share my thoughts and
+                discoveries through technical articles on:
               </p>
               <ul className="text-sm space-y-1 mt-2">
                 <li className="flex items-start">
                   <span className="text-[#188d93] mr-2">›</span>
-                  <span>Dev.to (Top Contributor 2023)</span>
+                  <span>Medium</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-[#188d93] mr-2">›</span>
-                  <span>Medium (JavaScript Monthly)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#188d93] mr-2">›</span>
-                  <span>CSS-Tricks (Guest Author)</span>
+                  <span>My Personal Blog</span>
                 </li>
               </ul>
             </div>

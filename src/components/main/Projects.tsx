@@ -15,7 +15,6 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   category,
-  thumbnail,
   color,
   onClick,
 }) => {

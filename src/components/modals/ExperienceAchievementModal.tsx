@@ -88,11 +88,11 @@ const ExperienceAchievementModal: React.FC<ExperienceAchievementModalProps> = ({
               <p className="text-sm mb-4">{experienceData.experienceIntro}</p>
 
               <div className="space-y-6 relative">
-                <div className="absolute left-3 top-1 bottom-6 w-0.5 bg-[#393d46]"></div>
+                <div className="absolute left-4 top-1 bottom-6 w-0.5 bg-[#393d46]"></div>
 
                 {experienceData.experience.map((job, index) => (
                   <div key={index} className="relative pl-10">
-                    <div className="absolute left-1.5 top-1.5 w-3 h-3 rounded-full bg-[#00adb4] transform -translate-x-1/2 border-2 border-[#060a10]"></div>
+                    <div className="absolute left-4 top-1.5 w-3 h-3 rounded-full bg-[#00adb4] transform -translate-x-1/2 border-2 border-[#060a10]"></div>
 
                     <div className="border border-[#393d46] p-3">
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">

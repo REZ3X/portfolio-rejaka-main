@@ -20,10 +20,10 @@ const Shuttler: React.FC = () => {
       ];
     } else {
       return [
-        `Welcome, ${username}. Exploring digital possibilities...`,
-        `Hello ${username}! Ready to build something amazing?`,
-        `Greetings, ${username}. Innovation starts here.`,
-        `Welcome aboard, ${username}. Let's craft the future.`,
+        `Welcome, ${username}.`,
+        `Hello ${username}!`,
+        `Greetings, ${username}.`,
+        `Welcome aboard, ${username}.`,
       ];
     }
   }, [username, themeStyle]);

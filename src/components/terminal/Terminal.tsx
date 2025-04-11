@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useUser } from "@/context/UserContext";
+import { UserAlias, useUser } from "@/context/UserContext";
 import { processCommand } from "@/utils/CommandProcessor";
 
 interface TerminalProps {
@@ -68,8 +68,6 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
   const [startY, setStartY] = useState(0);
   const [startHeight, setStartHeight] = useState(0);
 
-  if (themeStyle !== "terminal") return null;
-
   useEffect(() => {
     if (textMeasureRef.current && isExpanded) {
       const testString = "XXXXX";
@@ -119,24 +117,19 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
   }, [isResizing, startY, startHeight]);
 
   const handleCommand = (cmd: string) => {
-    // Filter out prompt lines or initialize output
     setOutput((prev) => prev.filter((line) => !line.isPrompt));
-    
+
     const trimmedCmd = cmd.trim();
 
-    
     if (trimmedCmd) {
-      
       setCommandHistory((prev) => [...prev, trimmedCmd]);
       setHistoryIndex(-1);
 
-      
       setOutput((prev) => [
         ...prev,
         { type: "command", content: `${activeUser}@linxos:~$ ${trimmedCmd}` },
       ]);
 
-      
       if (trimmedCmd.toLowerCase() === "exit") {
         setIsExpanded(false);
         setOutput((prev) => [
@@ -148,16 +141,9 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
         return;
       }
 
-      
       const result = processCommand(trimmedCmd, activeUser);
 
-      
-      if (result.action?.type === "clearTerminal") {
-        setOutput([]);
-      } else if (result.action?.type === "openModal") {
-        
-        setIsModalOpen(true);
-        openModal(result.action.payload);
+      if (!result.action) {
         setOutput((prev) => [
           ...prev,
           {
@@ -165,44 +151,70 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
             content: result.message,
           },
         ]);
-      } else if (result.action?.type === "changeUser") {
-        setActiveUser(result.action.payload);
-        setOutput((prev) => [
-          ...prev,
-          { type: "output", content: result.message },
-        ]);
       } else {
-        
-        if (result.message) {
-          setOutput((prev) => [
-            ...prev,
-            {
-              type: result.success ? "output" : "error",
-              content: result.message,
-            },
-          ]);
+        switch (result.action.type) {
+          case "clearTerminal":
+            setOutput([]);
+
+            setOutput([{ type: "output", content: "Terminal cleared." }]);
+            break;
+
+          case "openModal":
+            setIsModalOpen(true);
+            openModal(result.action.payload);
+            setOutput((prev) => [
+              ...prev,
+              {
+                type: result.success ? "output" : "error",
+                content: result.message,
+              },
+            ]);
+            break;
+          case "changeUser":
+            if (
+              result.action &&
+              "payload" in result.action &&
+              ["rez3x", "abim", "xiannyaa"].includes(
+                result.action.payload as UserAlias
+              )
+            ) {
+              setActiveUser(result.action.payload as UserAlias);
+              setOutput((prev) => [
+                ...prev,
+                { type: "output", content: result.message },
+              ]);
+            } else {
+              setOutput((prev) => [
+                ...prev,
+                {
+                  type: "error",
+                  content: `Invalid user: ${
+                    result.action && "payload" in result.action
+                      ? result.action.payload
+                      : "undefined"
+                  }`,
+                },
+              ]);
+            }
+            break;
         }
       }
-    }
 
-    
-    setOutput((prev) => [
-      ...prev,
-      { type: "command", content: "", isPrompt: true },
-    ]);
+      setOutput((prev) => [
+        ...prev,
+        { type: "command", content: "", isPrompt: true },
+      ]);
 
-    
-    setCurrentCommand("");
-    setCursorPosition(0);
+      setCurrentCommand("");
+      setCursorPosition(0);
 
-    
-    if (inputRef.current) {
-      inputRef.current.selectionStart = 0;
-      inputRef.current.selectionEnd = 0;
+      if (inputRef.current) {
+        inputRef.current.selectionStart = 0;
+        inputRef.current.selectionEnd = 0;
+      }
     }
   };
 
-  
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleCommand(currentCommand);
@@ -217,7 +229,7 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
         setCurrentCommand(
           commandHistory[commandHistory.length - 1 - newIndex] || ""
         );
-        
+
         setTimeout(() => {
           if (inputRef.current) {
             inputRef.current.selectionStart = inputRef.current.value.length;
@@ -240,7 +252,6 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
     }
   };
 
-  
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
@@ -250,7 +261,6 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
     }
   }, [output, isExpanded]);
 
-  // Modal detection
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
@@ -268,21 +278,21 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Calculate the initial terminal height on expansion
   useEffect(() => {
     if (isExpanded) {
       const vh = window.innerHeight;
-      const initialHeight = Math.floor(vh * 0.4); // Start with 40vh
+      const initialHeight = Math.floor(vh * 0.4);
       setTerminalHeight(initialHeight);
     }
   }, [isExpanded]);
 
-  // Handle clicks to focus input
   const handleTerminalContentClick = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   };
+
+  if (themeStyle !== "terminal") return null;
 
   return (
     <div
@@ -299,7 +309,7 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
           position: "absolute",
           visibility: "hidden",
           fontFamily: "monospace",
-          fontSize: "0.875rem" /* text-sm */,
+          fontSize: "0.875rem",
         }}
       ></span>
 
@@ -397,12 +407,12 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
                         value={currentCommand}
                         onChange={(e) => {
                           setCurrentCommand(e.target.value);
-                          // Update cursor position when input changes
+
                           setCursorPosition(e.target.selectionStart || 0);
                         }}
                         onKeyDown={(e) => {
                           handleKeyDown(e);
-                          // Capture cursor position on key events
+
                           if (e.key !== "ArrowUp" && e.key !== "ArrowDown") {
                             setTimeout(() => {
                               if (e.target instanceof HTMLInputElement) {
@@ -412,7 +422,6 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
                           }
                         }}
                         onMouseUp={(e) => {
-                          // Update cursor position on mouse click
                           if (e.target instanceof HTMLInputElement) {
                             setCursorPosition(e.target.selectionStart || 0);
                           }
@@ -430,7 +439,7 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
                               currentCommand.length === 0
                                 ? "0px"
                                 : `${cursorPosition * charWidth}px`,
-                            width: "10px", // Slightly wider to make it more visible
+                            width: "10px",
                             backgroundColor: "#00adb4",
                           }}
                         />

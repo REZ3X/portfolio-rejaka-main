@@ -92,7 +92,7 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
                 Your message has been sent successfully.
               </p>
               <p className="text-[#c4b2c3] text-sm">
-                I'll get back to you as soon as possible.
+                I&apos;ll get back to you as soon as possible.
               </p>
             </div>
           ) : (
