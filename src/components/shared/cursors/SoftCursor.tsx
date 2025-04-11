@@ -73,7 +73,7 @@ const SoftCursor: React.FC = () => {
 
       <div
         ref={cursorRef}
-        className={`fixed pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
+        className={`hidden md:block fixed pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{
