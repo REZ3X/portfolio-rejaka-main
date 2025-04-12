@@ -85,7 +85,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         isHighlighted
           ? "bg-[#4e3a4d] text-[#f5eaf4] border border-[#e6a2ce] soft-glow"
           : "bg-[#3a2939] hover:bg-[#4e3a4d] border border-transparent hover:border-[#e6a2ce]/20"
-      }`}
+      } ${themeStyle === "soft" ? "mb-2 md:mb-0 shadow-sm" : ""}`}
       onClick={onClick}
     >
       <div className="flex items-center mb-2.5">
@@ -177,7 +177,9 @@ const MainSkills: React.FC = () => {
 
         <div
           className={`grid grid-cols-1 md:grid-cols-3 h-full ${
-            themeStyle === "soft" ? "gap-0.5 p-0.5" : ""
+            themeStyle === "soft"
+              ? "gap-2 p-3 sm:gap-3 md:gap-0.5 md:p-0.5"
+              : ""
           }`}
         >
           <div className={`relative h-full ${themeStyle === "soft" ? "" : ""}`}>
