@@ -25,6 +25,7 @@ import CreativeModal from "@/components/modals/CreativeModal";
 import ProjectsModal from "@/components/modals/ProjectsModal";
 import ExperienceAchievementModal from "@/components/modals/ExperienceAchievementModal";
 import MailForm from "@/components/modals/MailForm";
+import BlogListModal from "@/components/modals/BlogListModal";
 
 const MainContent = () => {
   const { activeUser, themeStyle } = useUser();
@@ -38,29 +39,52 @@ const MainContent = () => {
     const isPageLoaded = document.readyState === "complete";
 
     const markAppAsReady = () => {
-      const overlay = document.querySelector(".theme-transition-overlay");
-      if (overlay) {
-        overlay.classList.remove("active");
-        setTimeout(() => overlay.remove(), 300);
-      }
+      setIsApplicationReady(true);
 
-      const delay = isPageLoaded ? 800 : 1500;
-      setTimeout(() => {
-        setIsApplicationReady(true);
-      }, delay);
+      if (typeof window !== "undefined") {
+        const returnFromBlog = localStorage.getItem("returnFromBlog");
+
+        if (returnFromBlog === "true") {
+          localStorage.removeItem("returnFromBlog");
+
+          const reopenBlogList = localStorage.getItem("reopenBlogList");
+          if (reopenBlogList === "true") {
+            localStorage.removeItem("reopenBlogList");
+            setTimeout(() => {
+              setActiveModal("blogList");
+            }, 300);
+          }
+
+          const scrollToBlogComponent = localStorage.getItem(
+            "scrollToBlogComponent"
+          );
+          if (scrollToBlogComponent === "true") {
+            localStorage.removeItem("scrollToBlogComponent");
+            setTimeout(() => {
+              const blogComponent = document.querySelector(".blog-component");
+              if (blogComponent) {
+                const yOffset = -50;
+                const y =
+                  blogComponent.getBoundingClientRect().top +
+                  window.pageYOffset +
+                  yOffset;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              }
+            }, 300);
+          }
+        }
+      }
     };
 
     if (isPageLoaded) {
       markAppAsReady();
     } else {
       window.addEventListener("load", markAppAsReady, { once: true });
-
-      const timeoutId = setTimeout(markAppAsReady, 4000);
-      return () => {
-        window.removeEventListener("load", markAppAsReady);
-        clearTimeout(timeoutId);
-      };
     }
+
+    return () => {
+      window.removeEventListener("load", markAppAsReady);
+    };
   }, [themeStyle]);
 
   const openModal = (modalType: string) => {
@@ -127,8 +151,8 @@ const MainContent = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <div>
-            <Blog />
+          <div className="blog-component">
+            <Blog openBlogListModal={() => setActiveModal("blogList")} />
           </div>
 
           <div>
@@ -145,6 +169,7 @@ const MainContent = () => {
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
       {activeModal === "creative" && <CreativeModal onClose={closeModal} />}
+      {activeModal === "blogList" && <BlogListModal onClose={closeModal} />}
       {activeModal === "projects" && (
         <ProjectsModal projectId="all" onClose={closeModal} />
       )}
