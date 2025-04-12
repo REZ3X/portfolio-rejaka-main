@@ -52,7 +52,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
           }`}
         >
           <h2 className="theme-accent-primary text-xl font-bold">
-            {aboutData.name}
+            About Rejaka Abimanyu Susanto
           </h2>
           <button
             onClick={onClose}
@@ -66,10 +66,41 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
           </button>
         </div>
 
+        {/* SEO-enhanced intro section */}
+        <div className={`p-4 border-b ${themeStyle === "soft" ? "theme-border" : "border-[#393d46]"}`}>
+          <div className="flex flex-col md:flex-row md:items-start gap-4">
+            <div className={`${themeStyle === "terminal" ? "text-[#00adb4] text-lg" : ""}`}>
+              <h3 className={`${themeStyle === "terminal" ? "text-[#00adb4]" : "theme-accent-primary"} text-lg font-medium mb-2`}>
+                Rejaka Abimanyu Susanto | Full Stack Developer
+              </h3>
+              <p className="text-sm mb-3">
+                Welcome to the portfolio of Rejaka Abimanyu Susanto. As a dedicated full stack developer
+                based in Indonesia, I combine technical expertise with creative problem-solving to deliver
+                exceptional digital experiences and web applications.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {themeStyle === "terminal" ? (
+                  <>
+                    <span className="px-2 py-0.5 text-xs border border-[#393d46]">Web_Development</span>
+                    <span className="px-2 py-0.5 text-xs border border-[#393d46]">Next.js</span>
+                    <span className="px-2 py-0.5 text-xs border border-[#393d46]">TypeScript</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="px-2 py-0.5 text-xs theme-bg-secondary rounded-full">Web Development</span>
+                    <span className="px-2 py-0.5 text-xs theme-bg-secondary rounded-full">Next.js</span>
+                    <span className="px-2 py-0.5 text-xs theme-bg-secondary rounded-full">TypeScript</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="p-4">
           {aboutData.sections.map((section, index) => (
             <div key={index} className="mb-6">
-              <h3 className="theme-accent-primary text-lg mb-2">
+              <h3 className={`${themeStyle === "terminal" ? "text-[#00adb4]" : "theme-accent-primary"} text-lg mb-2`}>
                 {section.title}
               </h3>
               <div className="space-y-3">
@@ -94,12 +125,49 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
                 {aboutData.quote.text}
               </p>
               {aboutData.quote.author && (
-                <p className="text-xs theme-accent-primary mt-1">
+                <p className={`text-xs ${themeStyle === "terminal" ? "text-[#00adb4]" : "theme-accent-primary"} mt-1`}>
                   — {aboutData.quote.author}
                 </p>
               )}
             </div>
           )}
+
+          {/* SEO-enhanced footer section */}
+          <div className={`mt-8 pt-6 ${themeStyle === "soft" ? "border-t theme-border" : "border-t border-[#393d46]"}`}>
+            <h3 className={`${themeStyle === "terminal" ? "text-[#00adb4]" : "theme-accent-primary"} text-lg mb-3`}>
+              More About Rejaka Abimanyu Susanto
+            </h3>
+            
+            <p className="text-sm mb-3">
+              Rejaka Abimanyu Susanto is a multifaceted professional with expertise spanning technical development, 
+              creative writing, and academic research. With strong foundations in full-stack development, 
+              Rejaka creates innovative digital solutions and compelling web experiences.
+            </p>
+            
+            <p className="text-sm mb-3">
+              As the creator of <a href="https://rejaka.me" className={`${themeStyle === "terminal" ? "text-[#00adb4] underline" : "theme-accent-primary hover:underline"}`}>rejaka.me</a>, 
+              Rejaka Abimanyu Susanto showcases a portfolio of web development projects, including
+              <a href="https://idea.rejaka.me" className={`${themeStyle === "terminal" ? "text-[#00adb4] underline ml-1" : "theme-accent-primary hover:underline ml-1"}`}>idea.rejaka.me</a> and
+              <a href="https://tasistemporary.rejaka.me" className={`${themeStyle === "terminal" ? "text-[#00adb4] underline ml-1" : "theme-accent-primary hover:underline ml-1"}`}>tasistemporary.rejaka.me</a>.
+            </p>
+            
+            <p className="text-sm">
+              Connect with Rejaka Abimanyu Susanto on 
+              <a href="https://github.com/REZ3X" target="_blank" rel="noopener noreferrer" 
+                className={`${themeStyle === "terminal" ? "text-[#00adb4] underline mx-1" : "theme-accent-primary hover:underline mx-1"}`}>GitHub</a>,
+              <a href="https://linkedin.com/in/rejaka-abimanyu-me" target="_blank" rel="noopener noreferrer"
+                className={`${themeStyle === "terminal" ? "text-[#00adb4] underline mx-1" : "theme-accent-primary hover:underline mx-1"}`}>LinkedIn</a>, or
+              <a href="https://instagram.com/rejakasusanto" target="_blank" rel="noopener noreferrer"
+                className={`${themeStyle === "terminal" ? "text-[#00adb4] underline mx-1" : "theme-accent-primary hover:underline mx-1"}`}>Instagram</a>
+              to follow his latest projects and professional journey.
+            </p>
+            
+            <div className="flex justify-center mt-6">
+              <span className={`px-3 py-1 text-xs ${themeStyle === "terminal" ? "border border-[#393d46]" : "theme-bg-secondary rounded-full"}`}>
+                © {new Date().getFullYear()} Rejaka Abimanyu Susanto - All Rights Reserved
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

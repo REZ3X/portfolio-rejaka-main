@@ -45,7 +45,7 @@ const Blog: React.FC = () => {
   };
 
   const formatDate = (dateString: string): string => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
+    return new Date(dateString).toLocaleDateString("en-UK", {
       day: "numeric",
       month: "long",
       year: "numeric",

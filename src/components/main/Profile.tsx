@@ -50,7 +50,7 @@ const Profile: React.FC<ProfileProps> = ({
 
           <div className="text-center md:text-left mb-3">
             <h1 className="theme-accent-primary text-xl font-bold">
-              {fullName}
+              Rejaka Abimanyu Susanto
             </h1>
             <div className="flex items-center mt-1">
               <span className="theme-text-secondary">alias</span>
@@ -136,7 +136,7 @@ const Profile: React.FC<ProfileProps> = ({
 
         <div className="text-center mb-4">
           <h1 className="theme-accent-primary text-xl font-medium mb-1">
-            {fullName}
+            Rejaka Abimanyu Susanto
           </h1>
           <div className="inline-block px-3 py-1 rounded-full theme-bg-secondary theme-text-primary text-sm font-light">
             @{alias}
