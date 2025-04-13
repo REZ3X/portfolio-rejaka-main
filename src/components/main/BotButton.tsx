@@ -15,7 +15,7 @@ const BotButton: React.FC = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg z-40
+        className="fixed bottom-16 right-6 p-3 rounded-full shadow-lg z-40
           bg-[#0c1219] border-2 border-[#00adb4] hover:bg-[#112130]"
       >
         <div className="flex items-center justify-center">
