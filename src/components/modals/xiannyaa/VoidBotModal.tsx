@@ -11,6 +11,7 @@ interface Message {
   content: string;
 }
 
+const MAX_MESSAGE_LENGTH = 5000;
 const VOID_CHAT_STORAGE_KEY = "void_chat_history_xiannyaa";
 
 const INITIAL_MESSAGE: Message = {
@@ -317,11 +318,16 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
           <div className="flex items-center">
             <textarea
               value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= MAX_MESSAGE_LENGTH) {
+                  setInputMessage(e.target.value);
+                }
+              }}
               onKeyPress={handleKeyPress}
               rows={1}
+              maxLength={MAX_MESSAGE_LENGTH}
               className="flex-grow resize-none px-4 py-3 mr-2 bg-[#382736] text-[#f0e6ef] rounded-xl border border-[#574655] focus:border-[#e39fc2] outline-none transition-colors"
-              placeholder="Ask Void something..."
+              placeholder={`Ask Void something...`}
             />
             <button
               onClick={handleSendMessage}

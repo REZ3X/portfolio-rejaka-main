@@ -11,6 +11,7 @@ interface Message {
   content: string;
 }
 
+const MAX_MESSAGE_LENGTH = 5000;
 const VOID_CHAT_STORAGE_KEY = "void_chat_history_terminal";
 
 const INITIAL_MESSAGE: Message = {
@@ -442,10 +443,16 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
           <div className="flex items-center">
             <textarea
               value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
+              onChange={(e) => {
+                // Limit the input length
+                if (e.target.value.length <= MAX_MESSAGE_LENGTH) {
+                  setInputMessage(e.target.value);
+                }
+              }}
               onKeyPress={handleKeyPress}
-              placeholder="Send a message..."
+              placeholder={`Send a message...`}
               rows={1}
+              maxLength={MAX_MESSAGE_LENGTH}
               className={`flex-grow resize-none px-3 py-2 rounded-l focus:outline-none ${
                 themeStyle === "terminal"
                   ? "bg-[#060a10] text-[#e0e0e0] border border-[#393d46] focus:border-[#00adb4]"
