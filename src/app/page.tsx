@@ -12,6 +12,7 @@ import Footer from "@/components/main/Footer";
 import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
 import Terminal from "@/components/terminal/Terminal";
+import BotButton from "@/components/main/BotButton";
 import Loader from "./Loader";
 import FeminineLoader from "./FeminineLoader";
 import { UserProvider, useUser } from "@/context/UserContext";
@@ -179,6 +180,7 @@ const MainContent = () => {
       {activeModal === "contact" && (
         <MailForm recipientEmail="contact@example.com" onClose={closeModal} />
       )}
+      <BotButton />
     </main>
   );
 };
