@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const { themeStyle } = useUser();
 
   const lastUpdated = "12 April 2025";
-  const startCode = "6 April 2025";
+  // const startCode = "6 April 2025";
 
   if (themeStyle === "terminal") {
     return (
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
             Built with Next.js
           </span>
           <span className="hidden md:inline">•</span>
-          <span className="hidden md:inline">{`Initial Code: ${startCode}`}</span>
+
           <span className="hidden md:inline">•</span>
           <span className="hidden md:inline">{`Last updated: ${lastUpdated}`}</span>
         </div>

@@ -8,7 +8,7 @@ import Projects from "@/components/main/Projects";
 import LinksContact from "@/components/main/LinksContact";
 import Blog from "@/components/main/Blog";
 import ExperienceAchievement from "@/components/main/ExperienceAchievement";
-import Footer from "@/components/main/Footer";
+import Footer from "@/components/shared/Footer";
 import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
 import Terminal from "@/components/terminal/Terminal";
