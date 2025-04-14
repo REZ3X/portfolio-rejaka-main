@@ -444,7 +444,6 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
             <textarea
               value={inputMessage}
               onChange={(e) => {
-                // Limit the input length
                 if (e.target.value.length <= MAX_MESSAGE_LENGTH) {
                   setInputMessage(e.target.value);
                 }
