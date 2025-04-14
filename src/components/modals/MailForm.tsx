@@ -26,17 +26,40 @@ const MailForm: React.FC<MailFormProps> = ({ onClose, recipientEmail }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setFormStatus("sending");
 
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    try {
+      const formSubmitUrl = `https://formsubmit.co/${recipientEmail}`;
+
+      const response = await fetch(formSubmitUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _captcha: false,
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       setFormStatus("success");
 
       setTimeout(() => {
         onClose();
       }, 2000);
-    }, 1500);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus("error");
+    }
   };
 
   useEffect(() => {
@@ -91,6 +114,20 @@ const MailForm: React.FC<MailFormProps> = ({ onClose, recipientEmail }) => {
               <p className="text-sm">
                 Your message has been sent successfully.
               </p>
+            </div>
+          ) : formStatus === "error" ? (
+            <div className="text-center py-8">
+              <div className="text-4xl mb-4">❌</div>
+              <h3 className="text-[#fc6058] text-lg mb-2">Error</h3>
+              <p className="text-sm">
+                There was a problem sending your message. Please try again.
+              </p>
+              <button
+                onClick={() => setFormStatus("idle")}
+                className="mt-4 px-3 py-1 bg-[#0c1219] border border-[#393d46] text-[#e0e0e0] text-xs hover:border-[#00adb4]"
+              >
+                Try Again
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">

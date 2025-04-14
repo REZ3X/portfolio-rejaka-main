@@ -30,17 +30,40 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setFormStatus("sending");
 
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    try {
+      const formSubmitUrl = `https://formsubmit.co/${recipientEmail}`;
+
+      const response = await fetch(formSubmitUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _captcha: false,
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       setFormStatus("success");
 
       setTimeout(() => {
         onClose();
       }, 2000);
-    }, 1500);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus("error");
+    }
   };
 
   return (
@@ -54,7 +77,6 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
           animation: "fadeIn 0.4s ease-out forwards",
         }}
       >
-        {}
         <div className="sticky top-0 z-10 border-b border-[#574655] bg-gradient-to-r from-[#3a1f37] to-[#2c1927] p-4 flex justify-between items-center">
           <div className="flex items-center">
             <div className="w-1 h-8 bg-[#e39fc2] rounded-full mr-3"></div>
@@ -73,9 +95,7 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
           </button>
         </div>
 
-        {}
         <div className="p-6 overflow-auto max-h-[calc(80vh-72px)]">
-          {}
           <div className="absolute top-16 right-4 opacity-10 -z-10">
             <div className="text-8xl text-[#e39fc2]">✉️</div>
           </div>
@@ -94,6 +114,24 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
               <p className="text-[#c4b2c3] text-sm">
                 I&apos;ll get back to you as soon as possible.
               </p>
+            </div>
+          ) : formStatus === "error" ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <div className="w-20 h-20 rounded-full bg-[#463343] flex items-center justify-center mb-5">
+                <div className="text-5xl">❌</div>
+              </div>
+              <h3 className="text-[#f4c1d8] text-xl font-medium mb-3">
+                Something Went Wrong
+              </h3>
+              <p className="text-[#f0e6ef] mb-6">
+                There was a problem sending your message.
+              </p>
+              <button
+                onClick={() => setFormStatus("idle")}
+                className="px-4 py-2 bg-[#463343] text-[#e39fc2] border border-[#574655] hover:bg-[#574655] rounded-full transition-colors"
+              >
+                Try Again
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -186,7 +224,6 @@ const XiannyaaMailForm: React.FC<MailFormProps> = ({
             </form>
           )}
 
-          {}
           <div className="mt-8 flex justify-center">
             <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#e39fc2] to-transparent rounded-full"></div>
           </div>
