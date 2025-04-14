@@ -87,7 +87,17 @@
 .ascii-logo {
   transform-style: preserve-3d;
   backface-visibility: visible;
-  user-select: none;
+  transition: transform 0.05s linear;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 2px rgba(0, 173, 180, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(0, 173, 180, 0.6);
+  }
 }
 
 .ascii-logo:active {

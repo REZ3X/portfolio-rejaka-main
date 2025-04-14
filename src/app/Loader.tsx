@@ -16,7 +16,7 @@ const Loader: React.FC = () => {
       const deltaTime = time - lastTime;
       lastTime = time;
 
-      setRotationY((prevY) => prevY + deltaTime * 0.1);
+      setRotationY((prevY) => prevY + deltaTime * 0.05);
       animationId = requestAnimationFrame(animate);
     };
 
@@ -102,7 +102,8 @@ const Loader: React.FC = () => {
                   transform: `perspective(800px) rotateY(${
                     rotationY % 360
                   }deg)`,
-                  transition: "none",
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "visible",
                 }}
               >
                 {customAsciiArt}
@@ -136,7 +137,7 @@ const Loader: React.FC = () => {
         <div className="w-full mt-4">
           <div className="border border-[#393d46] w-full">
             <div
-              className="bg-[#00adb4] h-2 transition-all duration-200"
+              className="bg-[#00adb4] h-2 transition-all duration-500"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
