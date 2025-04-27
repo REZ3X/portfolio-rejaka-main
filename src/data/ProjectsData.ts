@@ -89,16 +89,6 @@ interface ProjectLink {
           "Responsive design for mobile and desktop",
           "Easy-to-use content management system",
         ],
-      //  challenges: [
-      //    {
-      //      challenge: "Implementing real-time inventory updates to prevent overselling",
-      //      solution: "Used WebSockets with Socket.io to push inventory changes to all connected clients in real-time"
-      //    },
-      //    {
-      //      challenge: "Optimizing image loading for product catalogs",
-      //      solution: "Implemented lazy loading, image compression, and a CDN for faster loading times"
-      //    }
-      //  ],
         year: 2025,
         links: [
           { label: "Demo", url: "https://tasistemporary.rejaka.me", icon: "🌐" },
