@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ['ipv4.rejaka.me', 'rejaka.me'],
+  },
 };
 
 export default nextConfig;
