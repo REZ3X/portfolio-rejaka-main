@@ -31,6 +31,30 @@ interface ProjectLink {
   export const projectsData: ProjectsDataType = {
     projects: [
       {
+        id: "wa-bots",
+        title: "Void X Bot",
+        subtitle: "A WhatsApp automation bot with AI integration",
+        category: "bot",
+        emoji: "🤖",
+        description: [
+          "Void X Bot is a feature-rich WhatsApp bot built to automate various tasks and enhance group communication. It integrates with Google Gemini AI to provide intelligent responses and image generation capabilities.",
+          "The bot offers over 30 commands for media processing, entertainment, utility functions, information retrieval, and file conversions - all accessible through a simple command interface."
+        ],
+        technologies: ["Node.js", "Baileys", "Google Gemini API", "FFmpeg", "ImageMagick"],
+        features: [
+          "Media Processing: Convert images to stickers and back",
+          "AI Integration: Chat with AI, generate and edit images",
+          "Entertainment: Truth or dare games, compatibility tests",
+          "Utility: Weather updates, earthquake alerts, currency conversion",
+          "Downloads: YouTube and TikTok video/audio retrieval",
+          "File Conversion: Convert documents to various formats"
+        ],
+        year: 2025,
+        links: [
+          { label: "GitHub Repository", url: "https://github.com/REZ3X/whatsapp-bot", icon: "📦" }
+        ]
+      },
+      {
         id: "archive",
         title: "ArcHive Cloud Notes",
         subtitle: "A cloud-based note-taking app, beta version",
