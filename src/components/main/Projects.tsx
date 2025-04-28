@@ -95,6 +95,7 @@ const Projects: React.FC = () => {
     design: themeStyle === "soft" ? "#c86baa" : "#e84393",
     game: themeStyle === "soft" ? "#e39fc2" : "#e67e22",
     research: themeStyle === "soft" ? "#b4688f" : "#27ae60",
+    bot: themeStyle === "soft" ? "#c47fb0" : "#3498db",
   };
 
   const itemCount = themeStyle === "soft" ? 2 : 4;
