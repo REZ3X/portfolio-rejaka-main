@@ -26,6 +26,7 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [showApiAlert, setShowApiAlert] = useState(true);
 
   useEffect(() => {
     try {
@@ -75,6 +76,10 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const dismissAlert = () => {
+    setShowApiAlert(false);
+  };
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
@@ -223,6 +228,53 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
           animation: "fadeIn 0.4s ease-out forwards",
         }}
       >
+        {showApiAlert && (
+          <div className="bg-[#482434] border-b border-[#e39fc2] p-3 px-4 sticky top-0 z-20">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-[#f4c1d8] mr-2"
+                >
+                  <path d="M12 9v4"></path>
+                  <path d="M12 17h.01"></path>
+                  <path d="M3.34 17a10 10 0 1 1 17.32 0"></path>
+                </svg>
+                <span className="text-[#f4c1d8] text-sm">
+                  Gemini API is experiencing high traffic. Responses may be
+                  delayed or unavailable.
+                </span>
+              </div>
+              <button
+                onClick={dismissAlert}
+                className="text-[#e39fc2] hover:text-[#f4c1d8]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18"></path>
+                  <path d="m6 6 12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
         <div className="sticky top-0 z-10 border-b border-[#574655] bg-gradient-to-r from-[#3a1f37] to-[#2c1927] p-4 flex justify-between items-center">
           <div className="flex items-center">
             <div className="w-1 h-8 bg-[#e39fc2] rounded-full mr-3"></div>

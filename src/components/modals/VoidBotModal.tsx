@@ -27,6 +27,7 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [showApiAlert, setShowApiAlert] = useState(true);
 
   useEffect(() => {
     try {
@@ -156,6 +157,10 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
     }
   };
 
+  const dismissAlert = () => {
+    setShowApiAlert(false);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -264,7 +269,7 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-4">
-      <div
+<div
         className={`w-full max-w-2xl rounded-lg overflow-hidden shadow-xl ${
           themeStyle === "terminal"
             ? "border border-[#393d46] bg-[#060a10] font-mono"
@@ -273,6 +278,58 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
             : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
         }`}
       >
+        {showApiAlert && (
+          <div 
+            className={
+              themeStyle === "terminal"
+                ? "bg-[#1a2030] border-b border-[#00adb4] p-3 px-4"
+                : themeStyle === "soft"
+                ? "bg-[#482434] border-b border-[#e39fc2] p-3 px-4"
+                : "bg-yellow-50 border-b border-yellow-200 p-3 px-4 dark:bg-yellow-900 dark:border-yellow-800"
+            }
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={
+                  themeStyle === "terminal" 
+                    ? "text-[#00d6e0] mr-2" 
+                    : themeStyle === "soft"
+                    ? "text-[#f4c1d8] mr-2"
+                    : "text-yellow-500 dark:text-yellow-400 mr-2"
+                }>
+                  <path d="M12 9v4"></path>
+                  <path d="M12 17h.01"></path>
+                  <path d="M3.34 17a10 10 0 1 1 17.32 0"></path>
+                </svg>
+                <span className={
+                  themeStyle === "terminal"
+                    ? "text-[#00d6e0] text-sm"
+                    : themeStyle === "soft"
+                    ? "text-[#f4c1d8] text-sm"
+                    : "text-yellow-800 dark:text-yellow-200 text-sm"
+                }>
+                  Gemini API is experiencing high traffic. Responses may be delayed or unavailable.
+                </span>
+              </div>
+              <button 
+                onClick={dismissAlert} 
+                className={
+                  themeStyle === "terminal"
+                    ? "text-[#00adb4] hover:text-[#00d6e0]"
+                    : themeStyle === "soft"
+                    ? "text-[#e39fc2] hover:text-[#f4c1d8]"
+                    : "text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300"
+                }
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6 6 18"></path>
+                  <path d="m6 6 12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+
         <div
           className={`px-4 py-3 flex justify-between items-center ${
             themeStyle === "terminal"
