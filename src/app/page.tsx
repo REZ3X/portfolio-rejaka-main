@@ -18,7 +18,7 @@ import FeminineLoader from "./FeminineLoader";
 import { UserProvider, useUser } from "@/context/UserContext";
 import { osData } from "@/data/OSData";
 import { usersData } from "@/data/UsersData";
-
+import { useSearchParams } from "next/navigation";
 import AboutModal from "@/components/modals/AboutModal";
 import ProgrammerModal from "@/components/modals/ProgrammerModal";
 import AcademicModal from "@/components/modals/AcademicModal";
@@ -27,12 +27,39 @@ import ProjectsModal from "@/components/modals/ProjectsModal";
 import ExperienceAchievementModal from "@/components/modals/ExperienceAchievementModal";
 import MailForm from "@/components/modals/MailForm";
 import BlogListModal from "@/components/modals/BlogListModal";
+import VoidBotModal from "@/components/modals/VoidBotModal";
+import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
 
 const MainContent = () => {
   const { activeUser, themeStyle } = useUser();
   const userData = usersData[activeUser];
   const [isApplicationReady, setIsApplicationReady] = useState(false);
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+
+
+  useEffect(() => {
+    const modal = searchParams.get("modal");
+    if (modal === "voidbot") {
+      setActiveModal("voidbot");
+    } else if (searchParams.toString() === "" && activeModal === "voidbot") {
+      setActiveModal(null);
+    }
+  }, [searchParams]);
+
+  const openModal = (modalType: string) => {
+    setActiveModal(modalType);
+    const url = new URL(window.location.href);
+    url.searchParams.set("modal", modalType);
+    window.history.pushState({}, "", url);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("modal");
+    window.history.pushState({}, "", url);
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", themeStyle);
@@ -87,14 +114,6 @@ const MainContent = () => {
       window.removeEventListener("load", markAppAsReady);
     };
   }, [themeStyle]);
-
-  const openModal = (modalType: string) => {
-    setActiveModal(modalType);
-  };
-
-  const closeModal = () => {
-    setActiveModal(null);
-  };
 
   if (!isApplicationReady) {
     return themeStyle === "soft" ? <FeminineLoader /> : <Loader />;
@@ -166,6 +185,13 @@ const MainContent = () => {
 
       <Terminal openModal={openModal} />
 
+      {activeModal === "voidbot" &&
+        (themeStyle === "soft" ? (
+          <XiannyaaVoidBotModal onClose={closeModal} />
+        ) : (
+          <VoidBotModal onClose={closeModal} />
+        ))}
+      {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}

@@ -160,6 +160,18 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
     localStorage.removeItem(VOID_CHAT_STORAGE_KEY);
   };
 
+  const handleClose = () => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("modal")) {
+        url.searchParams.delete("modal");
+        window.history.pushState({}, "", url);
+      }
+    }
+
+    onClose();
+  };
+
   const renderContent = (content: string) => {
     const withPreservedBreaks = content.replace(/\n\n/g, "\n&nbsp;\n");
 
@@ -201,7 +213,7 @@ const XiannyaaVoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
   };
 
   return (
-    <ModalWrapper onClose={onClose}>
+    <ModalWrapper onClose={handleClose}>
       <div
         ref={modalRef}
         className="theme-font theme-bg-primary theme-text-primary rounded-2xl border border-[#574655] max-w-2xl w-full max-h-[80vh] overflow-hidden shadow-xl"

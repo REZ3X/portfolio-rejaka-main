@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
 import BotButtonWrapper from "./BotButtonWrapper";
+import { useRouter } from "next/navigation";
 
 const XiannyaaBotButton: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const openVoidBot = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("modal", "voidbot");
+    window.history.pushState({}, "", url);
+    router.replace(`${window.location.pathname}?modal=voidbot`);
+  };
 
   return (
     <BotButtonWrapper>
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={openVoidBot}
         className="p-3 rounded-full shadow-lg
           bg-[#3a2939] border-2 border-[#e39fc2] hover:bg-[#2a1e29] hover:shadow-xl
           transition-all duration-300 transform hover:-translate-y-1"
@@ -20,8 +26,6 @@ const XiannyaaBotButton: React.FC = () => {
           <span className="text-2xl text-[#e39fc2]">✨</span>
         </div>
       </button>
-
-      {isOpen && <XiannyaaVoidBotModal onClose={() => setIsOpen(false)} />}
     </BotButtonWrapper>
   );
 };

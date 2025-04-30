@@ -168,6 +168,20 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
     localStorage.removeItem(VOID_CHAT_STORAGE_KEY);
   };
 
+
+  const handleClose = () => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('modal')) {
+        url.searchParams.delete('modal');
+        window.history.pushState({}, '', url);
+      }
+    }
+    
+    onClose();
+  };
+  
+
   const renderContent = (content: string) => {
     const withPreservedBreaks = content.replace(/\n\n/g, "\n&nbsp;\n");
 
@@ -355,7 +369,7 @@ const VoidBotModal: React.FC<VoidBotModalProps> = ({ onClose }) => {
               )}
             </button>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className={
                 themeStyle === "terminal"
                   ? "px-2 py-1 bg-[#202832] text-[#e0e0e0] border border-[#393d46] hover:border-[#00adb4] text-xs"
