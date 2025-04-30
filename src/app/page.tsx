@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Logo from "@/components/main/Logo";
 import Profile from "@/components/main/Profile";
 import About from "@/components/main/About";
@@ -30,13 +30,14 @@ import BlogListModal from "@/components/modals/BlogListModal";
 import VoidBotModal from "@/components/modals/VoidBotModal";
 import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
 
-const MainContent = () => {
-  const { activeUser, themeStyle } = useUser();
-  const userData = usersData[activeUser];
-  const [isApplicationReady, setIsApplicationReady] = useState(false);
-  const [activeModal, setActiveModal] = useState<string | null>(null);
+const ModalController = ({
+  setActiveModal,
+  activeModal,
+}: {
+  setActiveModal: (modal: string | null) => void;
+  activeModal: string | null;
+}) => {
   const searchParams = useSearchParams();
-
 
   useEffect(() => {
     const modal = searchParams.get("modal");
@@ -45,20 +46,33 @@ const MainContent = () => {
     } else if (searchParams.toString() === "" && activeModal === "voidbot") {
       setActiveModal(null);
     }
-  }, [searchParams]);
+  }, [searchParams, setActiveModal, activeModal]);
+
+  return null;
+};
+
+const MainContent = () => {
+  const { activeUser, themeStyle } = useUser();
+  const userData = usersData[activeUser];
+  const [isApplicationReady, setIsApplicationReady] = useState(false);
+  const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const openModal = (modalType: string) => {
     setActiveModal(modalType);
-    const url = new URL(window.location.href);
-    url.searchParams.set("modal", modalType);
-    window.history.pushState({}, "", url);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("modal", modalType);
+      window.history.pushState({}, "", url);
+    }
   };
 
   const closeModal = () => {
     setActiveModal(null);
-    const url = new URL(window.location.href);
-    url.searchParams.delete("modal");
-    window.history.pushState({}, "", url);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("modal");
+      window.history.pushState({}, "", url);
+    }
   };
 
   useEffect(() => {
@@ -125,6 +139,12 @@ const MainContent = () => {
         themeStyle === "soft" ? "soft-fade-in" : ""
       }`}
     >
+      <Suspense fallback={null}>
+        <ModalController
+          setActiveModal={setActiveModal}
+          activeModal={activeModal}
+        />
+      </Suspense>
       <div className="max-w-7xl mx-auto space-y-6 w-full flex-grow pb-6">
         <Shuttler />
 
@@ -191,7 +211,6 @@ const MainContent = () => {
         ) : (
           <VoidBotModal onClose={closeModal} />
         ))}
-      {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
