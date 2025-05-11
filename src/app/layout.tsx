@@ -104,11 +104,12 @@ export const metadata: Metadata = {
     },
   },
   applicationName: "Rejaka Portfolio",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#060a10" },
     { media: "(prefers-color-scheme: light)", color: "#2e1e2e" }
