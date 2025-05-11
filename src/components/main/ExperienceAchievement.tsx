@@ -8,7 +8,7 @@ const ExperienceAchievement: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { themeStyle } = useUser();
 
-  const latestExperience = experienceData.experience[1];
+  const latestExperience = experienceData.experience[2];
   const latestAchievement = experienceData.achievements[2];
 
   if (themeStyle === "terminal") {
