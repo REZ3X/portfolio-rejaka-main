@@ -29,24 +29,40 @@ import MailForm from "@/components/modals/MailForm";
 import BlogListModal from "@/components/modals/BlogListModal";
 import VoidBotModal from "@/components/modals/VoidBotModal";
 import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
+import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
 
 const ModalController = ({
   setActiveModal,
   activeModal,
+  setCurrentProjectId,
 }: {
   setActiveModal: (modal: string | null) => void;
   activeModal: string | null;
+  setCurrentProjectId: (projectId: string) => void;
 }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const modal = searchParams.get("modal");
+    const project = searchParams.get("project");
+
     if (modal === "voidbot") {
       setActiveModal("voidbot");
-    } else if (searchParams.toString() === "" && activeModal === "voidbot") {
+    } else if (modal === "projects") {
+      setActiveModal("projects");
+      if (project) {
+        setCurrentProjectId(project);
+      } else {
+        setCurrentProjectId("all");
+      }
+    } else if (
+      searchParams.toString() === "" &&
+      (activeModal === "voidbot" || activeModal === "projects")
+    ) {
       setActiveModal(null);
+      setCurrentProjectId("all");
     }
-  }, [searchParams, setActiveModal, activeModal]);
+  }, [searchParams, setActiveModal, activeModal, setCurrentProjectId]);
 
   return null;
 };
@@ -56,21 +72,45 @@ const MainContent = () => {
   const userData = usersData[activeUser];
   const [isApplicationReady, setIsApplicationReady] = useState(false);
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [currentProjectId, setCurrentProjectId] = useState<string>("all");
 
   const openModal = (modalType: string) => {
     setActiveModal(modalType);
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("modal", modalType);
+      if (modalType === "projects") {
+        url.searchParams.set("project", "all");
+        setCurrentProjectId("all");
+      }
       window.history.pushState({}, "", url);
     }
   };
 
+  const openProjectModal = (projectId: string) => {
+    setActiveModal("projects");
+    setCurrentProjectId(projectId);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("modal", "projects");
+      url.searchParams.set("project", projectId);
+      window.history.pushState({}, "", url);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.openProjectModal = openProjectModal;
+    }
+  }, []);
+
   const closeModal = () => {
     setActiveModal(null);
+    setCurrentProjectId("all");
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.delete("modal");
+      url.searchParams.delete("project");
       window.history.pushState({}, "", url);
     }
   };
@@ -143,6 +183,7 @@ const MainContent = () => {
         <ModalController
           setActiveModal={setActiveModal}
           activeModal={activeModal}
+          setCurrentProjectId={setCurrentProjectId}
         />
       </Suspense>
       <div className="max-w-7xl mx-auto space-y-6 w-full flex-grow pb-6">
@@ -216,9 +257,15 @@ const MainContent = () => {
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
       {activeModal === "creative" && <CreativeModal onClose={closeModal} />}
       {activeModal === "blogList" && <BlogListModal onClose={closeModal} />}
-      {activeModal === "projects" && (
-        <ProjectsModal projectId="all" onClose={closeModal} />
-      )}
+      {activeModal === "projects" &&
+        (themeStyle === "soft" ? (
+          <XiannyaaProjectsModal
+            projectId={currentProjectId}
+            onClose={closeModal}
+          />
+        ) : (
+          <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
+        ))}
       {activeModal === "experience" && (
         <ExperienceAchievementModal onClose={closeModal} />
       )}

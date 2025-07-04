@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { projectsData } from "@/data/ProjectsData";
+import { downloadFile, getFileNameFromPath } from "@/utils/downloadUtils";
+
+interface ProjectLink {
+  label: string;
+  url?: string;
+  icon: string;
+  downloadPath?: string;
+  type?: "url" | "download";
+}
 
 interface ProjectsModalProps {
   projectId: string;
@@ -21,6 +30,7 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
     design: "#e84393",
     game: "#e67e22",
     research: "#27ae60",
+    bot: "#9b59b6",
   };
 
   const filteredProjects =
@@ -66,6 +76,40 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
     }
   }, [projectId]);
 
+  const handleClose = () => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("modal")) {
+        url.searchParams.delete("modal");
+        window.history.pushState({}, "", url);
+      }
+      if (url.searchParams.has("project")) {
+        url.searchParams.delete("project");
+        window.history.pushState({}, "", url);
+      }
+    }
+    onClose();
+  };
+
+  const handleProjectClick = (projectIdToOpen: string) => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("modal", "projects");
+      url.searchParams.set("project", projectIdToOpen);
+      window.history.pushState({}, "", url);
+      window.openProjectModal?.(projectIdToOpen);
+    }
+  };
+
+  const handleLinkClick = (link: ProjectLink) => {
+    if (link.type === "download" && link.downloadPath) {
+      const fileName = getFileNameFromPath(link.downloadPath);
+      downloadFile(link.downloadPath, fileName);
+    } else if (link.url) {
+      window.open(link.url, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4">
       <div
@@ -82,7 +126,7 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
             </h2>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="px-2 py-1 bg-[#202832] text-[#e0e0e0] border border-[#393d46] hover:border-[#00adb4] text-xs"
           >
             [x] close
@@ -175,16 +219,14 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                     filteredProjects[0]?.links.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-3">
                         {filteredProjects[0].links.map((link, i) => (
-                          <a
+                          <button
                             key={i}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs border border-[#393d46] bg-[#202832] px-2 py-1 hover:border-[#00adb4] inline-flex items-center"
+                            onClick={() => handleLinkClick(link)}
+                            className="text-xs border border-[#393d46] bg-[#202832] px-2 py-1 hover:border-[#00adb4] inline-flex items-center transition-colors"
                           >
-                            <span className="mr-1">{link.icon}</span>{" "}
+                            <span className="mr-1">{link.icon}</span>
                             {link.label}
-                          </a>
+                          </button>
                         ))}
                       </div>
                     )}
@@ -239,9 +281,11 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                         {filteredProjects[0].challenges.map((challenge, i) => (
                           <div key={i} className="border border-[#393d46] p-3">
                             <div className="mb-1 font-bold text-sm">
-                              {challenge.challenge}
+                              Challenge: {challenge.challenge}
                             </div>
-                            <div className="text-sm">{challenge.solution}</div>
+                            <div className="text-sm">
+                              Solution: {challenge.solution}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -255,9 +299,7 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                 <div
                   key={project.id}
                   className="border border-[#393d46] overflow-hidden cursor-pointer hover:border-[#00adb4] transition-colors duration-200"
-                  onClick={() => {
-                    window.openProjectModal?.(project.id);
-                  }}
+                  onClick={() => handleProjectClick(project.id)}
                 >
                   {project.thumbnail ? (
                     <div className="relative h-32">

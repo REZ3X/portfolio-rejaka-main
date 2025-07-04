@@ -2,6 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { projectsData } from "@/data/ProjectsData";
 import ModalWrapper from "./ModalWrapper";
+import { downloadFile, getFileNameFromPath } from "@/utils/downloadUtils";
+
+interface ProjectLink {
+  label: string;
+  url?: string;
+  icon: string;
+  downloadPath?: string;
+  type?: "url" | "download";
+}
 
 interface ProjectsModalProps {
   projectId: string;
@@ -22,6 +31,7 @@ const XiannyaaProjectsModal: React.FC<ProjectsModalProps> = ({
     design: "#c86baa",
     game: "#e39fc2",
     research: "#b4688f",
+    bot: "#d782b5",
   };
 
   const filteredProjects =
@@ -42,8 +52,42 @@ const XiannyaaProjectsModal: React.FC<ProjectsModalProps> = ({
     }
   }, [projectId]);
 
+  const handleClose = () => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("modal")) {
+        url.searchParams.delete("modal");
+        window.history.pushState({}, "", url);
+      }
+      if (url.searchParams.has("project")) {
+        url.searchParams.delete("project");
+        window.history.pushState({}, "", url);
+      }
+    }
+    onClose();
+  };
+
+  const handleProjectClick = (projectIdToOpen: string) => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("modal", "projects");
+      url.searchParams.set("project", projectIdToOpen);
+      window.history.pushState({}, "", url);
+      window.openProjectModal?.(projectIdToOpen);
+    }
+  };
+
+  const handleLinkClick = (link: ProjectLink) => {
+    if (link.type === "download" && link.downloadPath) {
+      const fileName = getFileNameFromPath(link.downloadPath);
+      downloadFile(link.downloadPath, fileName);
+    } else if (link.url) {
+      window.open(link.url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <ModalWrapper onClose={onClose}>
+    <ModalWrapper onClose={handleClose}>
       <div
         ref={modalRef}
         className="theme-font theme-bg-primary theme-text-primary rounded-2xl border border-[#574655] max-w-4xl w-full max-h-[80vh] overflow-hidden shadow-xl"
@@ -66,7 +110,7 @@ const XiannyaaProjectsModal: React.FC<ProjectsModalProps> = ({
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="px-3 py-1 text-sm bg-[#463343] text-[#e39fc2] border border-[#574655] hover:bg-[#574655] rounded-full transition-colors"
           >
             Close
@@ -163,16 +207,14 @@ const XiannyaaProjectsModal: React.FC<ProjectsModalProps> = ({
                     filteredProjects[0]?.links.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {filteredProjects[0].links.map((link, i) => (
-                          <a
+                          <button
                             key={i}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            onClick={() => handleLinkClick(link)}
                             className="px-3 py-1.5 bg-[#463343] text-[#e39fc2] rounded-full text-sm hover:bg-[#574655] transition-colors flex items-center"
                           >
                             <span className="mr-1.5">{link.icon}</span>
                             {link.label}
-                          </a>
+                          </button>
                         ))}
                       </div>
                     )}
@@ -271,10 +313,7 @@ const XiannyaaProjectsModal: React.FC<ProjectsModalProps> = ({
                 <div
                   key={project.id}
                   className="border border-[#574655] rounded-xl overflow-hidden cursor-pointer hover:border-[#e39fc2] transition-all duration-200 bg-[#382736] hover:bg-[#3a2839] hover:shadow-lg hover:-translate-y-1 soft-card"
-                  onClick={() => {
-                    setActiveTab("all");
-                    window.openProjectModal?.(project.id);
-                  }}
+                  onClick={() => handleProjectClick(project.id)}
                 >
                   {project.thumbnail ? (
                     <div className="relative h-40">
