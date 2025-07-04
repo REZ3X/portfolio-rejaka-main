@@ -68,7 +68,7 @@ const ExperienceAchievementModal: React.FC<ExperienceAchievementModalProps> = ({
             }`}
             onClick={() => setActiveTab("experience")}
           >
-            Work Experience
+            Experience
           </button>
           <button
             className={`px-4 py-2 text-sm ${

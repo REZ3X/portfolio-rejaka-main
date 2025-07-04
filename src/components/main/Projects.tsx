@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProjectsModal from "@/components/modals/ProjectsModal";
 import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
 import { projectsData } from "@/data/ProjectsData";
 import { useUser } from "@/context/UserContext";
+
+interface ProjectsProps {
+  openProjectModal?: (projectId: string) => void;
+}
 
 interface ProjectCardProps {
   title: string;
@@ -62,26 +66,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   );
 };
 
-const Projects: React.FC = () => {
+const Projects: React.FC<ProjectsProps> = ({ openProjectModal }) => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const { themeStyle } = useUser();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.openProjectModal = (projectId: string) => {
-        setSelectedProject(projectId);
-      };
+  const handleProjectClick = (projectId: string) => {
+    if (openProjectModal) {
+      openProjectModal(projectId);
+    } else if (typeof window !== "undefined" && window.openProjectModal) {
+      window.openProjectModal(projectId);
+    } else {
+      setSelectedProject(projectId);
     }
-
-    return () => {
-      if (typeof window !== "undefined" && window.openProjectModal) {
-        window.openProjectModal = undefined;
-      }
-    };
-  }, []);
-
-  const openProjectModal = (projectId: string) => {
-    setSelectedProject(projectId);
   };
 
   const closeProjectModal = () => {
@@ -152,7 +148,7 @@ const Projects: React.FC = () => {
               category={project.category}
               thumbnail={project.thumbnail}
               color={categoryColors[project.category] || categoryColors.web}
-              onClick={() => openProjectModal(project.id)}
+              onClick={() => handleProjectClick(project.id)}
             />
           ))}
         </div>
@@ -174,7 +170,7 @@ const Projects: React.FC = () => {
                   : "text-[8px] text-[#00adb4] hover:underline"
               }
             `}
-            onClick={() => openProjectModal("all")}
+            onClick={() => handleProjectClick("all")}
           >
             {themeStyle === "soft" ? "View all projects" : "View all"}
           </button>
@@ -196,11 +192,5 @@ const Projects: React.FC = () => {
     </>
   );
 };
-
-declare global {
-  interface Window {
-    openProjectModal?: (projectId: string) => void;
-  }
-}
 
 export default Projects;
