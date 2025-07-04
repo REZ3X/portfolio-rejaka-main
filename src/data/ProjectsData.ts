@@ -99,6 +99,39 @@ export const projectsData: ProjectsDataType = {
       ],
     },
     {
+      id: "voidboard",
+      title: "VoidBoard - Anonymous Image Board",
+      subtitle: "A platform for anonymous image sharing",
+      category: "web",
+      emoji: "🌐",
+      description: [
+        "VoidBoard is an anonymous image board that allows users to share and discuss images without revealing their identities. The platform is designed to foster open communication and creativity while maintaining user privacy.",
+        "Users can post images, comment on others' posts, and engage in discussions without the fear of being judged or identified.",
+      ],
+      technologies: [
+        "Next.js",
+        "ImageKit",
+        "MongoDB",
+        "TypeScript",
+        "Tailwind CSS",
+      ],
+      features: [
+        "Anonymous Posting: Users can share images without revealing their identity",
+        "Discussion Threads: Engage in conversations around shared images",
+        "User Privacy: Focus on maintaining user anonymity and security",
+        "Responsive Design: Optimized for both desktop and mobile devices",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://void-board.vercel.app/",
+          icon: "🌐",
+          type: "url",
+        },
+      ],
+    },
+    {
       id: "wa-bots",
       title: "Void X Bot",
       subtitle: "A WhatsApp automation bot with AI integration",
