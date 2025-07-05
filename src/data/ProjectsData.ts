@@ -51,10 +51,10 @@ export const projectsData: ProjectsDataType = {
         "Tailwind CSS",
       ],
       features: [
-        "Natural Language Processing: Understands and responds to user queries",
         "Personalized Conversations: Tailors responses based on user interactions",
         "Emotional Support: Provides comforting and encouraging messages",
-        "User Preferences: Learns from user interactions to improve responses",
+        "Memory Feature:  Remembers user preferences and past interactions",
+        "User-Friendly Interface: Intuitive design for easy navigation",
       ],
       year: 2025,
       links: [
@@ -267,6 +267,55 @@ export const projectsData: ProjectsDataType = {
           label: "Live Website",
           url: "https://idea.rejaka.me",
           icon: "📱",
+          type: "url",
+        },
+      ],
+    },
+    {
+      id: "links-slaviors",
+      title: "Slaviors - Links",
+      subtitle: "A collection of useful links of Slaviors",
+      category: "web",
+      emoji: "👥",
+      description: [
+        "A collection of useful links for Slaviors.",
+      ],
+      technologies: ["Next.js", "JavaScript", "Tailwind CSS"],
+      features: [
+        "Easy access to important links",
+        "Responsive design for mobile and desktop",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://links.slaviors.xyz",
+          icon: "🌐",
+          type: "url",
+        },
+      ],
+    },
+    {
+      id: "slaviors",
+      title: "Slaviors - Team Profile Website",
+      subtitle: "A platform for showcasing team members",
+      category: "web",
+      emoji: "👥",
+      description: [
+        "Slaviors is a team profile website designed to showcase team members and their roles within the organization. It provides a platform for team introductions and highlights individual contributions.",
+      ],
+      technologies: ["Next.js", "JavaScript", "Tailwind CSS"],
+      features: [
+        "Team member profiles with photos and bios",
+        "Role-based categorization",
+        "Responsive design for mobile and desktop",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://slaviors.xyz",
+          icon: "🌐",
           type: "url",
         },
       ],
