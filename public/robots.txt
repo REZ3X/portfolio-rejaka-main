@@ -7,14 +7,20 @@ Sitemap: https://rejaka.me/sitemap.xml
 # Specific rules for major crawlers
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
+
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
+
 User-agent: Slurp
 Allow: /
+Crawl-delay: 1
 
-# Block certain directories if needed (uncomment if you have private areas)
-# Disallow: /private/
-# Disallow: /admin/
+# Block certain directories if needed
+Disallow: /api/
+Disallow: /_next/
+Disallow: /v0id_files/
 
-# Crawl delay to control crawl rate (optional)
-# Crawl-delay: 10
+# Allow blog content
+Allow: /blog/
