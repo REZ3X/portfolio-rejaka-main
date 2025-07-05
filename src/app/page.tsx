@@ -35,16 +35,24 @@ const ModalController = ({
   setActiveModal,
   activeModal,
   setCurrentProjectId,
+  setBlogModalCategory,
+  setBlogModalSearch,
 }: {
   setActiveModal: (modal: string | null) => void;
   activeModal: string | null;
   setCurrentProjectId: (projectId: string) => void;
+  setBlogModalCategory: (category: string) => void;
+  setBlogModalSearch: (search: string) => void;
 }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const modal = searchParams.get("modal");
     const project = searchParams.get("project");
+    const category = searchParams.get("category");
+    const search = searchParams.get("search");
+
+    console.log("ModalController: URL changed", { modal, activeModal });
 
     if (modal === "voidbot") {
       setActiveModal("voidbot");
@@ -55,14 +63,24 @@ const ModalController = ({
       } else {
         setCurrentProjectId("all");
       }
-    } else if (
-      searchParams.toString() === "" &&
-      (activeModal === "voidbot" || activeModal === "projects")
-    ) {
+    } else if (modal === "blogList") {
+      setActiveModal("blogList");
+      setBlogModalCategory(category || "all");
+      setBlogModalSearch(search || "");
+    } else if (!modal) {
+      console.log("ModalController: No modal in URL, closing all");
       setActiveModal(null);
       setCurrentProjectId("all");
+      setBlogModalCategory("all");
+      setBlogModalSearch("");
     }
-  }, [searchParams, setActiveModal, activeModal, setCurrentProjectId]);
+  }, [
+    searchParams,
+    setActiveModal,
+    setCurrentProjectId,
+    setBlogModalCategory,
+    setBlogModalSearch,
+  ]);
 
   return null;
 };
@@ -73,6 +91,8 @@ const MainContent = () => {
   const [isApplicationReady, setIsApplicationReady] = useState(false);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [currentProjectId, setCurrentProjectId] = useState<string>("all");
+  const [blogModalCategory, setBlogModalCategory] = useState<string>("all");
+  const [blogModalSearch, setBlogModalSearch] = useState<string>("");
 
   const openModal = (modalType: string) => {
     setActiveModal(modalType);
@@ -82,6 +102,28 @@ const MainContent = () => {
       if (modalType === "projects") {
         url.searchParams.set("project", "all");
         setCurrentProjectId("all");
+      } else if (modalType === "blogList") {
+        url.searchParams.set("category", "all");
+        setBlogModalCategory("all");
+        setBlogModalSearch("");
+      }
+      window.history.pushState({}, "", url);
+    }
+  };
+
+  const openBlogModalWithCategory = (
+    category: string = "all",
+    search: string = ""
+  ) => {
+    setActiveModal("blogList");
+    setBlogModalCategory(category);
+    setBlogModalSearch(search);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("modal", "blogList");
+      url.searchParams.set("category", category);
+      if (search) {
+        url.searchParams.set("search", search);
       }
       window.history.pushState({}, "", url);
     }
@@ -105,14 +147,23 @@ const MainContent = () => {
   }, []);
 
   const closeModal = () => {
+    console.log(
+      "MainContent: closeModal called, current activeModal:",
+      activeModal
+    );
     setActiveModal(null);
     setCurrentProjectId("all");
+    setBlogModalCategory("all");
+    setBlogModalSearch("");
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.delete("modal");
       url.searchParams.delete("project");
+      url.searchParams.delete("category");
+      url.searchParams.delete("search");
       window.history.pushState({}, "", url);
     }
+    console.log("MainContent: closeModal completed");
   };
 
   useEffect(() => {
@@ -184,6 +235,8 @@ const MainContent = () => {
           setActiveModal={setActiveModal}
           activeModal={activeModal}
           setCurrentProjectId={setCurrentProjectId}
+          setBlogModalCategory={setBlogModalCategory}
+          setBlogModalSearch={setBlogModalSearch}
         />
       </Suspense>
       <div className="max-w-7xl mx-auto space-y-6 w-full flex-grow pb-6">
@@ -233,7 +286,9 @@ const MainContent = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <div className="blog-component">
-            <Blog openBlogListModal={() => setActiveModal("blogList")} />
+            <Blog
+              openBlogListModal={() => openBlogModalWithCategory("all", "")}
+            />
           </div>
 
           <div>
@@ -256,7 +311,6 @@ const MainContent = () => {
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
       {activeModal === "creative" && <CreativeModal onClose={closeModal} />}
-      {activeModal === "blogList" && <BlogListModal onClose={closeModal} />}
       {activeModal === "projects" &&
         (themeStyle === "soft" ? (
           <XiannyaaProjectsModal
@@ -271,6 +325,15 @@ const MainContent = () => {
       )}
       {activeModal === "contact" && (
         <MailForm recipientEmail="contact@example.com" onClose={closeModal} />
+      )}
+      {activeModal === "blogList" && (
+        <BlogListModal
+          onClose={closeModal}
+          initialCategory={blogModalCategory}
+          initialSearch={blogModalSearch}
+          onCategoryChange={setBlogModalCategory}
+          onSearchChange={setBlogModalSearch}
+        />
       )}
       <BotButton />
     </main>

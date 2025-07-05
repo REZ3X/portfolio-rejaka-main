@@ -6,20 +6,31 @@ export interface BlogPost {
   coverImage?: string;
   readingTime: number;
   tags?: string[];
-  category?: string; 
-  lastModified?: string; 
+  category?: string;
+  lastModified?: string;
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "slaviorsNow",
+    title: "The Story of Slaviors for Now",
+    date: "2025-05-07",
+    excerpt: "This is the latest story of Slaviors, a team, a group, a professonal developer, and a community.",
+    coverImage: "/blog/posts/slaviorsNow/slaviors2.jpg",
+    readingTime: 5,
+    tags: ["Story", "Slaviors", "Team", "Community"],
+    category: "Story",
+    lastModified: "2025-02-07",
+  },
   {
     slug: "databaseSQL",
     title: "Working With SQL Databases",
     date: "2025-02-07",
     excerpt: "Learn how to set up and work with SQL databases for your web applications. Complete guide covering MySQL setup, table creation, and basic operations.",
     coverImage: "/blog/posts/databaseSQL/databases.png",
-    readingTime: 8,
+    readingTime: 6,
     tags: ["SQL", "Database", "MySQL", "Backend", "Tutorial"],
-    category: "Database",
+    category: "Tutorial",
     lastModified: "2025-02-07",
   },
   {
@@ -30,7 +41,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/blog/posts/dirAndFile/cmd.png",
     readingTime: 5,
     tags: ["Linux", "Command Line", "File Management", "Terminal", "Tutorial"],
-    category: "Linux",
+    category: "Tutorial",
     lastModified: "2025-02-03",
   },
   {
@@ -41,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/blog/posts/nvmTutorial/nvm.png",
     readingTime: 6,
     tags: ["Node.js", "NVM", "Linux", "JavaScript", "Development Tools"],
-    category: "Development Tools",
+    category: "Tutorial",
     lastModified: "2025-02-03",
   },
   {
@@ -52,7 +63,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/blog/posts/simpleCalculator/calc.png",
     readingTime: 10,
     tags: ["Next.js", "React", "JavaScript", "Tutorial", "Web Development"],
-    category: "Web Development",
+    category: "Tutorial",
     lastModified: "2025-02-05",
   },
   {
@@ -61,9 +72,9 @@ export const blogPosts: BlogPost[] = [
     date: "2025-02-03",
     excerpt: "Your first steps with Next.js: setup, configuration and building your first app. Complete beginner's guide to Next.js framework.",
     coverImage: "/blog/posts/startingNextJS/nextBannerTemplate.png",
-    readingTime: 7,
+    readingTime: 5,
     tags: ["Next.js", "React", "Web Development", "JavaScript", "Tutorial"],
-    category: "Web Development",
+    category: "Tutorial",
     lastModified: "2025-02-03",
   },
 ];
@@ -76,6 +87,33 @@ export function getAllPosts(): BlogPost[] {
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
+}
+
+export function getPostsByCategory(category: string): BlogPost[] {
+  return blogPosts.filter((post) => post.category === category).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+}
+
+export function getAllCategories(): string[] {
+  const categories = Array.from(
+    new Set(
+      blogPosts
+        .map(post => post.category)
+        .filter((category): category is string => category !== undefined)
+    )
+  );
+  return categories.sort();
+}
+
+export function searchPosts(query: string): BlogPost[] {
+  const lowercaseQuery = query.toLowerCase();
+  return blogPosts.filter(post => 
+    post.title.toLowerCase().includes(lowercaseQuery) ||
+    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+    post.tags?.some(tag => tag.toLowerCase().includes(lowercaseQuery)) ||
+    post.category?.toLowerCase().includes(lowercaseQuery)
+  ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function formatDate(dateString: string): string {
