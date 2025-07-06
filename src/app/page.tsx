@@ -33,6 +33,8 @@ import BlogListModal from "@/components/modals/BlogListModal";
 import VoidBotModal from "@/components/modals/VoidBotModal";
 import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
 import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
+import TerminalGuestbook from "@/components/modals/TerminalGuestbook";
+import SoftGuestbook from "@/components/modals/xiannyaa/SoftGuestbook";
 
 const ModalController = ({
   setActiveModal,
@@ -70,6 +72,8 @@ const ModalController = ({
       setActiveModal("blogList");
       setBlogModalCategory(category || "all");
       setBlogModalSearch(search || "");
+    } else if (modal === "guestbook") {
+      setActiveModal("guestbook");
     } else if (!modal) {
       console.log("ModalController: No modal in URL, closing all");
       setActiveModal(null);
@@ -349,6 +353,12 @@ const MainContent = () => {
           onSearchChange={setBlogModalSearch}
         />
       )}
+      {activeModal === "guestbook" &&
+        (themeStyle === "soft" ? (
+          <SoftGuestbook onClose={closeModal} />
+        ) : (
+          <TerminalGuestbook onClose={closeModal} />
+        ))}
       <BotButton />
     </main>
   );
