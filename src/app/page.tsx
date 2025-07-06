@@ -8,6 +8,9 @@ import Projects from "@/components/main/Projects";
 import LinksContact from "@/components/main/LinksContact";
 import Blog from "@/components/main/Blog";
 import ExperienceAchievement from "@/components/main/ExperienceAchievement";
+import Others from "@/components/main/Others";
+import DevQuotes from "@/components/main/DevQuotes";
+import MiniGame from "@/components/main/MiniGame";
 import Footer from "@/components/shared/Footer";
 import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
@@ -295,10 +298,21 @@ const MainContent = () => {
             <ExperienceAchievement />
           </div>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <div className="lg:col-span-1">
+            <Others />
+          </div>
+          <div className="lg:col-span-1">
+            <MiniGame />
+          </div>
+          <div className="lg:col-span-1">
+            <DevQuotes />
+          </div>
+        </div>
       </div>
 
       <Footer />
-
       <Terminal openModal={openModal} />
 
       {activeModal === "voidbot" &&

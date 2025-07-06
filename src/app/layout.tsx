@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Quicksand } from "next/font/google";
+import {
+  Quicksand,
+  Inter,
+  Playfair_Display,
+  Merriweather,
+  Crimson_Text,
+} from "next/font/google";
 import "../styles/globals.css";
 import { UserProvider } from "@/context/UserContext";
 import CustomCursorWrapper from "@/components/shared/CustomCursorWrapper";
@@ -24,17 +30,57 @@ const quicksand = Quicksand({
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  display: "swap",
+});
+
+const crimsonText = Crimson_Text({
+  variable: "--font-crimson",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://rejaka.me"),
   title: {
     template: "%s | Rejaka Abimanyu | Web Developer",
     default: "Rejaka Abimanyu Susanto | Website Developer Portfolio",
   },
-  description: "Explore the portfolio of Rejaka Abimanyu Susanto, a web developer and author showcasing creative projects and technical expertise.",
-  keywords: ["Rejaka", "Rejaka Abimanyu", "Full Stack Developer", "Web Development", "Game Maker", "Author", "Portfolio", "Database Engineer", "Rejaka Abimanyu Susanto", "rez3x", "abim", "xiannyaa"],
-  authors: [
-    { name: "Rejaka Abimanyu Susanto", url: "https://rejaka.me" }
+  description:
+    "Explore the portfolio of Rejaka Abimanyu Susanto, a web developer and author showcasing creative projects and technical expertise.",
+  keywords: [
+    "Rejaka",
+    "Rejaka Abimanyu",
+    "Full Stack Developer",
+    "Web Development",
+    "Game Maker",
+    "Author",
+    "Portfolio",
+    "Database Engineer",
+    "Rejaka Abimanyu Susanto",
+    "rez3x",
+    "abim",
+    "xiannyaa",
   ],
+  authors: [{ name: "Rejaka Abimanyu Susanto", url: "https://rejaka.me" }],
   creator: "Rejaka Abimanyu Susanto",
   publisher: "Rejaka Abimanyu Susanto",
   formatDetection: {
@@ -49,20 +95,21 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
     title: "Rejaka Abimanyu | Full Stack Developer, Game Maker & Author",
-    description: "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
+    description:
+      "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
     url: "https://rejaka.me",
     siteName: "Rejaka Abimanyu Portfolio",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/assets/images/profile/rez3x.webp", 
+        url: "/assets/images/profile/rez3x.webp",
         width: 800,
         height: 600,
         alt: "Rejaka Abimanyu's Portfolio",
@@ -72,7 +119,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Rejaka Abimanyu | Full Stack Developer, Game Maker & Author",
-    description: "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
+    description:
+      "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
     creator: "@rejaka",
     images: ["/assets/images/profile/rez3x.webp"],
   },
@@ -100,7 +148,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://rejaka.me",
     languages: {
-      'en-US': "https://rejaka.me",
+      "en-US": "https://rejaka.me",
     },
   },
   applicationName: "Rejaka Portfolio",
@@ -112,7 +160,7 @@ export const viewport = {
   maximumScale: 5,
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#060a10" },
-    { media: "(prefers-color-scheme: light)", color: "#2e1e2e" }
+    { media: "(prefers-color-scheme: light)", color: "#2e1e2e" },
   ],
 };
 
@@ -124,29 +172,38 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Rejaka Abimanyu Susanto",
-            "url": "https://rejaka.me",
-            "image": "https://rejaka.me/assets/images/profile/rez3x.webp",
-            "sameAs": [
-              "https://github.com/REZ3X",
-              "https://linkedin.com/in/rejaka-abimanyu-susanto-6713482b6"
-            ],
-            "jobTitle": "Full Stack Developer",
-            "worksFor": {
-              "@type": "Organization",
-              "name": "Independent"
-            },
-            "description": "Full stack web developer, database engineer, game maker, and author.",
-            "knowsAbout": ["Web Development", "Database Engineering", "Game Development", "Creative Writing"]
-          })
-        }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Rejaka Abimanyu Susanto",
+              url: "https://rejaka.me",
+              image: "https://rejaka.me/assets/images/profile/rez3x.webp",
+              sameAs: [
+                "https://github.com/REZ3X",
+                "https://linkedin.com/in/rejaka-abimanyu-susanto-6713482b6",
+              ],
+              jobTitle: "Full Stack Developer",
+              worksFor: {
+                "@type": "Organization",
+                name: "Independent",
+              },
+              description:
+                "Full stack web developer, database engineer, game maker, and author.",
+              knowsAbout: [
+                "Web Development",
+                "Database Engineering",
+                "Game Development",
+                "Creative Writing",
+              ],
+            }),
+          }}
+        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${quicksand.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${quicksand.variable} ${inter.variable} ${playfairDisplay.variable} ${merriweather.variable} ${crimsonText.variable} antialiased`}
       >
         <UserProvider>
           {children}
