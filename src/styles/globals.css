@@ -11,6 +11,8 @@
   --accent-secondary: #107f84;
   --font-family: var(--font-geist-mono);
   --transition-duration: 0.4s;
+  --font-resume: "Times New Roman", Times, serif;
+  --font-merriweather-fallback: "Merriweather", "Times New Roman", Times, serif;
 }
 
 [data-theme="soft"] {
@@ -26,6 +28,14 @@
   --font-family: "Quicksand", system-ui, sans-serif;
   --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   --card-shadow: 0 8px 25px rgba(198, 120, 164, 0.15);
+}
+
+.font-resume {
+  font-family: var(--font-resume);
+}
+
+.font-merriweather-fallback {
+  font-family: var(--font-merriweather-fallback);
 }
 
 .theme-transition {
@@ -92,7 +102,8 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% {
+  0%,
+  100% {
     text-shadow: 0 0 2px rgba(0, 173, 180, 0.3);
   }
   50% {

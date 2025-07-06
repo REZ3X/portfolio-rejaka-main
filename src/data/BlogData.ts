@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "slaviorsNow",
     title: "The Story of Slaviors for Now",
-    date: "2025-05-07",
+    date: "2025-07-05",
     excerpt: "This is the latest story of Slaviors, a team, a group, a professonal developer, and a community.",
     coverImage: "/blog/posts/slaviorsNow/slaviors2.jpg",
     readingTime: 5,
