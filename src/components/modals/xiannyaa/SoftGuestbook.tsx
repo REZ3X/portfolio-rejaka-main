@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { GuestbookEntry, User } from "@/types/guestbook";
 import ModalWrapper from "./ModalWrapper";
+import { filterMessage, containsBannedWords } from "@/utils/wordFilter";
 
 interface SoftGuestbookProps {
   onClose: () => void;
@@ -11,13 +12,35 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
   const [entries, setEntries] = useState<GuestbookEntry[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [message, setMessage] = useState("");
+  const [filteredMessage, setFilteredMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [wordFilterWarning, setWordFilterWarning] = useState("");
 
   useEffect(() => {
     fetchEntries();
     loadUser();
   }, []);
+
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputMessage = e.target.value;
+    const {
+      filteredMessage: filtered,
+      hasBannedWords,
+      bannedWords,
+    } = filterMessage(inputMessage);
+
+    setMessage(inputMessage);
+    setFilteredMessage(filtered);
+
+    if (hasBannedWords) {
+      setWordFilterWarning(
+        `⚠️ Inappropriate language detected: ${bannedWords.join(", ")}`
+      );
+    } else {
+      setWordFilterWarning("");
+    }
+  };
 
   const loadUser = () => {
     if (typeof window !== "undefined") {
@@ -59,6 +82,8 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
         "guestbook_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       setUser(null);
       setMessage("");
+      setFilteredMessage("");
+      setWordFilterWarning("");
     }
   };
 
@@ -66,8 +91,16 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
     e.preventDefault();
     if (!user || !message.trim()) return;
 
+    if (containsBannedWords(message.trim())) {
+      setError(
+        "❌ Your message contains inappropriate language and cannot be sent. Please revise your message."
+      );
+      return;
+    }
+
     setLoading(true);
     setError("");
+    setWordFilterWarning("");
 
     try {
       const response = await fetch("/api/guestbook", {
@@ -80,6 +113,7 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
 
       if (data.success) {
         setMessage("");
+        setFilteredMessage("");
         await fetchEntries();
       } else {
         setError(data.error || "Failed to save message");
@@ -107,6 +141,8 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
 
       if (data.success) {
         setMessage("");
+        setFilteredMessage("");
+        setWordFilterWarning("");
         await fetchEntries();
       } else {
         setError(data.error || "Failed to delete message");
@@ -129,6 +165,7 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
   };
 
   const userEntry = entries.find((entry) => entry.userId === user?.userId);
+  const hasBannedWords = containsBannedWords(message);
 
   return (
     <ModalWrapper onClose={onClose}>
@@ -208,27 +245,55 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
                       </label>
                       <textarea
                         value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                        onChange={handleMessageChange}
                         placeholder={
                           userEntry
                             ? "Update your message..."
                             : "Share your thoughts..."
                         }
-                        className="w-full flex-1 min-h-[100px] sm:min-h-[150px] bg-[#382736] border border-[#5d4a5c] rounded-xl p-2.5 sm:p-3 text-xs sm:text-sm resize-none focus:border-[#e6a2ce] focus:outline-none"
+                        className={`w-full flex-1 min-h-[100px] sm:min-h-[150px] bg-[#382736] border rounded-xl p-2.5 sm:p-3 text-xs sm:text-sm resize-none focus:outline-none transition-colors ${
+                          hasBannedWords
+                            ? "border-red-400 focus:border-red-400"
+                            : "border-[#5d4a5c] focus:border-[#e6a2ce]"
+                        }`}
                         maxLength={500}
                       />
-                      <div className="text-[10px] sm:text-xs text-[#d5c0d4] mt-1">
-                        {message.length}/500 characters
+                      <div className="flex justify-between items-center mt-1">
+                        <div className="text-[10px] sm:text-xs text-[#d5c0d4]">
+                          {message.length}/500 characters
+                        </div>
+                        {filteredMessage !== message && (
+                          <div className="text-[10px] sm:text-xs text-orange-400">
+                            Preview: {filteredMessage.slice(0, 50)}
+                            {filteredMessage.length > 50 ? "..." : ""}
+                          </div>
+                        )}
                       </div>
                     </div>
+
+                    {wordFilterWarning && (
+                      <div className="p-2 border border-orange-400 bg-orange-400 bg-opacity-10 text-orange-400 text-xs rounded-xl">
+                        {wordFilterWarning}
+                      </div>
+                    )}
 
                     <div className="flex space-x-2 flex-shrink-0">
                       <button
                         type="submit"
-                        disabled={loading || !message.trim()}
-                        className="flex-1 p-2.5 sm:p-3 bg-[#e6a2ce] text-[#2e1e2e] text-xs sm:text-sm font-medium rounded-xl hover:bg-[#f4c1d8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        disabled={loading || !message.trim() || hasBannedWords}
+                        className={`flex-1 p-2.5 sm:p-3 text-xs sm:text-sm font-medium rounded-xl transition-colors ${
+                          hasBannedWords
+                            ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                            : "bg-[#e6a2ce] text-[#2e1e2e] hover:bg-[#f4c1d8] disabled:opacity-50 disabled:cursor-not-allowed"
+                        }`}
                       >
-                        {loading ? "Sending..." : userEntry ? "Update" : "Post"}
+                        {loading
+                          ? "Sending..."
+                          : hasBannedWords
+                          ? "Cannot Send"
+                          : userEntry
+                          ? "Update"
+                          : "Post"}
                       </button>
                       {userEntry && (
                         <button

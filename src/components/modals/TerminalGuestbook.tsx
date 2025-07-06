@@ -1,30 +1,44 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { GuestbookEntry, User } from "@/types/guestbook";
+import { filterMessage, containsBannedWords } from "@/utils/wordFilter";
 
-interface TerminalGuestbookProps {
+interface SoftGuestbookProps {
   onClose: () => void;
 }
 
-const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
+const TerminalGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
   const [entries, setEntries] = useState<GuestbookEntry[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [message, setMessage] = useState("");
+  const [filteredMessage, setFilteredMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [wordFilterWarning, setWordFilterWarning] = useState("");
 
   useEffect(() => {
     fetchEntries();
     loadUser();
   }, []);
 
-  const formatMessageDate = (date: Date) => {
-    const messageDate = new Date(date);
-    const day = messageDate.getDate().toString().padStart(2, "0");
-    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
-    const year = messageDate.getFullYear();
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputMessage = e.target.value;
+    const {
+      filteredMessage: filtered,
+      hasBannedWords,
+      bannedWords,
+    } = filterMessage(inputMessage);
 
-    return `${day}/${month}/${year}`;
+    setMessage(inputMessage);
+    setFilteredMessage(filtered);
+
+    if (hasBannedWords) {
+      setWordFilterWarning(
+        `⚠️ Inappropriate language detected: ${bannedWords.join(", ")}`
+      );
+    } else {
+      setWordFilterWarning("");
+    }
   };
 
   const loadUser = () => {
@@ -67,6 +81,8 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
         "guestbook_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       setUser(null);
       setMessage("");
+      setFilteredMessage("");
+      setWordFilterWarning("");
     }
   };
 
@@ -74,8 +90,16 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
     e.preventDefault();
     if (!user || !message.trim()) return;
 
+    if (containsBannedWords(message.trim())) {
+      setError(
+        "❌ Your message contains inappropriate language and cannot be sent. Please revise your message."
+      );
+      return;
+    }
+
     setLoading(true);
     setError("");
+    setWordFilterWarning("");
 
     try {
       const response = await fetch("/api/guestbook", {
@@ -88,6 +112,7 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
 
       if (data.success) {
         setMessage("");
+        setFilteredMessage("");
         await fetchEntries();
       } else {
         setError(data.error || "Failed to save message");
@@ -115,6 +140,8 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
 
       if (data.success) {
         setMessage("");
+        setFilteredMessage("");
+        setWordFilterWarning("");
         await fetchEntries();
       } else {
         setError(data.error || "Failed to delete message");
@@ -127,7 +154,17 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
     }
   };
 
+  const formatMessageDate = (date: Date) => {
+    const messageDate = new Date(date);
+    const day = messageDate.getDate().toString().padStart(2, "0");
+    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = messageDate.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
   const userEntry = entries.find((entry) => entry.userId === user?.userId);
+  const hasBannedWords = containsBannedWords(message);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
@@ -204,27 +241,55 @@ const TerminalGuestbook: React.FC<TerminalGuestbookProps> = ({ onClose }) => {
                     </div>
                     <textarea
                       value={message}
-                      onChange={(e) => setMessage(e.target.value)}
+                      onChange={handleMessageChange}
                       placeholder={
                         userEntry
                           ? "Update your message..."
                           : "Leave a message..."
                       }
-                      className="w-full h-16 sm:h-20 bg-[#0a1017] border border-[#393d46] p-1.5 sm:p-2 text-[10px] sm:text-xs resize-none focus:border-[#00adb4] focus:outline-none"
+                      className={`w-full h-16 sm:h-20 bg-[#0a1017] border p-1.5 sm:p-2 text-[10px] sm:text-xs resize-none focus:outline-none ${
+                        hasBannedWords
+                          ? "border-red-500 focus:border-red-500"
+                          : "border-[#393d46] focus:border-[#00adb4]"
+                      }`}
                       maxLength={500}
                     />
-                    <div className="text-[8px] sm:text-[10px] text-[#8b9cbe] mt-1">
-                      {message.length}/500 characters
+
+                    {wordFilterWarning && (
+                      <div className="mt-1 p-1.5 sm:p-2 border border-yellow-500 bg-yellow-500 bg-opacity-10 text-yellow-500 text-[8px] sm:text-[10px]">
+                        WARNING: {wordFilterWarning}
+                      </div>
+                    )}
+                    <div className="flex justify-between items-center mt-1">
+                      <div className="text-[8px] sm:text-[10px] text-[#8b9cbe]">
+                        {message.length}/500 characters
+                      </div>
+                      {filteredMessage !== message && (
+                        <div className="text-[8px] sm:text-[10px] text-orange-400">
+                          Preview: {filteredMessage.slice(0, 30)}
+                          {filteredMessage.length > 30 ? "..." : ""}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className="flex space-x-1.5 sm:space-x-2">
                     <button
                       type="submit"
-                      disabled={loading || !message.trim()}
-                      className="flex-1 p-1.5 sm:p-2 bg-[#00adb4] text-black text-[10px] sm:text-xs font-bold hover:bg-[#4dd0e1] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      disabled={loading || !message.trim() || hasBannedWords}
+                      className={`flex-1 p-1.5 sm:p-2 text-[10px] sm:text-xs font-bold transition-colors ${
+                        hasBannedWords
+                          ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                          : "bg-[#00adb4] text-black hover:bg-[#4dd0e1] disabled:opacity-50 disabled:cursor-not-allowed"
+                      }`}
                     >
-                      {loading ? "..." : userEntry ? "UPDATE" : "POST"}
+                      {loading
+                        ? "..."
+                        : hasBannedWords
+                        ? "BLOCKED"
+                        : userEntry
+                        ? "UPDATE"
+                        : "POST"}
                     </button>
                     {userEntry && (
                       <button
