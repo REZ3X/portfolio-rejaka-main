@@ -8,6 +8,7 @@ interface OthersItem {
   url: string;
   icon: string;
   external?: boolean;
+  modal?: string;
 }
 
 const othersData: OthersItem[] = [
@@ -17,6 +18,13 @@ const othersData: OthersItem[] = [
     url: "/resume",
     icon: "📄",
     external: true,
+  },
+  {
+    label: "Guestbook",
+    description: "Sign our guestbook and leave a message",
+    url: "/guestbook",
+    icon: "✍️",
+    modal: "guestbook",
   },
   {
     label: "Links",
@@ -31,7 +39,14 @@ const Others: React.FC = () => {
   const { themeStyle } = useUser();
 
   const handleItemClick = (item: OthersItem) => {
-    if (item.external) {
+    if (item.modal) {
+      if (typeof window !== "undefined") {
+        const url = new URL(window.location.href);
+        url.searchParams.set("modal", item.modal);
+        window.history.pushState({}, "", url);
+        window.dispatchEvent(new Event("popstate"));
+      }
+    } else if (item.external) {
       window.open(item.url, "_blank", "noopener,noreferrer");
     } else {
       window.location.href = item.url;
