@@ -10,9 +10,13 @@ const REDIRECT_URI =
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
+  const redirectParam = searchParams.get("redirect");
 
   if (!code) {
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user:email`;
+    const state = redirectParam ? encodeURIComponent(redirectParam) : "";
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+      REDIRECT_URI
+    )}&scope=user:email${state ? `&state=${state}` : ""}`;
     return NextResponse.redirect(githubAuthUrl);
   }
 
@@ -33,12 +37,41 @@ export async function GET(request: NextRequest) {
       }
     );
 
+    if (!tokenResponse.ok) {
+      console.error("GitHub token exchange failed:", tokenResponse.status);
+      return NextResponse.redirect(
+        new URL("/?error=token_exchange_failed", request.url)
+      );
+    }
+
     const tokenData = await tokenResponse.json();
+
+    if (!tokenData.access_token) {
+      console.error("GitHub OAuth: No access token received", tokenData);
+      return NextResponse.redirect(
+        new URL("/?error=no_access_token", request.url)
+      );
+    }
 
     const userResponse = await fetch("https://api.github.com/user", {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
+
+    if (!userResponse.ok) {
+      console.error("GitHub user data fetch failed:", userResponse.status);
+      return NextResponse.redirect(
+        new URL("/?error=user_data_failed", request.url)
+      );
+    }
+
     const userData = await userResponse.json();
+
+    if (!userData.id) {
+      console.error("GitHub OAuth: Invalid user data", userData);
+      return NextResponse.redirect(
+        new URL("/?error=invalid_user_data", request.url)
+      );
+    }
 
     const user = {
       userId: userData.id.toString(),
@@ -48,24 +81,50 @@ export async function GET(request: NextRequest) {
       provider: "github" as const,
     };
 
-    const { getDatabase } = await import("@/lib/mongodb");
-    const db = await getDatabase();
-    await db
-      .collection("users")
-      .updateOne(
-        { userId: user.userId },
-        { $set: { ...user, createdAt: new Date() } },
-        { upsert: true }
-      );
+    try {
+      const { getDatabase } = await import("@/lib/mongodb");
+      const db = await getDatabase();
+      await db
+        .collection("users")
+        .updateOne(
+          { userId: user.userId },
+          { $set: { ...user, createdAt: new Date() } },
+          { upsert: true }
+        );
+      console.log("User saved to database");
+    } catch (dbError) {
+      console.error("Database error:", dbError);
+    }
 
-    const response = NextResponse.redirect(
-      new URL("/?modal=guestbook", request.url)
-    );
+    let redirectUrl = "/?modal=guestbook";
+    const state = searchParams.get("state");
+    if (state) {
+      try {
+        redirectUrl = decodeURIComponent(state);
+      } catch (e) {
+        console.error("Error decoding state parameter:", e);
+      }
+    }
+
+    if (redirectParam) {
+      try {
+        redirectUrl = decodeURIComponent(redirectParam);
+      } catch (e) {
+        console.error("Error decoding redirect parameter:", e);
+      }
+    }
+
+    if (!redirectUrl.startsWith("/")) {
+      redirectUrl = "/?modal=guestbook";
+    }
+
+    const response = NextResponse.redirect(new URL(redirectUrl, request.url));
     response.cookies.set("guestbook_user", JSON.stringify(user), {
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
+      path: "/",
     });
 
     return response;

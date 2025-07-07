@@ -3,7 +3,7 @@
   
   <url>
     <loc>https://rejaka.me/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,50 +11,57 @@
   <!-- Resume Page -->
   <url>
     <loc>https://rejaka.me/resume</loc>
-    <lastmod>2025-01-06</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <!-- Blog Posts -->
   <url>
+    <loc>https://rejaka.me/blog/myWebDevJourney</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>https://rejaka.me/blog/slaviorsNow</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://rejaka.me/blog/databaseSQL</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://rejaka.me/blog/dirAndFile</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://rejaka.me/blog/nvmTutorial</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://rejaka.me/blog/simpleCalculator</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://rejaka.me/blog/startingNextJS</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

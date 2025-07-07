@@ -8,6 +8,7 @@ import { marked } from "marked";
 import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
+import BlogInteraction from "@/components/blog/BlogInteraction";
 
 declare global {
   interface Window {
@@ -666,7 +667,7 @@ export default function BlogPostClient() {
             )}
           </div>
         </div>
-
+        <BlogInteraction slug={slug} />
         <footer className="bg-[#0a1017] border-t border-[#393d46] py-4 mt-8">
           <div className="max-w-4xl mx-auto px-4 text-center text-xs text-[#8b9cbe]">
             <p>
@@ -831,7 +832,7 @@ export default function BlogPostClient() {
           )}
         </div>
       </div>
-
+      <BlogInteraction slug={slug} />
       <footer className="bg-[#2a1e29] py-6 mt-16 border-t border-[#5d4a5c]">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="theme-text-secondary text-sm">

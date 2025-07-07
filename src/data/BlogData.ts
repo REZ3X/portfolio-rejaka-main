@@ -8,9 +8,22 @@ export interface BlogPost {
   tags?: string[];
   category?: string;
   lastModified?: string;
+  likeCount?: number;
+  commentCount?: number;
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "myWebDevJourney",
+    title: "How I Got into Web Development: My Journey",
+    date: "2025-07-07",
+    excerpt: "Discover my journey into web development, from my first lines of code to becoming a professional developer. Tips and insights for aspiring developers.",
+    coverImage: "/blog/posts/myWebDevJourney/journey.jpg",
+    readingTime: 8,
+    tags: ["Journey", "Career", "Developer Story", "Motivation"],
+    category: "Story",
+    lastModified: "2025-07-07",
+  },
   {
     slug: "slaviorsNow",
     title: "The Story of Slaviors for Now",
@@ -20,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: 5,
     tags: ["Story", "Slaviors", "Team", "Community"],
     category: "Story",
-    lastModified: "2025-02-07",
+    lastModified: "2025-07-05",
   },
   {
     slug: "databaseSQL",
