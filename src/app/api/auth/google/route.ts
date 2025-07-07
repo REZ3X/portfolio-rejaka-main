@@ -176,17 +176,17 @@ export async function GET(request: NextRequest) {
     }
 
     if (
-      !redirectUrl.startsWith("/") &&
-      !redirectUrl.includes(request.url.split("/")[2])
-    ) {
-      console.log("Invalid redirect URL, using fallback:", redirectUrl);
-      redirectUrl = "/?modal=guestbook";
-    } else if (
       redirectUrl.startsWith("http") &&
-      !redirectUrl.includes(request.url.split("/")[2])
+      !redirectUrl.includes("rejaka.me") &&
+      !redirectUrl.includes("localhost")
     ) {
       console.log("External redirect blocked, using fallback:", redirectUrl);
       redirectUrl = "/?modal=guestbook";
+    }
+
+    if (redirectUrl.startsWith("https://rejaka.me")) {
+      redirectUrl = redirectUrl.replace("https://rejaka.me", "");
+      console.log("Converted to relative URL:", redirectUrl);
     }
 
     console.log("Final redirect URL:", redirectUrl);
