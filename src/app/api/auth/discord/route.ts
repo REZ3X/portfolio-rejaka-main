@@ -108,12 +108,18 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    if (redirectParam) {
-      try {
-        redirectUrl = decodeURIComponent(redirectParam);
-      } catch (e) {
-        console.error("Error decoding redirect parameter:", e);
-      }
+    if (
+      !redirectUrl.startsWith("/") &&
+      !redirectUrl.includes(request.url.split("/")[2])
+    ) {
+      console.log("Invalid redirect URL, using fallback:", redirectUrl);
+      redirectUrl = "/?modal=guestbook";
+    } else if (
+      redirectUrl.startsWith("http") &&
+      !redirectUrl.includes(request.url.split("/")[2])
+    ) {
+      console.log("External redirect blocked, using fallback:", redirectUrl);
+      redirectUrl = "/?modal=guestbook";
     }
 
     if (!redirectUrl.startsWith("/")) {

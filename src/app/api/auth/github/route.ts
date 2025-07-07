@@ -114,7 +114,17 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    if (!redirectUrl.startsWith("/")) {
+    if (
+      !redirectUrl.startsWith("/") &&
+      !redirectUrl.includes(request.url.split("/")[2])
+    ) {
+      console.log("Invalid redirect URL, using fallback:", redirectUrl);
+      redirectUrl = "/?modal=guestbook";
+    } else if (
+      redirectUrl.startsWith("http") &&
+      !redirectUrl.includes(request.url.split("/")[2])
+    ) {
+      console.log("External redirect blocked, using fallback:", redirectUrl);
       redirectUrl = "/?modal=guestbook";
     }
 
