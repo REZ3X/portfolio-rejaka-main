@@ -1,7 +1,30 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    async headers() {
+  images: {
+    domains: [
+      'ui-avatars.com',
+      'www.gravatar.com',
+      'lh3.googleusercontent.com',
+      'avatars.githubusercontent.com',
+      'cdn.discordapp.com'
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.discordapp.com',
+      }
+    ]
+  },
+  async headers() {
     return [
       {
         source: '/api/:path*',
