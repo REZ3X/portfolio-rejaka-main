@@ -34,8 +34,32 @@ marked.use({
   renderer: {
     code(token) {
       const language = token.lang || "plaintext";
-      return `<pre><code class="language-${language}">${token.text}</code></pre>`;
+      const escapedCode = token.text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+      
+      return `<pre class="code-block"><code class="language-${language}">${escapedCode}</code></pre>`;
     },
+    codespan(token) {
+      return `<code class="inline-code">${token.text}</code>`;
+    },
+    blockquote(token) {
+      return `<blockquote class="blog-blockquote">${token.text}</blockquote>`;
+    },
+    link(token) {
+      const href = token.href;
+      const title = token.title ? ` title="${token.title}"` : '';
+      const isExternal = href.startsWith('http') && !href.includes('rejaka.me');
+      
+      if (isExternal) {
+        return `<a href="${href}"${title} target="_blank" rel="noopener noreferrer">${token.text}</a>`;
+      }
+      
+      return `<a href="${href}"${title}>${token.text}</a>`;
+    }
   },
 });
 
@@ -77,6 +101,119 @@ export default function BlogPostClient() {
       };
     }
   }, [post]);
+
+  useEffect(() => {
+  const addCodeStyles = () => {
+    const existingStyles = document.getElementById('blog-code-styles');
+    if (existingStyles) {
+      existingStyles.remove();
+    }
+
+    const styles = document.createElement('style');
+    styles.id = 'blog-code-styles';
+    
+    if (themeStyle === 'terminal') {
+      styles.textContent = `
+        .blog-content .code-block {
+          background: #0a1017;
+          border: 1px solid #393d46;
+          border-radius: 4px;
+          padding: 16px;
+          margin: 16px 0;
+          overflow-x: auto;
+          font-family: 'Courier New', Consolas, Monaco, monospace;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        
+        .blog-content .code-block code {
+          background: transparent;
+          border: none;
+          padding: 0;
+          color: #e0e0e0;
+          white-space: pre;
+          display: block;
+        }
+        
+        .blog-content .inline-code {
+          background: #1a1a1a;
+          border: 1px solid #393d46;
+          border-radius: 3px;
+          padding: 2px 6px;
+          font-family: 'Courier New', Consolas, Monaco, monospace;
+          font-size: 13px;
+          color: #00adb4;
+        }
+        
+        .blog-content .blog-blockquote {
+          border-left: 4px solid #00adb4;
+          background: #0a1017;
+          padding: 16px 20px;
+          margin: 16px 0;
+          color: #8b9cbe;
+          font-style: italic;
+        }
+      `;
+    } else {
+      styles.textContent = `
+        .blog-content .code-block {
+          background: #f8f9fa;
+          border: 1px solid #e9ecef;
+          border-radius: 8px;
+          padding: 20px;
+          margin: 20px 0;
+          overflow-x: auto;
+          font-family: 'Courier New', Consolas, Monaco, monospace;
+          font-size: 14px;
+          line-height: 1.6;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .blog-content .code-block code {
+          background: transparent;
+          border: none;
+          padding: 0;
+          color: #2d3748;
+          white-space: pre;
+          display: block;
+        }
+        
+        .blog-content .inline-code {
+          background: #f1f3f4;
+          border: 1px solid #e2e8f0;
+          border-radius: 4px;
+          padding: 2px 8px;
+          font-family: 'Courier New', Consolas, Monaco, monospace;
+          font-size: 13px;
+          color: #e6a2ce;
+          font-weight: 500;
+        }
+        
+        .blog-content .blog-blockquote {
+          border-left: 4px solid #e6a2ce;
+          background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+          padding: 20px 24px;
+          margin: 20px 0;
+          border-radius: 0 8px 8px 0;
+          color: #5a4b5c;
+          font-style: italic;
+          box-shadow: 0 2px 4px rgba(230, 162, 206, 0.1);
+        }
+      `;
+    }
+    
+    document.head.appendChild(styles);
+  };
+
+  addCodeStyles();
+
+  return () => {
+    const styles = document.getElementById('blog-code-styles');
+    if (styles) {
+      styles.remove();
+    }
+  };
+}, [themeStyle]);
 
   useEffect(() => {
     const forceTableOfContentsToWork = () => {
