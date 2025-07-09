@@ -55,11 +55,11 @@ const ClockWeather: React.FC = () => {
         });
       } catch (error) {
         console.error("Error fetching weather:", error);
-        setWeather({
-          ...weather,
+        setWeather((prevWeather) => ({
+          ...prevWeather,
           loading: false,
           error: true,
-        });
+        }));
       }
     };
 

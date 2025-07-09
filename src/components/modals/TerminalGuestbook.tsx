@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { GuestbookEntry, User } from "@/types/guestbook";
 import { filterMessage, containsBannedWords } from "@/utils/wordFilter";
+import Image from "next/image";
 
 interface SoftGuestbookProps {
   onClose: () => void;
@@ -216,10 +217,13 @@ const TerminalGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
             ) : (
               <div className="space-y-2 sm:space-y-3">
                 <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-                  <img
+                  <Image
                     src={user.avatar}
                     alt={user.username}
-                    className="w-5 sm:w-6 h-5 sm:h-6 rounded-full"
+                    width={24}
+                    height={24}
+                    className="w-5 sm:w-6 h-5 sm:h-6 rounded-full object-cover"
+                    unoptimized
                   />
                   <div>
                     <div className="text-[#00adb4] text-[10px] sm:text-xs">
@@ -333,10 +337,13 @@ const TerminalGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
                 >
                   <div className="flex items-start justify-between mb-1.5 sm:mb-2">
                     <div className="flex items-center space-x-1.5 sm:space-x-2">
-                      <img
+                      <Image
                         src={entry.avatar}
                         alt={entry.username}
-                        className="w-4 sm:w-5 h-4 sm:h-5 rounded-full"
+                        width={20}
+                        height={20}
+                        className="w-4 sm:w-5 h-4 sm:h-5 rounded-full object-cover"
+                        unoptimized
                       />
                       <div>
                         <div className="text-[#00adb4] text-[10px] sm:text-xs font-bold">

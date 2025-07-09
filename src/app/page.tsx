@@ -51,43 +51,44 @@ const ModalController = ({
 }) => {
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const modal = searchParams.get("modal");
-    const project = searchParams.get("project");
-    const category = searchParams.get("category");
-    const search = searchParams.get("search");
+useEffect(() => {
+  const modal = searchParams.get("modal");
+  const project = searchParams.get("project");
+  const category = searchParams.get("category");
+  const search = searchParams.get("search");
 
-    console.log("ModalController: URL changed", { modal, activeModal });
+  console.log("ModalController: URL changed", { modal, activeModal });
 
-    if (modal === "voidbot") {
-      setActiveModal("voidbot");
-    } else if (modal === "projects") {
-      setActiveModal("projects");
-      if (project) {
-        setCurrentProjectId(project);
-      } else {
-        setCurrentProjectId("all");
-      }
-    } else if (modal === "blogList") {
-      setActiveModal("blogList");
-      setBlogModalCategory(category || "all");
-      setBlogModalSearch(search || "");
-    } else if (modal === "guestbook") {
-      setActiveModal("guestbook");
-    } else if (!modal) {
-      console.log("ModalController: No modal in URL, closing all");
-      setActiveModal(null);
+  if (modal === "voidbot") {
+    setActiveModal("voidbot");
+  } else if (modal === "projects") {
+    setActiveModal("projects");
+    if (project) {
+      setCurrentProjectId(project);
+    } else {
       setCurrentProjectId("all");
-      setBlogModalCategory("all");
-      setBlogModalSearch("");
     }
-  }, [
-    searchParams,
-    setActiveModal,
-    setCurrentProjectId,
-    setBlogModalCategory,
-    setBlogModalSearch,
-  ]);
+  } else if (modal === "blogList") {
+    setActiveModal("blogList");
+    setBlogModalCategory(category || "all");
+    setBlogModalSearch(search || "");
+  } else if (modal === "guestbook") {
+    setActiveModal("guestbook");
+  } else if (!modal) {
+    console.log("ModalController: No modal in URL, closing all");
+    setActiveModal(null);
+    setCurrentProjectId("all");
+    setBlogModalCategory("all");
+    setBlogModalSearch("");
+  }
+}, [
+  searchParams,
+  activeModal,
+  setActiveModal,
+  setCurrentProjectId,
+  setBlogModalCategory,
+  setBlogModalSearch,
+]);
 
   return null;
 };
