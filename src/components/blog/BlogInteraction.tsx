@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useUser } from "@/context/UserContext";
+import ShareButton from "@/components/blog/ShareButton";
 interface Comment {
   _id: string;
   userId: string;
@@ -15,6 +16,8 @@ interface Comment {
 
 interface BlogInteractionProps {
   slug: string;
+  title?: string;
+  description?: string;
 }
 
 interface AuthUser {
@@ -25,7 +28,11 @@ interface AuthUser {
   provider: "google" | "github" | "discord";
 }
 
-export default function BlogInteraction({ slug }: BlogInteractionProps) {
+export default function BlogInteraction({
+  slug,
+  title,
+  description,
+}: BlogInteractionProps) {
   const { themeStyle } = useUser();
 
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
@@ -263,7 +270,7 @@ export default function BlogInteraction({ slug }: BlogInteractionProps) {
       <div className="w-full">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="border-t border-[#393d46] pt-8 mt-8">
-            <div className="mb-8">
+            <div className="mb-8 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleLike}
                 className={`flex items-center space-x-2 px-4 py-2 border transition-colors w-full sm:w-auto justify-center sm:justify-start ${
@@ -277,6 +284,15 @@ export default function BlogInteraction({ slug }: BlogInteractionProps) {
                   {likes} {likes === 1 ? "like" : "likes"}
                 </span>
               </button>
+
+              <ShareButton
+                slug={slug}
+                title={title || "Blog Post"}
+                description={
+                  description ||
+                  `Read this blog post by Rejaka Abimanyu Susanto`
+                }
+              />
             </div>
 
             {!authUser ? (
@@ -460,7 +476,7 @@ export default function BlogInteraction({ slug }: BlogInteractionProps) {
     <div className="w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="border-t theme-border pt-8 mt-8">
-          <div className="mb-8">
+          <div className="mb-8 flex flex-col sm:flex-row gap-4">
             <button
               onClick={handleLike}
               className={`flex items-center space-x-2 px-6 py-3 rounded-full transition-all transform hover:scale-105 w-full sm:w-auto justify-center sm:justify-start ${
@@ -474,6 +490,14 @@ export default function BlogInteraction({ slug }: BlogInteractionProps) {
                 {likes} {likes === 1 ? "like" : "likes"}
               </span>
             </button>
+
+            <ShareButton
+              slug={slug}
+              title={title || "Blog Post"}
+              description={
+                description || `Read this blog post by Rejaka Abimanyu Susanto`
+              }
+            />
           </div>
 
           {!authUser ? (
