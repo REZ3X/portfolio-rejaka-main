@@ -13,12 +13,27 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+    slug: "randomMusicQuotes",
+    title: "Random Music Quotes",
+    date: "2025-07-09",
+    excerpt:
+      "A curated list of random music quotes.",
+    coverImage: "/blog/posts/randomMusicQuotes/cover.jpg",
+    readingTime: 5,
+    tags: [
+      "Music",
+      "Quotes",
+    ],
+    category: "Quotes",
+    lastModified: "2025-07-09",
+  },
   {
     slug: "freeDevServices",
     title: "Free Services Every Developer Should Know About",
     date: "2025-07-09",
     excerpt:
-      "A curated list of free services and tools that can supercharge your development workflow. From deployment to design, databases to version control — all without spending a dime.",
+      "A curated list of free services and tools that can supercharge your development workflow without spending a dime.",
     coverImage: "/blog/posts/freeDevServices/tools.jpg",
     readingTime: 6,
     tags: [

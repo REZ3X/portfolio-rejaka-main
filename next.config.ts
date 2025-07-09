@@ -2,25 +2,38 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      'ui-avatars.com',
-      'www.gravatar.com',
-      'lh3.googleusercontent.com',
-      'avatars.githubusercontent.com',
-      'cdn.discordapp.com'
-    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.googleusercontent.com',
+        hostname: 'ui-avatars.com',
       },
       {
         protocol: 'https',
-        hostname: '**.githubusercontent.com',
+        hostname: 'www.gravatar.com',
       },
       {
         protocol: 'https',
-        hostname: '**.discordapp.com',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.discordapp.com',
       }
     ]
   },

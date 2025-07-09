@@ -7,7 +7,6 @@ import {
   searchPosts,
   formatDate,
 } from "@/data/BlogData";
-import { useRouter } from "next/navigation";
 
 interface BlogListModalProps {
   onClose: () => void;
@@ -24,7 +23,6 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
   onCategoryChange,
   onSearchChange,
 }) => {
-  const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -35,6 +33,20 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
   const handleClose = () => {
     console.log("TerminalBlogListModal: handleClose called");
     onClose();
+  };
+
+  const closeWithCleanup = () => {
+    console.log("Closing modal and cleaning up URL");
+
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("modal");
+      url.searchParams.delete("category");
+      url.searchParams.delete("search");
+      window.history.replaceState({}, "", url);
+
+      window.location.href = url.toString();
+    }
   };
 
   const lastVisitedBlogSlug =
@@ -103,18 +115,17 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
     setSelectedCategory("all");
   };
 
-  const handleBlogClick = (e: React.MouseEvent, slug: string) => {
-    e.preventDefault();
+  const handleBlogClick = (slug: string) => {
+    handleClose();
+
+    setTimeout(() => {
+      window.location.href = `/blog/${slug}`;
+    }, 100);
 
     if (typeof window !== "undefined") {
       localStorage.setItem("mainPageScrollPosition", window.scrollY.toString());
       localStorage.setItem("blogReferrerSource", "blogList");
     }
-
-    handleClose();
-    setTimeout(() => {
-      router.push(`/blog/${slug}`);
-    }, 10);
   };
 
   return (
@@ -134,7 +145,10 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
             </h2>
           </div>
           <button
-            onClick={handleClose}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeWithCleanup();
+            }}
             className="px-2 py-1 text-xs bg-[#202832] text-[#e0e0e0] border border-[#393d46] hover:border-[#00adb4]"
           >
             [x] close
@@ -272,13 +286,12 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
                       <span className="text-xs text-[#8b9cbe]">
                         runtime: {post.readingTime}min
                       </span>
-                      <a
-                        href={`/blog/${post.slug}`}
-                        onClick={(e) => handleBlogClick(e, post.slug)}
+                      <button
+                        onClick={() => handleBlogClick(post.slug)}
                         className="text-[#00adb4] hover:underline text-sm"
                       >
                         cat {post.slug} →
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
