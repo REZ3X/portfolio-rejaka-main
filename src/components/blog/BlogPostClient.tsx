@@ -40,7 +40,7 @@ marked.use({
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
-      
+
       return `<pre class="code-block"><code class="language-${language}">${escapedCode}</code></pre>`;
     },
     codespan(token) {
@@ -51,15 +51,15 @@ marked.use({
     },
     link(token) {
       const href = token.href;
-      const title = token.title ? ` title="${token.title}"` : '';
-      const isExternal = href.startsWith('http') && !href.includes('rejaka.me');
-      
+      const title = token.title ? ` title="${token.title}"` : "";
+      const isExternal = href.startsWith("http") && !href.includes("rejaka.me");
+
       if (isExternal) {
         return `<a href="${href}"${title} target="_blank" rel="noopener noreferrer">${token.text}</a>`;
       }
-      
+
       return `<a href="${href}"${title}>${token.text}</a>`;
-    }
+    },
   },
 });
 
@@ -103,17 +103,17 @@ export default function BlogPostClient() {
   }, [post]);
 
   useEffect(() => {
-  const addCodeStyles = () => {
-    const existingStyles = document.getElementById('blog-code-styles');
-    if (existingStyles) {
-      existingStyles.remove();
-    }
+    const addCodeStyles = () => {
+      const existingStyles = document.getElementById("blog-code-styles");
+      if (existingStyles) {
+        existingStyles.remove();
+      }
 
-    const styles = document.createElement('style');
-    styles.id = 'blog-code-styles';
-    
-    if (themeStyle === 'terminal') {
-      styles.textContent = `
+      const styles = document.createElement("style");
+      styles.id = "blog-code-styles";
+
+      if (themeStyle === "terminal") {
+        styles.textContent = `
         .blog-content .code-block {
           background: #0a1017;
           border: 1px solid #393d46;
@@ -154,8 +154,8 @@ export default function BlogPostClient() {
           font-style: italic;
         }
       `;
-    } else {
-      styles.textContent = `
+      } else {
+        styles.textContent = `
         .blog-content .code-block {
           background: #f8f9fa;
           border: 1px solid #e9ecef;
@@ -200,20 +200,20 @@ export default function BlogPostClient() {
           box-shadow: 0 2px 4px rgba(230, 162, 206, 0.1);
         }
       `;
-    }
-    
-    document.head.appendChild(styles);
-  };
+      }
 
-  addCodeStyles();
+      document.head.appendChild(styles);
+    };
 
-  return () => {
-    const styles = document.getElementById('blog-code-styles');
-    if (styles) {
-      styles.remove();
-    }
-  };
-}, [themeStyle]);
+    addCodeStyles();
+
+    return () => {
+      const styles = document.getElementById("blog-code-styles");
+      if (styles) {
+        styles.remove();
+      }
+    };
+  }, [themeStyle]);
 
   useEffect(() => {
     const forceTableOfContentsToWork = () => {
@@ -804,7 +804,13 @@ export default function BlogPostClient() {
             )}
           </div>
         </div>
-        <BlogInteraction slug={slug} />
+        <BlogInteraction
+          slug={slug}
+          title={post.title}
+          description={
+            post.excerpt || `Read "${post.title}" by Rejaka Abimanyu Susanto`
+          }
+        />
         <footer className="bg-[#0a1017] border-t border-[#393d46] py-4 mt-8">
           <div className="max-w-4xl mx-auto px-4 text-center text-xs text-[#8b9cbe]">
             <p>
@@ -969,7 +975,13 @@ export default function BlogPostClient() {
           )}
         </div>
       </div>
-      <BlogInteraction slug={slug} />
+      <BlogInteraction
+        slug={slug}
+        title={post.title}
+        description={
+          post.excerpt || `Read "${post.title}" by Rejaka Abimanyu Susanto`
+        }
+      />
       <footer className="bg-[#2a1e29] py-6 mt-16 border-t border-[#5d4a5c]">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="theme-text-secondary text-sm">

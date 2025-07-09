@@ -118,6 +118,6 @@ These services saved me countless hours (and rupiah 💸) as I started building 
 If you're just starting out, or even a mid-level dev trying to keep costs low, give these tools a try. They're free, powerful, and production-ready.
 
 Got a tool you think I should try or feature in a part two?  
-Let me know on [Instagram](https://instagram.com/rejakasusanto) or via my website [rejaka.me](https://rejaka.me)!
+Let me know on [Instagram](https://instagram.com/rejakasusanto) or via comment below!
 
 Stay smart, build cool stuff 🚀
