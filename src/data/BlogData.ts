@@ -14,6 +14,24 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "freeDevServices",
+    title: "Free Services Every Developer Should Know About",
+    date: "2025-07-09",
+    excerpt:
+      "A curated list of free services and tools that can supercharge your development workflow. From deployment to design, databases to version control — all without spending a dime.",
+    coverImage: "/blog/posts/freeDevServices/tools.jpg",
+    readingTime: 6,
+    tags: [
+      "Free Tools",
+      "Developer Resources",
+      "Web Development",
+      "APIs",
+      "Productivity",
+    ],
+    category: "Tools",
+    lastModified: "2025-07-09",
+  },
+  {
     slug: "semesterBreakProjects",
     title: "What I Built During My Semester Break",
     date: "2025-07-08",
