@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 const Loader: React.FC = () => {
   const [progress, setProgress] = useState(0);
@@ -26,6 +26,23 @@ const Loader: React.FC = () => {
       cancelAnimationFrame(animationId);
     };
   }, []);
+
+  const bootLines = useMemo(
+    () => [
+      "BIOS initialized, starting boot sequence...",
+      "Loading kernel...",
+      "Mounting root filesystem...",
+      "Starting system services...",
+      "Initializing network interfaces...",
+      "Starting web server...",
+      "Loading OS components...",
+      "Checking dependencies...",
+      "Optimizing assets...",
+      "Establishing connection...",
+      "Ready to launch!",
+    ],
+    []
+  );
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -57,7 +74,7 @@ const Loader: React.FC = () => {
       clearInterval(cursorInterval);
       clearInterval(bootLineInterval);
     };
-  }, []);
+  }, [bootLines]);
 
   const customAsciiArt = `   
     ##############  ######     
@@ -75,20 +92,6 @@ const Loader: React.FC = () => {
      ######  ##############    
     ######  ###############         
   `;
-
-  const bootLines = [
-    "BIOS initialized, starting boot sequence...",
-    "Loading kernel...",
-    "Mounting root filesystem...",
-    "Starting system services...",
-    "Initializing network interfaces...",
-    "Starting web server...",
-    "Loading OS components...",
-    "Checking dependencies...",
-    "Optimizing assets...",
-    "Establishing connection...",
-    "Ready to launch!",
-  ];
 
   return (
     <div className="fixed inset-0 bg-[#060a10] z-50 font-mono text-[#e0e0e0] p-4 overflow-auto flex flex-col">

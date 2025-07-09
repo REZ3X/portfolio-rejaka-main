@@ -69,18 +69,18 @@ const Terminal: React.FC<TerminalProps> = ({ openModal }) => {
   const [startHeight, setStartHeight] = useState(0);
 
   useEffect(() => {
-    if (textMeasureRef.current && isExpanded) {
-      const testString = "XXXXX";
-      textMeasureRef.current.textContent = testString;
+  if (textMeasureRef.current && isExpanded) {
+    const testString = "XXXXX";
+    textMeasureRef.current.textContent = testString;
 
-      const width = textMeasureRef.current.getBoundingClientRect().width;
-      const newCharWidth = width / testString.length;
+    const width = textMeasureRef.current.getBoundingClientRect().width;
+    const newCharWidth = width / testString.length;
 
-      if (Math.abs(newCharWidth - charWidth) > 0.5) {
-        setCharWidth(newCharWidth);
-      }
+    if (Math.abs(newCharWidth - charWidth) > 0.5) {
+      setCharWidth(newCharWidth);
     }
-  }, [isExpanded]);
+  }
+}, [isExpanded, charWidth]);
 
   const startResize = (e: React.MouseEvent) => {
     e.preventDefault();

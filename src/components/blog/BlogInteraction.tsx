@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@/context/UserContext";
 import ShareButton from "@/components/blog/ShareButton";
+import Image from "next/image";
 interface Comment {
   _id: string;
   userId: string;
@@ -81,11 +82,6 @@ export default function BlogInteraction({
     };
   }, []);
 
-  useEffect(() => {
-    fetchLikes();
-    fetchComments();
-  }, [slug]);
-
   const logout = () => {
     if (typeof window !== "undefined") {
       document.cookie =
@@ -102,7 +98,7 @@ export default function BlogInteraction({
     }
   };
 
-  const fetchLikes = async () => {
+  const fetchLikes = useCallback(async () => {
     try {
       const response = await fetch(`/api/blog/${slug}/like`);
       const data = await response.json();
@@ -111,9 +107,9 @@ export default function BlogInteraction({
     } catch (error) {
       console.error("Error fetching likes:", error);
     }
-  };
+  }, [slug]);
 
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/blog/${slug}/comment`);
       const data = await response.json();
@@ -134,7 +130,12 @@ export default function BlogInteraction({
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
-  };
+  }, [slug]);
+
+  useEffect(() => {
+    fetchLikes();
+    fetchComments();
+  }, [slug, fetchLikes, fetchComments]);
 
   const handleLike = async () => {
     if (!authUser) {
@@ -328,10 +329,13 @@ export default function BlogInteraction({
               <div className="mb-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                   <div className="flex items-center space-x-3">
-                    <img
+                    <Image
                       src={authUser.avatar}
                       alt={authUser.username}
-                      className="w-8 h-8 rounded border border-[#393d46]"
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 rounded border border-[#393d46] object-cover"
+                      unoptimized
                     />
                     <span className="text-[#00adb4] text-sm sm:text-base">
                       {getProviderIcon(authUser.provider)} {authUser.username}
@@ -391,10 +395,13 @@ export default function BlogInteraction({
                     >
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
                         <div className="flex items-center space-x-3">
-                          <img
+                          <Image
                             src={comment.avatar}
                             alt={comment.username}
-                            className="w-8 h-8 rounded border border-[#393d46]"
+                            width={32}
+                            height={32}
+                            className="w-8 h-8 rounded border border-[#393d46] object-cover"
+                            unoptimized
                           />
                           <div>
                             <span className="text-[#00adb4] font-medium text-sm">
@@ -536,10 +543,13 @@ export default function BlogInteraction({
             <div className="mb-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
                 <div className="flex items-center space-x-3">
-                  <img
+                  <Image
                     src={authUser.avatar}
                     alt={authUser.username}
-                    className="w-10 h-10 rounded-full border-2 theme-border"
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full border-2 theme-border object-cover"
+                    unoptimized
                   />
                   <div>
                     <span className="theme-accent-primary font-medium">
@@ -611,10 +621,13 @@ export default function BlogInteraction({
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-2">
                       <div className="flex items-center space-x-3">
-                        <img
+                        <Image
                           src={comment.avatar}
                           alt={comment.username}
-                          className="w-10 h-10 rounded-full border-2 theme-border"
+                          width={40}
+                          height={40}
+                          className="w-10 h-10 rounded-full border-2 theme-border object-cover"
+                          unoptimized
                         />
                         <div>
                           <span className="theme-accent-primary font-medium text-sm">

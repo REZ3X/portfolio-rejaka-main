@@ -255,6 +255,7 @@
 .welcome-highlight {
   background: linear-gradient(to right, #e39fc2, #b4688f);
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   font-weight: 500;
   letter-spacing: 0.5px;

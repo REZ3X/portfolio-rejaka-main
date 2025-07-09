@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { GuestbookEntry, User } from "@/types/guestbook";
 import ModalWrapper from "./ModalWrapper";
 import { filterMessage, containsBannedWords } from "@/utils/wordFilter";
@@ -220,10 +221,13 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
               ) : (
                 <div className="space-y-3 sm:space-y-4 h-full flex flex-col">
                   <div className="flex items-center space-x-3 p-2.5 sm:p-3 bg-[#382736] rounded-xl border border-[#5d4a5c] flex-shrink-0">
-                    <img
+                    <Image
                       src={user.avatar}
                       alt={user.username}
-                      className="w-7 sm:w-8 h-7 sm:h-8 rounded-full"
+                      width={32}
+                      height={32}
+                      className="w-7 sm:w-8 h-7 sm:h-8 rounded-full object-cover"
+                      unoptimized
                     />
                     <div>
                       <div className="text-[#e6a2ce] text-xs sm:text-sm font-medium">
@@ -351,10 +355,13 @@ const SoftGuestbook: React.FC<SoftGuestbookProps> = ({ onClose }) => {
                     >
                       <div className="flex items-start justify-between mb-2 sm:mb-3">
                         <div className="flex items-center space-x-2 sm:space-x-3">
-                          <img
+                          <Image
                             src={entry.avatar}
                             alt={entry.username}
-                            className="w-6 sm:w-7 h-6 sm:h-7 rounded-full"
+                            width={28}
+                            height={28}
+                            className="w-6 sm:w-7 h-6 sm:h-7 rounded-full object-cover"
+                            unoptimized
                           />
                           <div>
                             <div className="text-[#e6a2ce] text-xs sm:text-sm font-medium">

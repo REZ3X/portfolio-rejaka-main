@@ -510,47 +510,48 @@ export default function BlogPostClient() {
     };
   }, [post, slug, router]);
 
-  useEffect(() => {
-    if (headings.length === 0) return;
+useEffect(() => {
+  if (headings.length === 0) return;
 
-    console.log("Setting up scroll tracking for", headings.length, "headings");
+  console.log("Setting up scroll tracking for", headings.length, "headings");
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY + 150;
 
-      if (window.scrollY < 70) {
-        setActiveHeading("");
-        return;
-      }
+    if (window.scrollY < 70) {
+      setActiveHeading("");
+      return;
+    }
 
-      let found = false;
+    let found = false;
 
-      for (let i = headings.length - 1; i >= 0; i--) {
-        const element = document.getElementById(headings[i].id);
+    for (let i = headings.length - 1; i >= 0; i--) {
+      const element = document.getElementById(headings[i].id);
 
-        if (!element) continue;
+      if (!element) continue;
 
-        const top = (element as HTMLElement).offsetTop;
+      const top = (element as HTMLElement).offsetTop;
 
-        if (top <= scrollPosition) {
-          if (activeHeading !== headings[i].id) {
-            console.log(`Active heading: ${headings[i].text}`);
-            setActiveHeading(headings[i].id);
-          }
-          found = true;
-          break;
+      if (top <= scrollPosition) {
+        if (activeHeading !== headings[i].id) {
+          console.log(`Active heading: ${headings[i].text}`);
+          setActiveHeading(headings[i].id);
         }
+        found = true;
+        break;
       }
+    }
 
-      if (!found && window.scrollY > 150 && headings.length > 0) {
-        setActiveHeading(headings[0].id);
-      }
-    };
+    if (!found && window.scrollY > 150 && headings.length > 0) {
+      setActiveHeading(headings[0].id);
+    }
+  };
 
-    window.addEventListener("scroll", handleScroll);
-    setTimeout(handleScroll, 500);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [headings]);
+  window.addEventListener("scroll", handleScroll);
+  setTimeout(handleScroll, 500);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [headings, activeHeading]);
+
   const scrollToHeading = (id: string) => {
     console.log(`Attempting to scroll to heading with ID: ${id}`);
 
