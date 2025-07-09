@@ -7,7 +7,6 @@ import {
   searchPosts,
   formatDate,
 } from "@/data/BlogData";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ModalWrapper from "./ModalWrapper";
 
@@ -26,7 +25,6 @@ const SoftBlogListModal: React.FC<SoftBlogListModalProps> = ({
   onCategoryChange,
   onSearchChange,
 }) => {
-  const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -42,6 +40,20 @@ const SoftBlogListModal: React.FC<SoftBlogListModalProps> = ({
   const handleClose = () => {
     console.log("BlogListModal: handleClose called");
     onClose();
+  };
+
+  const closeWithCleanup = () => {
+    console.log("Closing modal and cleaning up URL");
+
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("modal");
+      url.searchParams.delete("category");
+      url.searchParams.delete("search");
+      window.history.replaceState({}, "", url);
+
+      window.location.href = url.toString();
+    }
   };
 
   useEffect(() => {
@@ -91,18 +103,17 @@ const SoftBlogListModal: React.FC<SoftBlogListModalProps> = ({
     setSelectedCategory("all");
   };
 
-  const handleBlogClick = (e: React.MouseEvent, slug: string) => {
-    e.preventDefault();
+  const handleBlogClick = (slug: string) => {
+    handleClose();
+
+    setTimeout(() => {
+      window.location.href = `/blog/${slug}`;
+    }, 100);
 
     if (typeof window !== "undefined") {
       localStorage.setItem("mainPageScrollPosition", window.scrollY.toString());
       localStorage.setItem("blogReferrerSource", "blogList");
     }
-
-    handleClose();
-    setTimeout(() => {
-      router.push(`/blog/${slug}`);
-    }, 10);
   };
 
   const getCategoryColor = (category: string) => {
@@ -127,7 +138,10 @@ const SoftBlogListModal: React.FC<SoftBlogListModalProps> = ({
             📝 Blog Articles by Rejaka Abimanyu
           </h2>
           <button
-            onClick={handleClose}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeWithCleanup();
+            }}
             className="px-3 py-1.5 text-xs bg-[#463343] theme-text-primary border theme-border hover:bg-[#574655] rounded-lg"
           >
             Close
@@ -306,13 +320,12 @@ const SoftBlogListModal: React.FC<SoftBlogListModalProps> = ({
                       <span className="text-xs theme-text-secondary">
                         {formatDate(post.date)} · {post.readingTime} min read
                       </span>
-                      <a
-                        href={`/blog/${post.slug}`}
-                        onClick={(e) => handleBlogClick(e, post.slug)}
+                      <button
+                        onClick={() => handleBlogClick(post.slug)}
                         className="theme-accent-primary hover:underline text-sm font-medium group-hover:translate-x-1 transition-transform duration-200"
                       >
                         Read →
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
