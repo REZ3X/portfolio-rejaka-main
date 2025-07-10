@@ -13,18 +13,25 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-    {
+  {
+    slug: "digitalConfess",
+    title: "Want to Confess Your Feeling? But Don't Know How?",
+    date: "2025-07-10",
+    excerpt: "Confessing your feeling through Lofess",
+    coverImage: "/blog/posts/digitalConfess/cover.png",
+    readingTime: 3,
+    tags: ["Confession", "Lofess", "Feelings", "Relationships"],
+    category: "Project",
+    lastModified: "2025-07-10",
+  },
+  {
     slug: "randomMusicQuotes",
     title: "Random Music Quotes",
     date: "2025-07-09",
-    excerpt:
-      "A curated list of random music quotes.",
+    excerpt: "A curated list of random music quotes.",
     coverImage: "/blog/posts/randomMusicQuotes/cover.jpg",
     readingTime: 5,
-    tags: [
-      "Music",
-      "Quotes",
-    ],
+    tags: ["Music", "Quotes"],
     category: "Quotes",
     lastModified: "2025-07-09",
   },
