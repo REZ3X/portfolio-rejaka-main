@@ -33,6 +33,34 @@ interface ProjectsDataType {
 export const projectsData: ProjectsDataType = {
   projects: [
     {
+      id: "lofess",
+      title: "Lofess: Love Confession Platform",
+      subtitle: "A platform for love confessions",
+      category: "web",
+      emoji: "🌐",
+      description: [
+        "Lofess is a platform designed to facilitate love confessions in a safe and supportive environment.",
+      ],
+      technologies: [
+        "Next.js",
+        "MongoDB",
+        "TypeScript",
+        "Tailwind CSS",
+      ],
+      features: [
+        "Private and Temporary Confessions: Users can share their feelings without revealing their identity",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://lfss.vercel.app",
+          icon: "🌐",
+          type: "url",
+        },
+      ],
+    },
+    {
       id: "v0id-app",
       title: "V0ID ChatBot",
       subtitle: "A motherly girlfriend chatbot",
