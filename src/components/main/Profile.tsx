@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useUser, UserAlias } from "@/context/UserContext";
 
@@ -16,6 +17,7 @@ const Profile: React.FC<ProfileProps> = ({
   onionAddress,
 }) => {
   const { activeUser, setActiveUser, themeStyle } = useUser();
+  const [showXiannyaaTip, setShowXiannyaaTip] = useState(false);
 
   const handleUserChange = (user: UserAlias) => {
     setActiveUser(user);
@@ -82,16 +84,32 @@ const Profile: React.FC<ProfileProps> = ({
               rez3x
             </button>
             <button
-              onClick={() => handleUserChange("xiannyaa")}
-              className={`px-2 py-1 text-xs border ${
+              type="button"
+              onClick={() => setShowXiannyaaTip(true)}
+              className={`px-2 py-1 text-xs border cursor-not-allowed opacity-60 ${
                 activeUser === "xiannyaa"
                   ? "bg-[#202832] border-[#00adb4] text-[#00adb4]"
-                  : "border-[#393d46] text-[#e0e0e0] hover:border-[#00adb4]"
+                  : "border-[#393d46] text-[#e0e0e0]"
               }`}
+              title="This personality is under psychiatrist care, can't be disturbed"
+              tabIndex={0}
+              aria-disabled="true"
             >
               xiannyaa
             </button>
           </div>
+          {showXiannyaaTip && (
+            <div className="mt-2 text-xs text-[#e39fc2] bg-[#2a1e29] border border-[#e39fc2] rounded p-2 max-w-xs">
+              This personality is under psychiatrist care, can&apos;t be disturbed
+              <button
+                className="ml-2 text-[#00adb4] underline"
+                onClick={() => setShowXiannyaaTip(false)}
+                type="button"
+              >
+                Close
+              </button>
+            </div>
+          )}
 
           {onionAddress && (
             <div className="mt-auto pt-3 w-full border-t theme-border">
