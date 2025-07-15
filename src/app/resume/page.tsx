@@ -246,6 +246,15 @@ const ResumePage: React.FC = () => {
                 <div className="space-y-1">
                   <div>
                     <h3 className="font-medium text-gray-800 text-xs">
+                      Finalist on Web Development, National Competition Silogy Expo
+                    </h3>
+                    <p className="text-gray-600 text-xs">
+                      Himpunan Mahasiswa Sistem Informasi Universitas
+                      Singaperbangsa Karawang - 2025
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-800 text-xs">
                       Top 10 in Pemrograman ByProject Student Category Web Dev
                       Competition
                     </h3>
