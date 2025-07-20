@@ -8,6 +8,12 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- Privacy Policy Page -->
+  <url>
+    <loc>https://rejaka.me/privacy-policy</loc>
+    <lastmod>2025-07-07</lastmod>
+  </url>
+
   <!-- Resume Page -->
   <url>
     <loc>https://rejaka.me/resume</loc>
