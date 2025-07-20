@@ -291,10 +291,6 @@ const ResumePage: React.FC = () => {
                     <span className="text-gray-600">Native</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Javanese</span>
-                    <span className="text-gray-600">Native</span>
-                  </div>
-                  <div className="flex justify-between">
                     <span>English</span>
                     <span className="text-gray-600">Intermediate</span>
                   </div>
