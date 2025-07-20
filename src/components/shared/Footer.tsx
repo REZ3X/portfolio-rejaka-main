@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
         <span className="hidden md:inline">{`Updated: ${lastUpdated}`}</span>
         <span className="hidden md:inline text-[#574655]">|</span>
         <a
-          href="/privacyPolicy"
+          href="/privacy-policy"
           target="_blank"
           className="hidden md:inline underline hover:text-[#e39fc2] transition"
         >
