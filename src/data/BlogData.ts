@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
     slug: "windows10Tutorial",
     title: "Installing Windows 10 [error_encrypted_permission error] (Bonus: Installing Autodesk EAGLE)",
     date: "2025-07-20",
-    excerpt: "Step-by-step guide to installing Windows 10 with free OS and Office license activation, plus bonus tips for installing Autodesk EAGLE.",
+    excerpt: "Step-by-step guide to installing Windows 10 [error_encrypted_permission error], plus bonus tips for installing Autodesk EAGLE.",
     coverImage: "/blog/posts/windows10Tutorial/cover.jpeg",
     readingTime: 25,
     tags: ["Windows 10", "Installation", "Tutorial", "OS Activation","Office Activation", "Autodesk EAGLE"],
