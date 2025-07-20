@@ -189,6 +189,12 @@ export default function RootLayout({
                 gtag('config', '${GA_ID}');
               `}
             </Script>
+            <Script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181855213430938"
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
           </>
         )}
         <script
