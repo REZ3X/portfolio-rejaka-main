@@ -21,7 +21,7 @@ Don't worry.. I've got your back! I'm here to walk you through the whole process
 **What you'll need:**
 1. **Your target device**: Computer/Laptop with at least 8GB RAM and 512GB storage (SSD is way better, trust me!)
 2. **Rufus software**: The magic tool that makes bootable USBs
-3. **Windows 10 ISO file**: The actual Windows installer
+3. **Windows 10 ISO file**: The actual Windows installer that you could get [here](https://drive.google.com/drive/folders/1qaA_NPsajpY82GnisqL69DjZR6oYCKLf?usp=sharing)
 4. **Empty USB drive**: At least 8GB (and yeah, everything on it will be wiped!)
 5. **Another computer**: To create the bootable USB if your main one is the target
 

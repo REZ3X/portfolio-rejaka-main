@@ -13,14 +13,44 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-    {
+  {
+    slug: "laravelSetup",
+    title: "Laravel Starter Kit, Composer, and PHP Setup on Linux Debian",
+    date: "2025-07-26",
+    excerpt:
+      "Step-by-step guide to installing PHP, Composer, and Laravel Starter Kit on Linux Debian. Perfect for setting up your development environment.",
+    coverImage: "/blog/posts/laravelSetup/cover.png",
+    readingTime: 20,
+    tags: [
+      "Linux",
+      "Debian",
+      "PHP",
+      "Composer",
+      "Laravel",
+      "Installation",
+      "Tutorial",
+      "Web Development",
+      "Setup",
+    ],
+    category: "Tutorial",
+    lastModified: "2025-07-26",
+  },
+  {
     slug: "windows10Tutorial",
-    title: "Installing Windows 10 [error_encrypted_permission error] (Bonus: Installing Autodesk EAGLE)",
+    title:
+      "Installing Windows 10 [error_encrypted_permission error] (Bonus: Installing Autodesk EAGLE)",
     date: "2025-07-20",
-    excerpt: "Step-by-step guide to installing Windows 10 [error_encrypted_permission error], plus bonus tips for installing Autodesk EAGLE.",
+    excerpt:
+      "Step-by-step guide to installing Windows 10 [error_encrypted_permission error], plus bonus tips for installing Autodesk EAGLE.",
     coverImage: "/blog/posts/windows10Tutorial/cover.jpeg",
     readingTime: 25,
-    tags: ["Windows 10", "Installation", "Tutorial", "OS Activation","Office Activation", "Autodesk EAGLE"],
+    tags: [
+      "Windows 10",
+      "Installation",
+      "Tutorial",
+      "Permssion Error",
+      "Autodesk EAGLE",
+    ],
     category: "Tutorial",
     lastModified: "2025-07-20",
   },
