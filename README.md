@@ -235,7 +235,7 @@ Ensure all required environment variables are set in production:
 ### Monitoring
 
 - Use `pm2 monit` for real-time monitoring
-- Check logs with `pm2 logs portfolio-rejaka-prod`
+- Check logs with `pm2 logs portfolio-rejaka-main`
 - Set up PM2 startup script for auto-restart
 
 ## 📡 API Documentation
