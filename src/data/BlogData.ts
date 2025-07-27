@@ -13,6 +13,24 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+    slug: "nvmWindows",
+    title: "Installing Node Version Manager (NVM) and Node.js on Windows",
+    date: "2025-07-27",
+    excerpt:
+      "Step-by-step guide to installing Node Version Manager (NVM) and Node.js on Windows.",
+    coverImage: "/blog/posts/nvmWindows/cover.webp",
+    readingTime: 20,
+    tags: [
+      "Windows",
+      "NVM",
+      "Node.js",
+      "Installation",
+      "Tutorial",
+    ],
+    category: "Tutorial",
+    lastModified: "2025-07-27",
+  },
   {
     slug: "laravelSetup",
     title: "Laravel Starter Kit, Composer, and PHP Setup on Linux Debian",
