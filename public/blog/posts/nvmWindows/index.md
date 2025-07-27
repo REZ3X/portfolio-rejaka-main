@@ -1,8 +1,6 @@
 
 # Mighty Tool for JS Developer
 
-![NVM Windows Cover](/blog/posts/nvmWindows/cover.webp)
-
 Hey you fellow JS developer! As you already knew, we often deal with multiple projects built using different versions of Node.js. It’s frustrating, right? You wouldn’t want to install each version manually, of course not! That’d be nuts. So here’s the ultimate solution.. Node Version Manager (NVM)!
 
 What? You don’t know what that is?? Well simply, it’s a tool that lets you install, manage, and switch between different versions of Node.js easily. Instead of being stuck with one global version, NVM allows you to quickly switch versions depending on your project.
@@ -15,7 +13,7 @@ Cool right? So fellow JS developer in Windows... let me help you!
 
 ---
 
-## 🧰 Requirements
+## 🧰 Requirements 
 
 1. Laptop/PC with Windows OS (10/11) - I use Windows 10, but it works the same on 11
 2. Internet Connection
