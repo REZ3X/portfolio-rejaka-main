@@ -33,6 +33,37 @@ interface ProjectsDataType {
 export const projectsData: ProjectsDataType = {
   projects: [
     {
+      id: "fwbplus",
+      title: "FWB+ Event Organizer",
+      subtitle: "A company profile website for FWB+ event organizer",
+      category: "web",
+      emoji: "🌐",
+      description: [
+        "FWB+ is a platform designed to facilitate event organization in a safe and supportive environment.",
+      ],
+      technologies: ["Next.js", "MongoDB", "JavaScript", "Tailwind CSS"],
+      features: [
+        "Company showcase: Highlights FWB+ events and services",
+        "Microsite integration: Connects with FWB+ microsites",
+        "Responsive design: Optimized for both desktop and mobile devices",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Main Site",
+          url: "https://fwbplus.id",
+          icon: "🌐",
+          type: "url",
+        },
+        {
+          label: "Microsite",
+          url: "https://links.fwbplus.id",
+          icon: "🌐",
+          type: "url",
+        },
+      ],
+    },
+    {
       id: "lofess",
       title: "Lofess: Love Confession Platform",
       subtitle: "A platform for love confessions",
@@ -41,12 +72,7 @@ export const projectsData: ProjectsDataType = {
       description: [
         "Lofess is a platform designed to facilitate love confessions in a safe and supportive environment.",
       ],
-      technologies: [
-        "Next.js",
-        "MongoDB",
-        "TypeScript",
-        "Tailwind CSS",
-      ],
+      technologies: ["Next.js", "MongoDB", "TypeScript", "Tailwind CSS"],
       features: [
         "Private and Temporary Confessions: Users can share their feelings without revealing their identity",
       ],
@@ -305,9 +331,7 @@ export const projectsData: ProjectsDataType = {
       subtitle: "A collection of useful links of Slaviors",
       category: "web",
       emoji: "👥",
-      description: [
-        "A collection of useful links for Slaviors.",
-      ],
+      description: ["A collection of useful links for Slaviors."],
       technologies: ["Next.js", "JavaScript", "Tailwind CSS"],
       features: [
         "Easy access to important links",
