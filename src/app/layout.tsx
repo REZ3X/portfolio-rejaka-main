@@ -177,6 +177,7 @@ export default function RootLayout({
       <head>
         {GA_ID && process.env.NODE_ENV === "production" && (
           <>
+<Script defer src="https://u.zxn.my.id/script.js" data-website-id="e3ef0132-7b9a-4654-8895-92239c28cb03"/>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
