@@ -13,12 +13,13 @@ const options = {
   maxIdleTimeMS: 30000,
   retryWrites: true,
   retryReads: true,
-  family: 0, 
-  hints: 0,
+  // Removed unsupported options:
+  // family: 0, 
+  // hints: 0,
+  // bufferMaxEntries: 0,
+  // useUnifiedTopology: true, (deprecated)
   heartbeatFrequencyMS: 10000,
   maxConnecting: 2,
-  bufferMaxEntries: 0,
-  useUnifiedTopology: true,
 };
 
 let client: MongoClient;
