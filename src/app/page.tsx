@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import Logo from "@/components/main/Logo";
 import Profile from "@/components/main/Profile";
 import About from "@/components/main/About";
@@ -51,44 +51,44 @@ const ModalController = ({
 }) => {
   const searchParams = useSearchParams();
 
-useEffect(() => {
-  const modal = searchParams.get("modal");
-  const project = searchParams.get("project");
-  const category = searchParams.get("category");
-  const search = searchParams.get("search");
+  useEffect(() => {
+    const modal = searchParams.get("modal");
+    const project = searchParams.get("project");
+    const category = searchParams.get("category");
+    const search = searchParams.get("search");
 
-  console.log("ModalController: URL changed", { modal, activeModal });
+    console.log("ModalController: URL changed", { modal, activeModal });
 
-  if (modal === "voidbot") {
-    setActiveModal("voidbot");
-  } else if (modal === "projects") {
-    setActiveModal("projects");
-    if (project) {
-      setCurrentProjectId(project);
-    } else {
+    if (modal === "voidbot") {
+      setActiveModal("voidbot");
+    } else if (modal === "projects") {
+      setActiveModal("projects");
+      if (project) {
+        setCurrentProjectId(project);
+      } else {
+        setCurrentProjectId("all");
+      }
+    } else if (modal === "blogList") {
+      setActiveModal("blogList");
+      setBlogModalCategory(category || "all");
+      setBlogModalSearch(search || "");
+    } else if (modal === "guestbook") {
+      setActiveModal("guestbook");
+    } else if (!modal) {
+      console.log("ModalController: No modal in URL, closing all");
+      setActiveModal(null);
       setCurrentProjectId("all");
+      setBlogModalCategory("all");
+      setBlogModalSearch("");
     }
-  } else if (modal === "blogList") {
-    setActiveModal("blogList");
-    setBlogModalCategory(category || "all");
-    setBlogModalSearch(search || "");
-  } else if (modal === "guestbook") {
-    setActiveModal("guestbook");
-  } else if (!modal) {
-    console.log("ModalController: No modal in URL, closing all");
-    setActiveModal(null);
-    setCurrentProjectId("all");
-    setBlogModalCategory("all");
-    setBlogModalSearch("");
-  }
-}, [
-  searchParams,
-  activeModal,
-  setActiveModal,
-  setCurrentProjectId,
-  setBlogModalCategory,
-  setBlogModalSearch,
-]);
+  }, [
+    searchParams,
+    activeModal,
+    setActiveModal,
+    setCurrentProjectId,
+    setBlogModalCategory,
+    setBlogModalSearch,
+  ]);
 
   return null;
 };
@@ -97,10 +97,25 @@ const MainContent = () => {
   const { activeUser, themeStyle } = useUser();
   const userData = usersData[activeUser];
   const [isApplicationReady, setIsApplicationReady] = useState(false);
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [currentProjectId, setCurrentProjectId] = useState<string>("all");
   const [blogModalCategory, setBlogModalCategory] = useState<string>("all");
   const [blogModalSearch, setBlogModalSearch] = useState<string>("");
+
+  const hasCompletedInitialLoad = useRef(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (document.readyState === "complete") {
+        setIsPageLoaded(true);
+      } else {
+        const handleLoad = () => setIsPageLoaded(true);
+        window.addEventListener("load", handleLoad);
+        return () => window.removeEventListener("load", handleLoad);
+      }
+    }
+  }, []);
 
   const openModal = (modalType: string) => {
     setActiveModal(modalType);
@@ -174,32 +189,21 @@ const MainContent = () => {
     console.log("MainContent: closeModal completed");
   };
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", themeStyle);
-
-    const isPageLoaded = document.readyState === "complete";
+   useEffect(() => {
+    if (hasCompletedInitialLoad.current) {
+      return;
+    }
 
     const markAppAsReady = () => {
-      setIsApplicationReady(true);
+      const minLoadingTime = 1000;
+      const startTime = Date.now();
 
-      if (typeof window !== "undefined") {
-        const returnFromBlog = localStorage.getItem("returnFromBlog");
+      const finishLoading = () => {
+        if (typeof window !== "undefined") {
+          setIsApplicationReady(true);
+          hasCompletedInitialLoad.current = true;
 
-        if (returnFromBlog === "true") {
-          localStorage.removeItem("returnFromBlog");
-
-          const reopenBlogList = localStorage.getItem("reopenBlogList");
-          if (reopenBlogList === "true") {
-            localStorage.removeItem("reopenBlogList");
-            setTimeout(() => {
-              setActiveModal("blogList");
-            }, 300);
-          }
-
-          const scrollToBlogComponent = localStorage.getItem(
-            "scrollToBlogComponent"
-          );
-          if (scrollToBlogComponent === "true") {
+          if (localStorage.getItem("scrollToBlogComponent") === "true") {
             localStorage.removeItem("scrollToBlogComponent");
             setTimeout(() => {
               const blogComponent = document.querySelector(".blog-component");
@@ -214,21 +218,24 @@ const MainContent = () => {
             }, 300);
           }
         }
-      }
+      };
+
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+
+      setTimeout(finishLoading, remainingTime);
     };
 
     if (isPageLoaded) {
       markAppAsReady();
     } else {
-      window.addEventListener("load", markAppAsReady, { once: true });
+      const handleLoad = () => markAppAsReady();
+      window.addEventListener("load", handleLoad, { once: true });
+      return () => window.removeEventListener("load", handleLoad);
     }
+  }, [isPageLoaded]);
 
-    return () => {
-      window.removeEventListener("load", markAppAsReady);
-    };
-  }, [themeStyle]);
-
-  if (!isApplicationReady) {
+  if (!hasCompletedInitialLoad.current && !isApplicationReady) {
     return themeStyle === "soft" ? <FeminineLoader /> : <Loader />;
   }
 

@@ -16,7 +16,7 @@ const Loader: React.FC = () => {
       const deltaTime = time - lastTime;
       lastTime = time;
 
-      setRotationY((prevY) => prevY + deltaTime * 0.05);
+      setRotationY((prevY) => prevY + deltaTime * 0.1);
       animationId = requestAnimationFrame(animate);
     };
 
@@ -30,16 +30,20 @@ const Loader: React.FC = () => {
   const bootLines = useMemo(
     () => [
       "BIOS initialized, starting boot sequence...",
-      "Loading kernel...",
+      "Loading kernel modules...",
       "Mounting root filesystem...",
+      "Initializing hardware drivers...",
       "Starting system services...",
-      "Initializing network interfaces...",
-      "Starting web server...",
+      "Configuring network interfaces...",
+      "Loading web server components...",
+      "Initializing database connections...",
+      "Starting security protocols...",
       "Loading OS components...",
-      "Checking dependencies...",
-      "Optimizing assets...",
-      "Establishing connection...",
-      "Ready to launch!",
+      "Checking system dependencies...",
+      "Optimizing system assets...",
+      "Establishing secure connections...",
+      "Finalizing system initialization...",
+      "System ready for deployment!",
     ],
     []
   );
@@ -51,13 +55,19 @@ const Loader: React.FC = () => {
           clearInterval(progressInterval);
           return 100;
         }
-        return Math.min(prev + 1, 100);
+        let increment = 1.0;
+        if (prev < 20) increment = 1.7;
+        else if (prev < 60) increment = 1.5;
+        else if (prev < 85) increment = 1.2;
+        else increment = 0.8;
+
+        return Math.min(prev + increment, 100);
       });
-    }, 50);
+    }, 10);
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
-    }, 500);
+    }, 300);
 
     const bootLineInterval = setInterval(() => {
       setCurrentLine((prev) => {
@@ -67,8 +77,7 @@ const Loader: React.FC = () => {
         }
         return prev + 1;
       });
-    }, 800);
-
+    }, 100);
     return () => {
       clearInterval(progressInterval);
       clearInterval(cursorInterval);
@@ -113,20 +122,24 @@ const Loader: React.FC = () => {
               </pre>
             </div>
           </div>
-          <div className="text-xs mb-2 text-[#00adb4]">LiNXOS OS v0.10.0</div>
+          <div className="text-xs mb-2 text-[#00adb4]">LiNXOS v0.10.0</div>
           <div className="text-xs text-[#393d46] mb-4">
             System initializing...
           </div>
         </div>
 
-        <div className="space-y-1.5 mb-6 border border-[#393d46] bg-[#0c1219] p-3">
+        <div className="space-y-1.5 mb-6 border border-[#393d46] bg-[#0c1219] p-3 min-h-[240px]">
           {bootLines.slice(0, currentLine + 1).map((line, index) => (
-            <div key={index} className="flex">
+            <div
+              key={index}
+              className="flex animate-flicker"
+              style={{ animationDelay: `${index * 0.02}s` }}
+            >
               <span className="text-[#00adb4] mr-2">[boot]</span>
               <span className="text-[#e0e0e0]">{line}</span>
               {index === currentLine && (
                 <span
-                  className={`ml-1 text-[#00adb4] ${
+                  className={`ml-1 text-[#00adb4] transition-opacity duration-75 ${
                     showCursor ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -138,22 +151,40 @@ const Loader: React.FC = () => {
         </div>
 
         <div className="w-full mt-4">
-          <div className="border border-[#393d46] w-full">
+          <div className="border border-[#393d46] w-full bg-[#0c1219] relative overflow-hidden">
             <div
-              className="bg-[#00adb4] h-2 transition-all duration-500"
+              className="bg-gradient-to-r from-[#107f84] via-[#00adb4] to-[#188d93] h-2 transition-all duration-150 ease-out relative"
               style={{ width: `${progress}%` }}
-            ></div>
+            >
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                style={{
+                  animation:
+                    progress < 100 ? "shimmer 0.8s linear infinite" : "none",
+                }}
+              />
+            </div>
           </div>
           <div className="flex justify-between text-xs mt-1">
-            <span className="text-[#e0e0e0]">Loading OS...</span>
-            <span className="text-[#00adb4]">{progress}%</span>
+            <span className="text-[#e0e0e0]">
+              {progress < 30
+                ? "Initializing..."
+                : progress < 60
+                ? "Loading components..."
+                : progress < 90
+                ? "Finalizing..."
+                : "System ready!"}
+            </span>
+            <span className="text-[#00adb4] font-mono">
+              {Math.floor(progress)}%
+            </span>
           </div>
         </div>
 
         <div className="mt-6 text-xs border-t border-[#393d46] pt-4">
           <div className="grid grid-cols-4 gap-y-1 text-sm">
             <div className="text-[#00adb4] col-span-1">OS:</div>
-            <div className="col-span-3 text-[#e0e0e0]">LinxOS 0.10.0</div>
+            <div className="col-span-3 text-[#e0e0e0]">LinxOS v0.10.0</div>
 
             <div className="text-[#00adb4] col-span-1">Memory:</div>
             <div className="col-span-3 text-[#e0e0e0]">
@@ -169,15 +200,29 @@ const Loader: React.FC = () => {
             <div className="col-span-3 text-[#e0e0e0]">
               {16 + Math.floor(progress / 10)}
             </div>
+
+            <div className="text-[#00adb4] col-span-1">Uptime:</div>
+            <div className="col-span-3 text-[#e0e0e0]">
+              {Math.floor(progress / 10)}s
+            </div>
+
+            <div className="text-[#00adb4] col-span-1">Network:</div>
+            <div className="col-span-3 text-[#e0e0e0]">
+              {progress > 30 ? "Connected" : "Connecting..."}
+            </div>
           </div>
         </div>
 
         <div className="mt-6 p-2 border border-[#393d46] bg-[#0c1219]">
           <div className={progress >= 90 ? "text-[#00adb4]" : "text-[#e0e0e0]"}>
             <span className="mr-2">›</span>
-            {progress >= 90
-              ? "System is ready. Launching application..."
-              : "Please wait while the system initializes..."}
+            {progress < 30
+              ? "Initializing system components..."
+              : progress < 60
+              ? "Loading application modules..."
+              : progress < 90
+              ? "Finalizing system setup..."
+              : "System is ready. Launching application..."}
           </div>
         </div>
 
@@ -193,13 +238,46 @@ const Loader: React.FC = () => {
             ].map((color, i) => (
               <div
                 key={i}
-                className="w-6 h-6 border border-[#393d46]"
-                style={{ backgroundColor: color }}
+                className="w-6 h-6 border border-[#393d46] transition-all duration-200"
+                style={{
+                  backgroundColor: color,
+                  opacity: progress > i * 15 ? 1 : 0.3,
+                }}
               ></div>
             ))}
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes flicker {
+          0% {
+            opacity: 0;
+            transform: translateY(-2px);
+          }
+          15% {
+            opacity: 0.4;
+            transform: translateY(-1px);
+          }
+          30% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
