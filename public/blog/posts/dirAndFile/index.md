@@ -77,5 +77,4 @@ cat [your_name_file]
 
 Well, that’s all from me Coders. I hope this article will help your basic activity to using Linux based OS. Thanks for reading! See you at next article!
 
-This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.me" target="_blank">rejaka.me</a>.
-
+This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.id" target="_blank">rejaka.id</a>.

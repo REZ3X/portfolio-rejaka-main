@@ -1,4 +1,3 @@
-
 # Mighty Tool for JS Developer
 
 Hey you fellow JS developer! As you already knew, we often deal with multiple projects built using different versions of Node.js. It’s frustrating, right? You wouldn’t want to install each version manually, of course not! That’d be nuts. So here’s the ultimate solution.. Node Version Manager (NVM)!
@@ -7,13 +6,13 @@ What? You don’t know what that is?? Well simply, it’s a tool that lets you i
 
 Cool right? So fellow JS developer in Windows... let me help you!
 
-> This tutorial is for Windows only. But if you're a Linux user, I already made a guide for Debian below: 
+> This tutorial is for Windows only. But if you're a Linux user, I already made a guide for Debian below:
 
-[Node Version Manager (NVM) Tutorial Linux](https://rejaka.me/blog/nvmTutorial).
+[Node Version Manager (NVM) Tutorial Linux](https://rejaka.id/blog/nvmTutorial).
 
 ---
 
-## 🧰 Requirements 
+## 🧰 Requirements
 
 1. Laptop/PC with Windows OS (10/11) - I use Windows 10, but it works the same on 11
 2. Internet Connection
@@ -128,7 +127,7 @@ nvm root
 
 ![NVM Root Path](./nvmrootpath.png "NVM Root Path")
 
-*If AppData is hidden, enable "Hidden items" from View tab.*
+_If AppData is hidden, enable "Hidden items" from View tab._
 
 ![NVM Moved](./nvmmoved.png "NVM Moved")
 

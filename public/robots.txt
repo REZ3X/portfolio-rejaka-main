@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Allow all crawlers to access all content
-Sitemap: https://rejaka.me/sitemap.xml
+Sitemap: https://rejaka.id/sitemap.xml
 
 # Specific rules for major crawlers
 User-agent: Googlebot

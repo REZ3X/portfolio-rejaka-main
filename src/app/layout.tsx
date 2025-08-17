@@ -60,7 +60,7 @@ const crimsonText = Crimson_Text({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rejaka.me"),
+  metadataBase: new URL("https://rejaka.id"),
   title: {
     template: "%s | Rejaka Abimanyu | Web Developer",
     default: "Rejaka Abimanyu Susanto | Website Developer Portfolio",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     "abim",
     "xiannyaa",
   ],
-  authors: [{ name: "Rejaka Abimanyu Susanto", url: "https://rejaka.me" }],
+  authors: [{ name: "Rejaka Abimanyu Susanto", url: "https://rejaka.id" }],
   creator: "Rejaka Abimanyu Susanto",
   publisher: "Rejaka Abimanyu Susanto",
   formatDetection: {
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
     title: "Rejaka Abimanyu | Full Stack Developer, Game Maker & Author",
     description:
       "Explore the portfolio of Rejaka Abimanyu Susanto, a full stack web developer, database engineer, game maker, and author showcasing creative projects and technical expertise.",
-    url: "https://rejaka.me",
+    url: "https://rejaka.id",
     siteName: "Rejaka Abimanyu Portfolio",
     locale: "en_US",
     type: "website",
@@ -147,9 +147,9 @@ export const metadata: Metadata = {
     google: "google-site-verification-code",
   },
   alternates: {
-    canonical: "https://rejaka.me",
+    canonical: "https://rejaka.id",
     languages: {
-      "en-US": "https://rejaka.me",
+      "en-US": "https://rejaka.id",
     },
   },
   applicationName: "Rejaka Portfolio",
@@ -177,7 +177,11 @@ export default function RootLayout({
       <head>
         {GA_ID && process.env.NODE_ENV === "production" && (
           <>
-<Script defer src="https://u.zxn.my.id/script.js" data-website-id="e3ef0132-7b9a-4654-8895-92239c28cb03"/>
+            <Script
+              defer
+              src="https://u.zxn.my.id/script.js"
+              data-website-id="e3ef0132-7b9a-4654-8895-92239c28cb03"
+            />
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
@@ -205,8 +209,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Rejaka Abimanyu Susanto",
-              url: "https://rejaka.me",
-              image: "https://rejaka.me/assets/images/profile/rez3x.webp",
+              url: "https://rejaka.id",
+              image: "https://rejaka.id/assets/images/profile/rez3x.webp",
               sameAs: [
                 "https://github.com/REZ3X",
                 "https://linkedin.com/in/rejaka-abimanyu-susanto-6713482b6",

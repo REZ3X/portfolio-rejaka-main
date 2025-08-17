@@ -29,7 +29,7 @@ const othersData: OthersItem[] = [
   {
     label: "Links",
     description: "All my social media and external links",
-    url: "https://links.rejaka.me",
+    url: "https://links.rejaka.id",
     icon: "🔗",
     external: true,
   },

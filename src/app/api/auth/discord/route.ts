@@ -4,7 +4,7 @@ const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 const REDIRECT_URI =
   process.env.NODE_ENV === "production"
-    ? "https://rejaka.me/api/auth/discord"
+    ? "https://rejaka.id/api/auth/discord"
     : "http://localhost:3000/api/auth/discord";
 
 export async function GET(request: NextRequest) {
@@ -110,15 +110,15 @@ export async function GET(request: NextRequest) {
 
     if (
       redirectUrl.startsWith("http") &&
-      !redirectUrl.includes("rejaka.me") &&
+      !redirectUrl.includes("rejaka.id") &&
       !redirectUrl.includes("localhost")
     ) {
       console.log("External redirect blocked, using fallback:", redirectUrl);
       redirectUrl = "/?modal=guestbook";
     }
 
-    if (redirectUrl.startsWith("https://rejaka.me")) {
-      redirectUrl = redirectUrl.replace("https://rejaka.me", "");
+    if (redirectUrl.startsWith("https://rejaka.id")) {
+      redirectUrl = redirectUrl.replace("https://rejaka.id", "");
       console.log("Converted to relative URL:", redirectUrl);
     }
 

@@ -4,9 +4,9 @@ import { getPostBySlug, type BlogPost } from "@/data/BlogData";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>; 
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params; 
+  const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {
@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   const title = `${post.title} | Rejaka Abimanyu | Web Developer`;
   const description = post.excerpt;
-  const url = `https://rejaka.me/blog/${post.slug}`;
+  const url = `https://rejaka.id/blog/${post.slug}`;
   const publishedTime = new Date(post.date).toISOString();
 
   return {
@@ -34,7 +34,7 @@ export async function generateMetadata({
       ...(post.tags || []),
       ...post.title.split(" ").filter((word) => word.length > 3),
     ],
-    authors: [{ name: "Rejaka Abimanyu Susanto", url: "https://rejaka.me" }],
+    authors: [{ name: "Rejaka Abimanyu Susanto", url: "https://rejaka.id" }],
     creator: "Rejaka Abimanyu Susanto",
     publisher: "Rejaka Abimanyu Susanto",
     category: post.category || "Technology",
@@ -65,8 +65,8 @@ export async function generateMetadata({
       images: [
         {
           url: post.coverImage
-            ? `https://rejaka.me${post.coverImage}`
-            : "https://rejaka.me/assets/images/profile/rez3x.webp",
+            ? `https://rejaka.id${post.coverImage}`
+            : "https://rejaka.id/assets/images/profile/rez3x.webp",
           width: 1200,
           height: 630,
           alt: post.title,
@@ -80,8 +80,8 @@ export async function generateMetadata({
       creator: "@rejaka",
       images: [
         post.coverImage
-          ? `https://rejaka.me${post.coverImage}`
-          : "https://rejaka.me/assets/images/profile/rez3x.webp",
+          ? `https://rejaka.id${post.coverImage}`
+          : "https://rejaka.id/assets/images/profile/rez3x.webp",
       ],
     },
     alternates: {
@@ -106,13 +106,13 @@ export function generateStructuredData(post: BlogPost) {
     headline: post.title,
     description: post.excerpt,
     image: post.coverImage
-      ? `https://rejaka.me${post.coverImage}`
-      : "https://rejaka.me/assets/images/profile/rez3x.webp",
+      ? `https://rejaka.id${post.coverImage}`
+      : "https://rejaka.id/assets/images/profile/rez3x.webp",
     author: {
       "@type": "Person",
       name: "Rejaka Abimanyu Susanto",
-      url: "https://rejaka.me",
-      image: "https://rejaka.me/assets/images/profile/rez3x.webp",
+      url: "https://rejaka.id",
+      image: "https://rejaka.id/assets/images/profile/rez3x.webp",
       sameAs: [
         "https://github.com/REZ3X",
         "https://linkedin.com/in/rejaka-abimanyu-susanto-6713482b6",
@@ -121,10 +121,10 @@ export function generateStructuredData(post: BlogPost) {
     publisher: {
       "@type": "Person",
       name: "Rejaka Abimanyu Susanto",
-      url: "https://rejaka.me",
+      url: "https://rejaka.id",
       logo: {
         "@type": "ImageObject",
-        url: "https://rejaka.me/assets/images/profile/rez3x.webp",
+        url: "https://rejaka.id/assets/images/profile/rez3x.webp",
       },
     },
     datePublished: new Date(post.date).toISOString(),
@@ -133,9 +133,9 @@ export function generateStructuredData(post: BlogPost) {
       : new Date(post.date).toISOString(),
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://rejaka.me/blog/${post.slug}`,
+      "@id": `https://rejaka.id/blog/${post.slug}`,
     },
-    url: `https://rejaka.me/blog/${post.slug}`,
+    url: `https://rejaka.id/blog/${post.slug}`,
     wordCount: post.readingTime * 200,
     timeRequired: `PT${post.readingTime}M`,
     articleSection: post.category || "Technology",

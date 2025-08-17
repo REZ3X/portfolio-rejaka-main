@@ -109,7 +109,6 @@ nvm install --lts
 
 Just with that your NodeJS is ready to use for your development and deployment of backend app.
 
-
 But I want to share you some of **other command to use NVM** like:
 
 Switch between version
@@ -156,4 +155,4 @@ nvm --help
 
 Alright then, that’s all the step by step guide to install NVM and NodeJS on Linux. I hope this guide help you for your development. Until next post Coders!
 
-This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.me" target="_blank">rejaka.me</a>.
+This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.id" target="_blank">rejaka.id</a>.

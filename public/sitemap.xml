@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://rejaka.me/</loc>
+    <loc>https://rejaka.id/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,13 +10,13 @@
 
   <!-- Privacy Policy Page -->
   <url>
-    <loc>https://rejaka.me/privacy-policy</loc>
+    <loc>https://rejaka.id/privacy-policy</loc>
     <lastmod>2025-07-07</lastmod>
   </url>
 
   <!-- Resume Page -->
   <url>
-    <loc>https://rejaka.me/resume</loc>
+    <loc>https://rejaka.id/resume</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -24,98 +24,98 @@
   
   <!-- Blog Posts -->
   <url>
-    <loc>https://rejaka.me/blog/nvmWindows</loc>
+    <loc>https://rejaka.id/blog/nvmWindows</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/laravelSetup</loc>
+    <loc>https://rejaka.id/blog/laravelSetup</loc>
     <lastmod>2025-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/windows10Tutorial</loc>
+    <loc>https://rejaka.id/blog/windows10Tutorial</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/digitalConfess</loc>
+    <loc>https://rejaka.id/blog/digitalConfess</loc>
     <lastmod>2025-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/randomMusicQuotes</loc>
+    <loc>https://rejaka.id/blog/randomMusicQuotes</loc>
     <lastmod>2025-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/freeDevServices</loc>
+    <loc>https://rejaka.id/blog/freeDevServices</loc>
     <lastmod>2025-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/semesterBreakProjects</loc>
+    <loc>https://rejaka.id/blog/semesterBreakProjects</loc>
     <lastmod>2025-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/myWebDevJourney</loc>
+    <loc>https://rejaka.id/blog/myWebDevJourney</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://rejaka.me/blog/slaviorsNow</loc>
+    <loc>https://rejaka.id/blog/slaviorsNow</loc>
     <lastmod>2025-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://rejaka.me/blog/databaseSQL</loc>
+    <loc>https://rejaka.id/blog/databaseSQL</loc>
     <lastmod>2025-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://rejaka.me/blog/dirAndFile</loc>
+    <loc>https://rejaka.id/blog/dirAndFile</loc>
     <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://rejaka.me/blog/nvmTutorial</loc>
+    <loc>https://rejaka.id/blog/nvmTutorial</loc>
     <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://rejaka.me/blog/simpleCalculator</loc>
+    <loc>https://rejaka.id/blog/simpleCalculator</loc>
     <lastmod>2025-02-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://rejaka.me/blog/startingNextJS</loc>
+    <loc>https://rejaka.id/blog/startingNextJS</loc>
     <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -4,7 +4,7 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI =
   process.env.NODE_ENV === "production"
-    ? "https://rejaka.me/api/auth/google"
+    ? "https://rejaka.id/api/auth/google"
     : "http://localhost:3000/api/auth/google";
 
 const fetchWithTimeout = async (
@@ -177,15 +177,15 @@ export async function GET(request: NextRequest) {
 
     if (
       redirectUrl.startsWith("http") &&
-      !redirectUrl.includes("rejaka.me") &&
+      !redirectUrl.includes("rejaka.id") &&
       !redirectUrl.includes("localhost")
     ) {
       console.log("External redirect blocked, using fallback:", redirectUrl);
       redirectUrl = "/?modal=guestbook";
     }
 
-    if (redirectUrl.startsWith("https://rejaka.me")) {
-      redirectUrl = redirectUrl.replace("https://rejaka.me", "");
+    if (redirectUrl.startsWith("https://rejaka.id")) {
+      redirectUrl = redirectUrl.replace("https://rejaka.id", "");
       console.log("Converted to relative URL:", redirectUrl);
     }
 

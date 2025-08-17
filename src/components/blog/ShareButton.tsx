@@ -18,7 +18,7 @@ export default function ShareButton({
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const blogUrl = `https://rejaka.me/blog/${slug}`;
+  const blogUrl = `https://rejaka.id/blog/${slug}`;
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(blogUrl);
 

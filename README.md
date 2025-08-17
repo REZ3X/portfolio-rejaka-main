@@ -1,12 +1,12 @@
 # Portfolio Rejaka - Personal Website
 
-![Portfolio Banner](https://rejaka.me/assets/images/profile/rez3x.webp)
+![Portfolio Banner](https://rejaka.id/assets/images/profile/rez3x.webp)
 
 ## 📌 Overview
 
 A modern, responsive portfolio website showcasing the work, skills, and experience of Rejaka Abimanyu Susanto. This full-stack web application features dual themes, interactive guestbook, blog platform, AI chatbot integration, and comprehensive professional showcase.
 
-**Live Site:** [rejaka.me](https://rejaka.me)
+**Live Site:** [rejaka.id](https://rejaka.id)
 
 ## ✨ Features
 
@@ -198,13 +198,13 @@ The site is deployed using Nginx as a reverse proxy with PM2 for process managem
    ```nginx
    server {
        listen 80;
-       server_name rejaka.me www.rejaka.me;
+       server_name rejaka.id www.rejaka.id;
        return 301 https://$server_name$request_uri;
    }
 
    server {
        listen 443 ssl http2;
-       server_name rejaka.me www.rejaka.me;
+       server_name rejaka.id www.rejaka.id;
 
        ssl_certificate /path/to/ssl/certificate;
        ssl_certificate_key /path/to/ssl/private/key;
