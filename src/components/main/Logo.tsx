@@ -104,7 +104,7 @@ const Logo: React.FC<LogoProps> = ({
   }, [startTime]);
 
   return (
-    <div className="font-mono bg-[#060a10] text-[#e0e0e0] p-4 rounded-none border border-[#393d46] h-full flex flex-col">
+    <div className="hidden md:block font-mono bg-[#060a10] text-[#e0e0e0] p-4 rounded-none border border-[#393d46] h-full flex flex-col">
       <div className="flex flex-col md:flex-row gap-4 flex-grow">
         <div className="md:w-1/3">
           <div className="ascii-container relative h-full">
