@@ -267,7 +267,7 @@ export const projectsData: ProjectsDataType = {
       links: [
         {
           label: "Live Website",
-          url: "https://gachapon.rejaka.me",
+          url: "https://gachapon.rejaka.id",
           icon: "📱",
           type: "url",
         },
@@ -293,7 +293,7 @@ export const projectsData: ProjectsDataType = {
       links: [
         {
           label: "Demo",
-          url: "https://tasistemporary.rejaka.me",
+          url: "https://tasistemporary.rejaka.id",
           icon: "🌐",
           type: "url",
         },
@@ -319,7 +319,7 @@ export const projectsData: ProjectsDataType = {
       links: [
         {
           label: "Live Website",
-          url: "https://idea.rejaka.me",
+          url: "https://idea.rejaka.id",
           icon: "📱",
           type: "url",
         },

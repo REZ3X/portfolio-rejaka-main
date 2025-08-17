@@ -2,7 +2,7 @@
 
 That statement is true, right?
 
-When I first committed to developing everything using modern tools, I assumed any third-party service I needed for my websites would cost money—and as a high school student, I didn’t exactly have cash lying around (or, let's be honest, *any* cash). But after talking with friends, seniors, teachers, and doing plenty of solo Googling, I found some amazing services that are **completely free** and helped me go from “I want to build stuff” to actually launching real projects.
+When I first committed to developing everything using modern tools, I assumed any third-party service I needed for my websites would cost money—and as a high school student, I didn’t exactly have cash lying around (or, let's be honest, _any_ cash). But after talking with friends, seniors, teachers, and doing plenty of solo Googling, I found some amazing services that are **completely free** and helped me go from “I want to build stuff” to actually launching real projects.
 
 Let me share some of the best free tools and services I personally use and recommend 👇
 
@@ -15,6 +15,7 @@ Let me share some of the best free tools and services I personally use and recom
 Instead of messing with self-hosted servers, Aiven lets you deploy databases like **MySQL**, **PostgreSQL**, **Kafka**, and more in just a few clicks. And yes—they have a **free tier**.
 
 ### ✅ Free Tier Highlights:
+
 - **MySQL:** 5 GB storage (24/7 access)
 - **PostgreSQL:** 1 GB storage (24/7 access)
 
@@ -29,6 +30,7 @@ If you’re just getting started with backend databases, this is a great way to 
 [MongoDB Atlas](https://www.mongodb.com/atlas) is the easiest way to spin up a cloud-hosted MongoDB database. It’s perfect if you’re working with dynamic apps, real-time data, or just prefer the flexibility of NoSQL.
 
 ### ✅ Free Tier Highlights:
+
 - 500 MB storage
 - Shared cluster (M0)
 - Hosted on AWS/GCP/Azure
@@ -47,6 +49,7 @@ You can create **one free cluster per project**, but you’re allowed to have **
 It integrates perfectly with static websites, headless CMS, or serverless backends.
 
 ### ✅ Free Tier Highlights:
+
 - 25 GB bandwidth/month
 - 5 GB storage for assets (DAM)
 - 500 video processing units
@@ -67,6 +70,7 @@ Whether you’re running a portfolio, blog, or an e-commerce mockup—ImageKit h
 You can request credits by creating a support ticket or joining their [Telegram Group](https://t.me/virtual_8labs).
 
 ### VPS Specs:
+
 - **Small:** 1 vCPU, 1 GB RAM, 15 GB Storage
 - **Medium:** 2 vCPU, 4 GB RAM, 33 GB Storage
 - **Large:** 4 vCPU, 8 GB RAM, 33 GB Storage
@@ -101,9 +105,10 @@ Whether you bought your domain from Namecheap or another registrar, Cloudflare g
 Cloudflare Tunnel allows you to expose a **localhost or private service to the internet** securely—without needing to configure or open any ports or run a traditional web server like NGINX.
 
 ### Example use cases:
+
 - Preview a dev app on your own domain (without deploying)
 - Securely expose a dashboard or internal tool
-- Use a custom domain (like `dev.rejaka.me`) with a local app
+- Use a custom domain (like `dev.rejaka.id`) with a local app
 
 All done with **one CLI tool** (`cloudflared`) and a simple config.
 

@@ -198,37 +198,37 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
             <p className="text-sm mb-3">
               As the creator of{" "}
               <a
-                href="https://rejaka.me"
+                href="https://rejaka.id"
                 className={`${
                   themeStyle === "terminal"
                     ? "text-[#00adb4] underline"
                     : "theme-accent-primary hover:underline"
                 }`}
               >
-                rejaka.me
+                rejaka.id
               </a>
               , Rejaka Abimanyu Susanto showcases a portfolio of web development
               projects, including
               <a
-                href="https://idea.rejaka.me"
+                href="https://idea.rejaka.id"
                 className={`${
                   themeStyle === "terminal"
                     ? "text-[#00adb4] underline ml-1"
                     : "theme-accent-primary hover:underline ml-1"
                 }`}
               >
-                idea.rejaka.me
+                idea.rejaka.id
               </a>{" "}
               and
               <a
-                href="https://tasistemporary.rejaka.me"
+                href="https://tasistemporary.rejaka.id"
                 className={`${
                   themeStyle === "terminal"
                     ? "text-[#00adb4] underline ml-1"
                     : "theme-accent-primary hover:underline ml-1"
                 }`}
               >
-                tasistemporary.rejaka.me
+                tasistemporary.rejaka.id
               </a>
               .
             </p>

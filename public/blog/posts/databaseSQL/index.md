@@ -88,13 +88,13 @@ Here's the example to make a table for user data:
 create table users (
     -- Define an 'id' column of type integer, set it as the primary key, and enable auto-increment
     id int primary key auto_increment,
-    
+
     -- Define a 'name' column of type varchar with a maximum length of 100 characters, and make it not nullable
     name varchar(100) not null,
-    
+
     -- Define an 'email' column of type varchar with a maximum length of 100 characters, make it unique and not nullable
     email varchar(100) unique not null,
-    
+
     -- Define a 'created_at' column of type timestamp with a default value of the current timestamp
     created_at timestamp default current_timestamp
 );
@@ -106,10 +106,7 @@ create table users (
 
 Using the correct data type improves performance and ensures data integrity.
 
-Example:
-    - Use INT for numeric values (e.g., IDs).
-    - Use VARCHAR for text instead of TEXT when possible, as it is more efficient.
-    - Use DATETIME or TIMESTAMP for storing dates and times.
+Example: - Use INT for numeric values (e.g., IDs). - Use VARCHAR for text instead of TEXT when possible, as it is more efficient. - Use DATETIME or TIMESTAMP for storing dates and times.
 
 - Setting Primary Key
 
@@ -226,4 +223,4 @@ delete from your_table_name;
 
 Huuft~ I think that's all from me.. right? Actually there are so many more commands and query but.. I think I can explain them more at another article.. see ya~
 
-This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.me" target="_blank">rejaka.me</a>.
+This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.id" target="_blank">rejaka.id</a>.

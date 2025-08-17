@@ -68,5 +68,4 @@ That's all from me, I will continue our journey with NextJS at next article. See
 
 <br>If you want to learn more yourself, you can visit the <a href="https://nextjs.org/docs" target="_blank">Next.js documentation</a>.
 
-This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.me" target="_blank">rejaka.me</a>.
-
+This article written by Rejaka Abimanyu Susanto, a Full-Stack Developer that reside in Yogyakarta, Indonesia. If you want to know more about me you can visit me at <a href="https://rejaka.id" target="_blank">rejaka.id</a>.

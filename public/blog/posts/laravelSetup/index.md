@@ -18,7 +18,7 @@ Exciting isn't it? Wanna try this framework?? GOOD! I can help you with that! I'
 
 - 💻 Laptop/PC with Linux Debian OS
 - 🌐 Internet Connection
-- 🧠 Node.js (If you don't have it, check out my [Node.js NVM tutorial](https://rejaka.me/blog/nvmTutorial))
+- 🧠 Node.js (If you don't have it, check out my [Node.js NVM tutorial](https://rejaka.id/blog/nvmTutorial))
 
 Ready? Then let's do this!!
 
@@ -81,6 +81,7 @@ Now we install Composer. What’s Composer?
 ```bash
 curl -sS https://getcomposer.org/installer -o composer-setup.php
 ```
+
 2. Then install the Composer globally.
 
 ```bash
@@ -119,6 +120,7 @@ composer global require laravel/installer
 ```bash
 mkdir laravel_project && cd laravel_project
 ```
+
 4. And finally, the magic command:
 
 ```bash
@@ -166,6 +168,7 @@ source ~/.zshrc
 ```bash
 laravel --version
 ```
+
 ![Laravel Installer Version](./laravelversioncheck.png)
 
 10. Perfect! Let’s retry the project creation:

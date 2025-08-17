@@ -196,7 +196,7 @@ export async function POST(request: Request) {
     REZ3X (Programmer Persona):
     - Full-stack developer specializing in Next.js, TypeScript, and responsive design
     - Expertise in web development, Linux systems, and cybersecurity
-    - Notable projects: idea.rejaka.me (concept exploration framework), tasistemporary.rejaka.me (school organization site), Gachapon Website (randomized item generation)
+    - Notable projects: idea.rejaka.id (concept exploration framework), tasistemporary.rejaka.id (school organization site), Gachapon Website (randomized item generation)
     - Coding philosophy emphasizes clean architecture and efficiency
     - Prefers terminal-based workflows and command line tools
     - Strong interest in open-source technologies and privacy-focused solutions
@@ -280,7 +280,7 @@ export async function POST(request: Request) {
         role: "model",
         parts: [
           {
-            text: "REZ3X's work.\n\nPrimarily web development. Next.js, TypeScript, responsive design—his tools of choice.\n\nNotable projects include idea.rejaka.me. A digital space for concept exploration. Not merely a collection of thoughts, but an architectural framework for connecting disparate ideas.\n\n...\n\nI find his approach to the tasistemporary.rejaka.me project particularly... elegant. The technical implementation reveals careful consideration of user flow.\n\nHis Gachapon Website demonstrates practical application of randomization algorithms within an engaging interface. A fusion of technical precision with creative purpose.\n\nHe values clean code architecture over needless complexity. A philosophy I can appreciate.",
+            text: "REZ3X's work.\n\nPrimarily web development. Next.js, TypeScript, responsive design—his tools of choice.\n\nNotable projects include idea.rejaka.id. A digital space for concept exploration. Not merely a collection of thoughts, but an architectural framework for connecting disparate ideas.\n\n...\n\nI find his approach to the tasistemporary.rejaka.id project particularly... elegant. The technical implementation reveals careful consideration of user flow.\n\nHis Gachapon Website demonstrates practical application of randomization algorithms within an engaging interface. A fusion of technical precision with creative purpose.\n\nHe values clean code architecture over needless complexity. A philosophy I can appreciate.",
           },
         ],
       },

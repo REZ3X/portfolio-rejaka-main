@@ -130,25 +130,25 @@ const XiannyaaAboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
               <p className="text-[#f5eaf4] leading-relaxed">
                 As the creator of{" "}
                 <a
-                  href="https://rejaka.me"
+                  href="https://rejaka.id"
                   className="text-[#e6a2ce] hover:underline"
                 >
-                  rejaka.me
+                  rejaka.id
                 </a>
                 , Rejaka Abimanyu Susanto showcases a portfolio of web
                 development projects, including
                 <a
-                  href="https://idea.rejaka.me"
+                  href="https://idea.rejaka.id"
                   className="text-[#e6a2ce] hover:underline ml-1"
                 >
-                  idea.rejaka.me
+                  idea.rejaka.id
                 </a>{" "}
                 and
                 <a
-                  href="https://tasistemporary.rejaka.me"
+                  href="https://tasistemporary.rejaka.id"
                   className="text-[#e6a2ce] hover:underline ml-1"
                 >
-                  tasistemporary.rejaka.me
+                  tasistemporary.rejaka.id
                 </a>
                 .
               </p>

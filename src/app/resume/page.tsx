@@ -32,19 +32,19 @@ const ResumePage: React.FC = () => {
             <p className="text-gray-600 text-sm mb-2">Web Developer</p>
             <div className="flex flex-wrap justify-center gap-3 text-xs text-gray-600">
               <a
-                href="mailto:abim@rejaka.me"
+                href="mailto:abim@rejaka.id"
                 className="hover:underline print:text-gray-600"
               >
-                abim@rejaka.me
+                abim@rejaka.id
               </a>
               <span>•</span>
               <a
-                href="https://rejaka.me"
+                href="https://rejaka.id"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline print:text-gray-600"
               >
-                rejaka.me
+                rejaka.id
               </a>
               <span>•</span>
               <a
@@ -246,7 +246,8 @@ const ResumePage: React.FC = () => {
                 <div className="space-y-1">
                   <div>
                     <h3 className="font-medium text-gray-800 text-xs">
-                      Finalist on Web Development, National Competition Silogy Expo
+                      Finalist on Web Development, National Competition Silogy
+                      Expo
                     </h3>
                     <p className="text-gray-600 text-xs">
                       Himpunan Mahasiswa Sistem Informasi Universitas
