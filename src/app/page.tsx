@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import Logo from "@/components/main/Logo";
 import Profile from "@/components/main/Profile";
 import About from "@/components/main/About";
@@ -103,6 +103,8 @@ const MainContent = () => {
   const [blogModalCategory, setBlogModalCategory] = useState<string>("all");
   const [blogModalSearch, setBlogModalSearch] = useState<string>("");
 
+  const hasCompletedInitialLoad = useRef(false);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (document.readyState === "complete") {
@@ -187,7 +189,11 @@ const MainContent = () => {
     console.log("MainContent: closeModal completed");
   };
 
-  useEffect(() => {
+   useEffect(() => {
+    if (hasCompletedInitialLoad.current) {
+      return;
+    }
+
     const markAppAsReady = () => {
       const minLoadingTime = 1000;
       const startTime = Date.now();
@@ -195,6 +201,7 @@ const MainContent = () => {
       const finishLoading = () => {
         if (typeof window !== "undefined") {
           setIsApplicationReady(true);
+          hasCompletedInitialLoad.current = true;
 
           if (localStorage.getItem("scrollToBlogComponent") === "true") {
             localStorage.removeItem("scrollToBlogComponent");
@@ -228,7 +235,7 @@ const MainContent = () => {
     }
   }, [isPageLoaded]);
 
-  if (!isApplicationReady) {
+  if (!hasCompletedInitialLoad.current && !isApplicationReady) {
     return themeStyle === "soft" ? <FeminineLoader /> : <Loader />;
   }
 
