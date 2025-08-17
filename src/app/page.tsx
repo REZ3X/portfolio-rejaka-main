@@ -189,7 +189,7 @@ const MainContent = () => {
     console.log("MainContent: closeModal completed");
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (hasCompletedInitialLoad.current) {
       return;
     }
@@ -285,6 +285,30 @@ const MainContent = () => {
           )}
         </div>
 
+        {themeStyle === "terminal" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+            <div className="lg:col-span-2 blog-component">
+              <Blog
+                openBlogListModal={() => openBlogModalWithCategory("all", "")}
+              />
+            </div>
+            <div className="lg:col-span-1">
+              <ExperienceAchievement />
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            <div className="blog-component">
+              <Blog
+                openBlogListModal={() => openBlogModalWithCategory("all", "")}
+              />
+            </div>
+            <div>
+              <ExperienceAchievement />
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
           <div className={`lg:col-span-${themeStyle === "soft" ? "3" : "4"}`}>
             <Projects />
@@ -296,18 +320,6 @@ const MainContent = () => {
 
           <div className={`lg:col-span-${themeStyle === "soft" ? "3" : "4"}`}>
             <LinksContact />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <div className="blog-component">
-            <Blog
-              openBlogListModal={() => openBlogModalWithCategory("all", "")}
-            />
-          </div>
-
-          <div>
-            <ExperienceAchievement />
           </div>
         </div>
 

@@ -11,7 +11,7 @@ interface BlogProps {
 const Blog: React.FC<BlogProps> = ({ openBlogListModal }) => {
   const { themeStyle } = useUser();
   const router = useRouter();
-  const posts = getAllPosts().slice(0, 4);
+  const posts = getAllPosts().slice(0, 6);
   const handleBlogClick = (e: React.MouseEvent, slug: string) => {
     e.preventDefault();
 
