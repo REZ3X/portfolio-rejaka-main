@@ -7,6 +7,7 @@ import {
   searchPosts,
   formatDate,
 } from "@/data/BlogData";
+import RSSSubscribeButton from "@/components/blog/RSSSubscribeButton";
 
 interface BlogListModalProps {
   onClose: () => void;
@@ -305,9 +306,12 @@ const TerminalBlogListModal: React.FC<BlogListModalProps> = ({
             <span className="text-[#8b9cbe]">author:</span>{" "}
             <span className="text-[#00adb4]">rejaka_abimanyu_susanto</span>
           </div>
-          <div className="text-xs text-[#8b9cbe]">
-            {filteredPosts.length}/{getAllPosts().length}{" "}
-            {filteredPosts.length === 1 ? "post" : "posts"}
+          <div className="flex items-center gap-4">
+            <RSSSubscribeButton />
+            <div className="text-xs text-[#8b9cbe]">
+              {filteredPosts.length}/{getAllPosts().length}{" "}
+              {filteredPosts.length === 1 ? "post" : "posts"}
+            </div>
           </div>
         </div>
       </div>

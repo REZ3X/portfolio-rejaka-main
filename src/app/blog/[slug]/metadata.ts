@@ -322,7 +322,9 @@ export async function generateMetadata({
         "id-ID": `${url}?lang=id`,
       },
       types: {
-        "application/rss+xml": "https://rejaka.id/rss.xml",
+        "application/rss+xml": "https://rejaka.id/api/rss",
+        "application/feed+json": "https://rejaka.id/api/feed",
+        "application/atom+xml": "https://rejaka.id/api/rss",
       },
     },
     other: {

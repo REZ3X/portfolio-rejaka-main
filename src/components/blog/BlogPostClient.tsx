@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 import BlogInteraction from "@/components/blog/BlogInteraction";
+import RSSSubscribeButton from "@/components/blog/RSSSubscribeButton";
 
 declare global {
   interface Window {
@@ -741,6 +742,7 @@ export default function BlogPostClient() {
                     <div className="text-xs text-[#8b9cbe]">
                       Full Stack Developer & Writer
                     </div>
+                    <RSSSubscribeButton />
                   </div>
                   <Link
                     href="/"

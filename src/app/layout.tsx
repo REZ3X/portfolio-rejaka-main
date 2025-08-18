@@ -467,6 +467,24 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
 
         <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Rejaka Abimanyu Susanto - Tech Blog RSS Feed"
+          href="https://rejaka.id/api/rss"
+        />
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title="Rejaka Abimanyu Susanto - Tech Blog JSON Feed"
+          href="https://rejaka.id/api/feed"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="Rejaka Abimanyu Susanto - Tech Blog Atom Feed"
+          href="https://rejaka.id/api/rss"
+        />
+        <link
           rel="preload"
           href="/assets/images/profile/rez3x.webp"
           as="image"
