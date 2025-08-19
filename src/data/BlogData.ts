@@ -13,7 +13,19 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-    {
+  {
+    slug: "gvmInstall",
+    title: "How to Install Go Version Manager (GVM) on Linux",
+    date: "2025-08-19",
+    excerpt:
+      "Step-by-step guide to installing Go Version Manager (GVM) on Linux. Perfect for managing multiple Go versions.",
+    coverImage: "/blog/posts/gvmInstall/cover.png",
+    readingTime: 10,
+    tags: ["Go", "GVM", "Linux", "Development"],
+    category: "Tutorial",
+    lastModified: "2025-08-19",
+  },
+  {
     slug: "nvmWindows",
     title: "Installing Node Version Manager (NVM) and Node.js on Windows",
     date: "2025-07-27",
@@ -21,13 +33,7 @@ export const blogPosts: BlogPost[] = [
       "Step-by-step guide to installing Node Version Manager (NVM) and Node.js on Windows.",
     coverImage: "/blog/posts/nvmWindows/cover.webp",
     readingTime: 20,
-    tags: [
-      "Windows",
-      "NVM",
-      "Node.js",
-      "Installation",
-      "Tutorial",
-    ],
+    tags: ["Windows", "NVM", "Node.js", "Installation", "Tutorial"],
     category: "Tutorial",
     lastModified: "2025-07-27",
   },
