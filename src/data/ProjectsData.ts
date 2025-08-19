@@ -33,6 +33,44 @@ interface ProjectsDataType {
 export const projectsData: ProjectsDataType = {
   projects: [
     {
+      id: "ghostchat",
+      title: "GhostChat - Anonymous Secure Messaging",
+      subtitle: "Ephemeral, encrypted, anonymous chat rooms",
+      category: "web",
+      emoji: "💬",
+      description: [
+        "GhostChat is a secure messaging platform that allows users to create ephemeral chat rooms.",
+        "All messages are end-to-end encrypted and can be set to self-destruct after a certain period.",
+      ],
+      technologies: ["Next.js", "Node.js", "Express", "WebSocket", "Redis"],
+      features: [
+        "Anonymous chat rooms: Users can join without revealing their identity",
+        "Self-destructing messages: Set a timer for messages to disappear",
+        "End-to-end encryption: Ensures only participants can read messages",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://ghost.rejaka.id",
+          icon: "🌐",
+          type: "url",
+        },
+        {
+          label: "Frontend Repo",
+          url: "https://github.com/REZ3X/ghostchat_frontend",
+          icon: "🔗",
+          type: "url",
+        },
+        {
+          label: "Backend Repo",
+          url: "https://github.com/REZ3X/ghostchat_backend",
+          icon: "🔗",
+          type: "url",
+        },
+      ],
+    },
+    {
       id: "fwbplus",
       title: "FWB+ Event Organizer",
       subtitle: "A company profile website for FWB+ event organizer",
