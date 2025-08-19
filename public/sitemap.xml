@@ -24,6 +24,12 @@
   
   <!-- Blog Posts -->
   <url>
+    <loc>https://rejaka.id/blog/secretChat</loc>
+    <lastmod>2025-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://rejaka.id/blog/gvmInstall</loc>
     <lastmod>2025-08-19</lastmod>
     <changefreq>monthly</changefreq>

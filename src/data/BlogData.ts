@@ -13,6 +13,18 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+    slug: "secretChat",
+    title: "Need for Private Room Chat that Completely Secure and Encrypted?",
+    date: "2025-08-19",
+    excerpt:
+      "In today's digital age, the need for secure and private communication has never been more critical. With the rise of surveillance and data breaches, individuals are seeking solutions that offer complete privacy and encryption.",
+    coverImage: "/blog/posts/secretChat/cover.png",
+    readingTime: 10,
+    tags: ["GhostChat", "Privacy", "Security", "Encryption"],
+    category: "Project",
+    lastModified: "2025-08-19",
+  },
   {
     slug: "gvmInstall",
     title: "How to Install Go Version Manager (GVM) on Linux",
