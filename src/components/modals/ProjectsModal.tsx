@@ -341,6 +341,14 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                       }}
                     >
                       <span className="text-3xl">{project.emoji || "🚀"}</span>
+                      <div className="absolute top-2 left-2 px-1.5 py-0.5 text-xs border border-[#393d46]"
+                        style={{
+                          backgroundColor: categoryColors[project.category] || "#00adb4",
+                          color: "#ffffff",
+                        }}
+                      >
+                        {project.category}
+                      </div>
                       <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-[#060a10] text-[#8b9cbe] text-xs border border-[#393d46]">
                         {project.year}
                       </div>
@@ -348,11 +356,12 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                   )}
 
                   <div className="p-3">
-                    <div className="mb-1">
-                      <h3 className="text-[#00adb4] font-bold truncate">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-[#00adb4] font-bold truncate flex-1">
                         {project.title}
                       </h3>
                     </div>
+
                     <p className="text-xs text-[#e0e0e0] opacity-75 line-clamp-2 mb-2">
                       {project.subtitle}
                     </p>
