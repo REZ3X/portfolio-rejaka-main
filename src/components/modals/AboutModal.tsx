@@ -190,47 +190,17 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
             <p className="text-sm mb-3">
               Rejaka Abimanyu Susanto is a multifaceted professional with
               expertise spanning technical development, creative writing, and
-              academic research. With strong foundations in full-stack
-              development, Rejaka creates innovative digital solutions and
-              compelling web experiences.
+              academic research. Based in Indonesia, Rejaka combines
+              analytical thinking with creative problem-solving to develop
+              innovative digital solutions and compelling content.
             </p>
 
             <p className="text-sm mb-3">
-              As the creator of{" "}
-              <a
-                href="https://rejaka.id"
-                className={`${
-                  themeStyle === "terminal"
-                    ? "text-[#00adb4] underline"
-                    : "theme-accent-primary hover:underline"
-                }`}
-              >
-                rejaka.id
-              </a>
-              , Rejaka Abimanyu Susanto showcases a portfolio of web development
-              projects, including
-              <a
-                href="https://idea.rejaka.id"
-                className={`${
-                  themeStyle === "terminal"
-                    ? "text-[#00adb4] underline ml-1"
-                    : "theme-accent-primary hover:underline ml-1"
-                }`}
-              >
-                idea.rejaka.id
-              </a>{" "}
-              and
-              <a
-                href="https://tasistemporary.rejaka.id"
-                className={`${
-                  themeStyle === "terminal"
-                    ? "text-[#00adb4] underline ml-1"
-                    : "theme-accent-primary hover:underline ml-1"
-                }`}
-              >
-                tasistemporary.rejaka.id
-              </a>
-              .
+              As a dedicated developer and creator, Rejaka Abimanyu Susanto 
+              specializes in building modern web applications, developing 
+              automation tools, and creating educational content. His portfolio 
+              showcases a diverse range of projects spanning web development, 
+              mobile applications, and community-focused platforms.
             </p>
 
             <p className="text-sm">
@@ -249,7 +219,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
               </a>
               ,
               <a
-                href="https://linkedin.com/in/rejaka-abimanyu-me"
+                href="https://linkedin.com/in/rejaka-me"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${
