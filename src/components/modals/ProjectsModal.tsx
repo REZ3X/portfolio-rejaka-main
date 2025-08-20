@@ -124,6 +124,11 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                 ? "Projects Portfolio"
                 : filteredProjects[0]?.title}
             </h2>
+            {projectId !== "all" && filteredProjects[0] && (
+              <span className="ml-3 px-2 py-1 bg-[#202832] text-[#8b9cbe] text-sm border border-[#393d46]">
+                {filteredProjects[0].year}
+              </span>
+            )}
           </div>
           <button
             onClick={handleClose}
@@ -194,18 +199,23 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                   }
                 >
                   <div className="mb-3">
-                    <div
-                      className="inline-block px-2 py-0.5 text-xs border mb-2"
-                      style={{
-                        borderColor:
-                          categoryColors[filteredProjects[0]?.category] ||
-                          "#00adb4",
-                        color:
-                          categoryColors[filteredProjects[0]?.category] ||
-                          "#00adb4",
-                      }}
-                    >
-                      {filteredProjects[0]?.category.toUpperCase()}
+                    <div className="flex items-center gap-2 mb-2">
+                      <div
+                        className="inline-block px-2 py-0.5 text-xs border"
+                        style={{
+                          borderColor:
+                            categoryColors[filteredProjects[0]?.category] ||
+                            "#00adb4",
+                          color:
+                            categoryColors[filteredProjects[0]?.category] ||
+                            "#00adb4",
+                        }}
+                      >
+                        {filteredProjects[0]?.category.toUpperCase()}
+                      </div>
+                      <div className="px-2 py-0.5 bg-[#202832] text-[#8b9cbe] text-xs border border-[#393d46]">
+                        {filteredProjects[0]?.year}
+                      </div>
                     </div>
                     <h3 className="text-lg text-[#00adb4] font-bold">
                       {filteredProjects[0]?.title}
@@ -320,10 +330,13 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                       >
                         {project.category}
                       </div>
+                      <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-[#060a10] text-[#8b9cbe] text-xs border border-[#393d46]">
+                        {project.year}
+                      </div>
                     </div>
                   ) : (
                     <div
-                      className="h-32 flex items-center justify-center"
+                      className="h-32 flex items-center justify-center relative"
                       style={{
                         backgroundColor: "#0c1219",
                         borderBottom: `1px solid ${
@@ -332,18 +345,26 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                       }}
                     >
                       <span className="text-3xl">{project.emoji || "🚀"}</span>
+                      <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-[#060a10] text-[#8b9cbe] text-xs border border-[#393d46]">
+                        {project.year}
+                      </div>
                     </div>
                   )}
 
                   <div className="p-3">
-                    <h3 className="text-[#00adb4] font-bold mb-1 truncate">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-[#e0e0e0] opacity-75 line-clamp-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-[#00adb4] font-bold truncate flex-1">
+                        {project.title}
+                      </h3>
+                      <span className="text-xs text-[#8b9cbe] ml-2 font-mono">
+                        {project.year}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#e0e0e0] opacity-75 line-clamp-2 mb-2">
                       {project.subtitle}
                     </p>
 
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex flex-wrap gap-1">
                       {project.technologies.slice(0, 3).map((tech, i) => (
                         <span
                           key={i}

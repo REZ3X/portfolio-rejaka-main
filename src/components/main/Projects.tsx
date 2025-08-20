@@ -11,6 +11,7 @@ interface ProjectsProps {
 interface ProjectCardProps {
   title: string;
   category: string;
+  year: number; 
   thumbnail?: string;
   color: string;
   onClick: () => void;
@@ -19,6 +20,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   category,
+  year, 
   color,
   onClick,
 }) => {
@@ -35,7 +37,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           style={{ backgroundColor: color }}
         ></div>
         <h3 className="text-[#00adb4] font-bold text-sm truncate">{title}</h3>
-        <div className="text-xs text-[#e0e0e0] opacity-75">{category}</div>
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-[#e0e0e0] opacity-75">{category}</span>
+          <span className="text-[#8b9cbe] font-mono">{year}</span>
+        </div>
       </div>
 
       <div className="mt-auto text-xs text-right text-[#393d46]">→</div>
@@ -53,7 +58,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <h3 className="text-[#e6a2ce] font-medium text-base truncate group-hover:text-[#f4c6e2] transition-colors">
           {title}
         </h3>
-        <div className="text-sm text-[#d5c0d4] mt-1">{category}</div>
+        <div className="flex items-center justify-between text-sm mt-1">
+          <span className="text-[#d5c0d4]">{category}</span>
+          <span className="text-[#c4b2c3] font-medium">{year}</span>
+        </div>
       </div>
 
       <div className="mt-auto text-xs text-right text-[#d5c0d4] group-hover:text-[#e6a2ce] transition-colors">
@@ -146,6 +154,7 @@ const Projects: React.FC<ProjectsProps> = ({ openProjectModal }) => {
               key={project.id}
               title={project.title}
               category={project.category}
+              year={project.year}
               thumbnail={project.thumbnail}
               color={categoryColors[project.category] || categoryColors.web}
               onClick={() => handleProjectClick(project.id)}
