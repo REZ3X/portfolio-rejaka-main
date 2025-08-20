@@ -124,11 +124,6 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                 ? "Projects Portfolio"
                 : filteredProjects[0]?.title}
             </h2>
-            {projectId !== "all" && filteredProjects[0] && (
-              <span className="ml-3 px-2 py-1 bg-[#202832] text-[#8b9cbe] text-sm border border-[#393d46]">
-                {filteredProjects[0].year}
-              </span>
-            )}
           </div>
           <button
             onClick={handleClose}
@@ -213,9 +208,10 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                       >
                         {filteredProjects[0]?.category.toUpperCase()}
                       </div>
-                      <div className="px-2 py-0.5 bg-[#202832] text-[#8b9cbe] text-xs border border-[#393d46]">
+                      <span className="text-xs text-[#8b9cbe]">•</span>
+                      <span className="text-xs text-[#8b9cbe] font-mono">
                         {filteredProjects[0]?.year}
-                      </div>
+                      </span>
                     </div>
                     <h3 className="text-lg text-[#00adb4] font-bold">
                       {filteredProjects[0]?.title}
@@ -352,13 +348,10 @@ const ProjectsModal: React.FC<ProjectsModalProps> = ({
                   )}
 
                   <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-[#00adb4] font-bold truncate flex-1">
+                    <div className="mb-1">
+                      <h3 className="text-[#00adb4] font-bold truncate">
                         {project.title}
                       </h3>
-                      <span className="text-xs text-[#8b9cbe] ml-2 font-mono">
-                        {project.year}
-                      </span>
                     </div>
                     <p className="text-xs text-[#e0e0e0] opacity-75 line-clamp-2 mb-2">
                       {project.subtitle}
