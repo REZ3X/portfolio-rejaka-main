@@ -13,7 +13,31 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-    {
+  {
+    slug: "databaseNormalization",
+    title: "Database Normalization Explained (with Examples)",
+    date: "2025-08-22",
+    excerpt:
+      "A comprehensive guide to understanding database normalization concepts, from 1NF to BCNF. Learn why organizing data properly matters and how to avoid common database design pitfalls.",
+    coverImage: "",
+    readingTime: 7,
+    tags: ["Database", "Normalization", "SQL", "Data Structure", "Database Design"],
+    category: "Guide",
+    lastModified: "2025-08-22",
+  },
+  // {
+  //   slug: "januaryToAugust2025",
+  //   title: "From January to August: My 2025 in Code, Projects, and Friendship",
+  //   date: "2025-08-20",
+  //   excerpt:
+  //     "The first eight months of 2025 have been full of challenges, growth, and balance between coding, projects, and spending time with friends. Here's my recap of how the journey went so far.",
+  //   coverImage: "/blog/posts/januaryToAugust2025/cover.png",
+  //   readingTime: 7,
+  //   tags: ["2025 Recap", "Story", "Projects", "Friends"],
+  //   category: "Story",
+  //   lastModified: "2025-08-20",
+  // },
+  {
     slug: "secretChat",
     title: "Need for Private Room Chat that Completely Secure and Encrypted?",
     date: "2025-08-19",
