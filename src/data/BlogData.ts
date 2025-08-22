@@ -14,7 +14,7 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
-    slug: "dataFlowDiagram",
+    slug: "DataFlowDiagram",
     title: "Data Flow Diagram (DFD) Explained with Examples",
     date: "2025-08-22",
     excerpt:
