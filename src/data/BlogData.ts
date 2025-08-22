@@ -172,7 +172,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-07-07",
     excerpt:
       "Discover my journey into web development, from my first lines of code to becoming a professional developer. Tips and insights for aspiring developers.",
-    coverImage: "/blog/posts/myWebDevJourney/journey.jpg",
+    coverImage: "",
     readingTime: 8,
     tags: ["Journey", "Career", "Developer Story", "Motivation"],
     category: "Story",
