@@ -203,7 +203,7 @@ Departments Table
 
 ---
 
-### 3.5️⃣ Boyce–Codd Normal Form (BCNF)
+### 5️⃣ Boyce–Codd Normal Form (BCNF)
 
 - Stronger version of 3NF.
 - Every determinant (attribute that defines another) must be a candidate key.
