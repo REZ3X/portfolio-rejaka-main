@@ -13,6 +13,18 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+    {
+    slug: "DataFlowDiagram",
+    title: "Data Flow Diagram (DFD) Explained with Examples",
+    date: "2025-08-22",
+    excerpt:
+      "A comprehensive guide to understanding Data Flow Diagrams (DFD) for system analysis and design. Learn DFD symbols, levels, and how to create effective diagrams for inventory systems.",
+    coverImage: "",
+    readingTime: 12,
+    tags: ["DFD", "System Analysis", "Data Flow", "System Design", "Documentation"],
+    category: "Guide",
+    lastModified: "2025-08-22",
+  },
   {
     slug: "databaseNormalization",
     title: "Database Normalization Explained (with Examples)",
