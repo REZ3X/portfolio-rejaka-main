@@ -13,6 +13,18 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+{
+      slug: "CIA",
+      title: "CIA Triad Explained: The Foundation of Cybersecurity (with Real Case Studies)",
+      date: "2025-08-25",
+      excerpt:
+        "A comprehensive guide to understanding the CIA Triad - Confidentiality, Integrity, and Availability. Learn cybersecurity fundamentals with real-world case studies including the BSI ransomware attack analysis.",
+      coverImage: "",
+      readingTime: 15,
+      tags: ["Cybersecurity", "CIA Triad", "Information Security", "Case Study", "Risk Management"],
+      category: "Guide",
+      lastModified: "2025-08-25",
+    },
     {
     slug: "DataFlowDiagram",
     title: "Data Flow Diagram (DFD) Explained with Examples",
