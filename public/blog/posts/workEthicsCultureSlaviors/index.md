@@ -1,6 +1,6 @@
 # 🤝 Work Ethics & Culture in Tech Teams: Inside Slaviors Development
 
-Hey fellow developers and tech enthusiasts! Ever wondered what makes a tech team tick? Or how a group of college students can transform from competition participants into a professional development team? Today, I'm pulling back the curtain on **Slaviors**, our journey, our work culture, and the ethics that drive our daily operations.
+Hey fellow developers and tech enthusiasts! Ever wondered what makes a tech team tick? Or how a group of vocational high school students can transform from competition participants into a professional development team? Today, I'm pulling back the curtain on **Slaviors**, our journey, our work culture, and the ethics that drive our daily operations.
 
 Whether you're building your own dev team, joining a startup, or just curious about how modern tech teams operate, this deep dive into our work ethics and culture might just give you some valuable insights.
 
