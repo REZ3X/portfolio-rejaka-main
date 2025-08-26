@@ -13,19 +13,47 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-{
-      slug: "CIA",
-      title: "CIA Triad Explained: The Foundation of Cybersecurity (with Real Case Studies)",
-      date: "2025-08-25",
-      excerpt:
-        "A comprehensive guide to understanding the CIA Triad - Confidentiality, Integrity, and Availability. Learn cybersecurity fundamentals with real-world case studies including the BSI ransomware attack analysis.",
-      coverImage: "",
-      readingTime: 15,
-      tags: ["Cybersecurity", "CIA Triad", "Information Security", "Case Study", "Risk Management"],
-      category: "Guide",
-      lastModified: "2025-08-25",
-    },
-    {
+  {
+    slug: "workEthicsCultureSlaviors",
+    title: "Work Ethics & Culture in Tech Teams: Inside Slaviors Development",
+    date: "2025-08-26",
+    excerpt:
+      "An inside look at how Slaviors built a strong work culture and ethical framework from programming competition origins to professional development team. Learn about organizational structure, communication patterns, development processes, and sustainable team practices.",
+    coverImage: "/blog/posts/workEthicsCultureSlaviors/cover.png",
+    readingTime: 18,
+    tags: [
+      "Work Culture",
+      "Team Management",
+      "Tech Ethics",
+      "Remote Work",
+      "Professional Development",
+      "Team Building",
+      "Slaviors",
+      "Startup Culture",
+    ],
+    category: "Story",
+    lastModified: "2025-08-26",
+  },
+  {
+    slug: "CIA",
+    title:
+      "CIA Triad Explained: The Foundation of Cybersecurity (with Real Case Studies)",
+    date: "2025-08-25",
+    excerpt:
+      "A comprehensive guide to understanding the CIA Triad - Confidentiality, Integrity, and Availability. Learn cybersecurity fundamentals with real-world case studies including the BSI ransomware attack analysis.",
+    coverImage: "",
+    readingTime: 15,
+    tags: [
+      "Cybersecurity",
+      "CIA Triad",
+      "Information Security",
+      "Case Study",
+      "Risk Management",
+    ],
+    category: "Guide",
+    lastModified: "2025-08-25",
+  },
+  {
     slug: "DataFlowDiagram",
     title: "Data Flow Diagram (DFD) Explained with Examples",
     date: "2025-08-22",
@@ -33,7 +61,13 @@ export const blogPosts: BlogPost[] = [
       "A comprehensive guide to understanding Data Flow Diagrams (DFD) for system analysis and design. Learn DFD symbols, levels, and how to create effective diagrams for inventory systems.",
     coverImage: "",
     readingTime: 12,
-    tags: ["DFD", "System Analysis", "Data Flow", "System Design", "Documentation"],
+    tags: [
+      "DFD",
+      "System Analysis",
+      "Data Flow",
+      "System Design",
+      "Documentation",
+    ],
     category: "Guide",
     lastModified: "2025-08-22",
   },
@@ -45,7 +79,13 @@ export const blogPosts: BlogPost[] = [
       "A comprehensive guide to understanding database normalization concepts, from 1NF to BCNF. Learn why organizing data properly matters and how to avoid common database design pitfalls.",
     coverImage: "",
     readingTime: 7,
-    tags: ["Database", "Normalization", "SQL", "Data Structure", "Database Design"],
+    tags: [
+      "Database",
+      "Normalization",
+      "SQL",
+      "Data Structure",
+      "Database Design",
+    ],
     category: "Guide",
     lastModified: "2025-08-22",
   },
