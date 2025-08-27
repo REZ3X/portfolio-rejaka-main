@@ -33,6 +33,27 @@ marked.setOptions({
 
 marked.use({
   renderer: {
+    table(token) {
+      const header = token.header
+        .map((cell) => `<th>${cell.text}</th>`)
+        .join("");
+      
+      const body = token.rows
+        .map((row) => {
+          const cells = row.map((cell) => `<td>${cell.text}</td>`).join("");
+          return `<tr>${cells}</tr>`;
+        })
+        .join("");
+
+      return `
+        <div class="table-wrapper">
+          <table>
+            <thead><tr>${header}</tr></thead>
+            <tbody>${body}</tbody>
+          </table>
+        </div>
+      `;
+    },
     code(token) {
       const language = token.lang || "plaintext";
       const escapedCode = token.text
