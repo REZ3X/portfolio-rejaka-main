@@ -39,7 +39,7 @@ const BASE_OTHERS_DATA: OthersItem[] = [
 const MOBILE_ONLY_DATA: OthersItem[] = [
   {
     label: "Privacy Policy",
-    description: "Read our privacy policy and data handling practices",
+    description: "Read the privacy policy and data handling practices",
     url: "/privacy-policy",
     icon: "🔒",
     external: true,
