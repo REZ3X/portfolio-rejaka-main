@@ -138,6 +138,11 @@ export const metadata: Metadata = {
     "API security implementation",
     "responsive design principles",
   ],
+    other: {
+    "ads-loading-strategy": "content-first",
+    "content-type": "portfolio",
+    "content-status": "complete"
+  },
   authors: [
     {
       name: "Rejaka Abimanyu Susanto",

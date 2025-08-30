@@ -81,7 +81,7 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
                 </p>
               </div>
 
-              <div className="border border-[#393d46] p-3">
+              {/* <div className="border border-[#393d46] p-3">
                 <h4 className="text-[#00adb4] font-bold">
                   Best Graduate of the Year
                 </h4>
@@ -103,7 +103,7 @@ const AcademicModal: React.FC<AcademicModalProps> = ({ onClose }) => {
                   Completed elementary education with a focus on foundational
                   subjects.
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
 

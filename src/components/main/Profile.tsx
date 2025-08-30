@@ -55,7 +55,7 @@ const Profile: React.FC<ProfileProps> = ({
             </div>
             
             <div className="text-xs theme-text-secondary leading-relaxed">
-              <p className="theme-accent-primary font-semibold mb-1">Full Stack Web Developer</p>
+              <p className="theme-accent-primary font-semibold mb-1">Web Developer | Programming</p>
               <p className="text-[#8b9cbe]">SIJA Student • Slaviors CTO</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Profile: React.FC<ProfileProps> = ({
               <h3 className="text-[#00adb4] font-bold text-xs">Tech Stack</h3>
             </div>
             <div className="flex flex-wrap gap-1 pl-4">
-              {["Next.js", "TypeScript", "MongoDB", "React"].map((tech) => (
+              {["Next.js", "Express", "MongoDB", "TailwindCSS"].map((tech) => (
                 <span
                   key={tech}
                   className="px-1.5 py-0.5 bg-[#202832] text-[#e0e0e0] border border-[#393d46] text-xs"

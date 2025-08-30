@@ -58,8 +58,7 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
               accessible digital experiences. Beyond the front end, I’m
               expanding into full-stack development and database engineering —
               driven by a desire to understand the full architecture of the
-              systems I build. I&apos;m also exploring game development, pushing the
-              boundaries of how technology and creativity can collide.
+              systems I build.
             </p>
           </div>
 
@@ -69,6 +68,10 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
               <div className="border border-[#393d46] p-3">
                 <h4 className="text-[#00adb4] font-bold mb-2">Frontend</h4>
                 <ul className="text-sm space-y-1">
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Next.js</span>
+                  </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
                     <span>React</span>
@@ -97,29 +100,29 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
+                    <span>Express</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
                     <span>MySQL / Aiven</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
                     <span>MongoDB / Atlas</span>
                   </li>
+                  <li className="flex items-start">
+                    <span className="text-[#188d93] mr-2">›</span>
+                    <span>Redis</span>
+                  </li>
                 </ul>
               </div>
 
               <div className="border border-[#393d46] p-3">
-                <h4 className="text-[#00adb4] font-bold mb-2">Full Stack</h4>
+                <h4 className="text-[#00adb4] font-bold mb-2">Language</h4>
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Next.js</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>JavaScript</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>TypeScript</span>
+                    <span>JavaScript / TypeScript</span>
                   </li>
                 </ul>
               </div>
@@ -129,7 +132,7 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Git / GitHub</span>
+                    <span>Git / GitHub, GitLab</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
@@ -137,7 +140,7 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Virtual Private Server</span>
+                    <span>PM2</span>
                   </li>
                 </ul>
               </div>
@@ -151,11 +154,11 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>WebStorm IDE</span>
+                    <span>MongoDB Compass</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>DB Tools</span>
+                    <span>Redis Insight</span>
                   </li>
                 </ul>
               </div>
@@ -169,11 +172,7 @@ const ProgrammerModal: React.FC<ProgrammerModalProps> = ({ onClose }) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#188d93] mr-2">›</span>
-                    <span>Godot Engine</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#188d93] mr-2">›</span>
-                    <span>GDScript</span>
+                    <span>NGINX</span>
                   </li>
                 </ul>
               </div>
