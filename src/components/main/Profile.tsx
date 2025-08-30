@@ -16,6 +16,13 @@ const Profile: React.FC<ProfileProps> = ({
 }) => {
   const { themeStyle } = useUser();
 
+  const environment = process.env.WEB_ENVIRONMENT || "Clearnet";
+  const clearnetDomain = process.env.CLEARNET_DOMAIN || "rejaka.id";
+  const hiddenDomain = process.env.HIDDEN_DOMAIN || "adsadsad.onion";
+
+  const addressToShow = environment === "Clearnet" ? hiddenDomain : clearnetDomain;
+  const addressLabel = environment === "Clearnet" ? "TOR" : "CLEARNET";
+
   if (themeStyle === "terminal") {
     return (
       <div className="font-mono theme-bg-primary theme-text-primary p-4 rounded-none border theme-border h-full flex flex-col">
@@ -55,7 +62,7 @@ const Profile: React.FC<ProfileProps> = ({
             </div>
             
             <div className="text-xs theme-text-secondary leading-relaxed">
-              <p className="theme-accent-primary font-semibold mb-1">Web Developer | Programming</p>
+              <p className="theme-accent-primary font-semibold mb-1">Web Developer | Programmer</p>
               <p className="text-[#8b9cbe]">SIJA Student • Slaviors CTO</p>
             </div>
           </div>
@@ -74,6 +81,15 @@ const Profile: React.FC<ProfileProps> = ({
                   {tech}
                 </span>
               ))}
+            </div>
+          </div>
+
+          <div className="w-full mt-auto border-t theme-border pt-2">
+            <div className="flex items-center">
+              <div className="text-xs theme-accent-primary mr-2">{addressLabel}:</div>
+              <code className="text-xs bg-[#202832] px-2 py-1 border theme-border theme-text-primary font-mono break-all">
+                {addressToShow}
+              </code>
             </div>
           </div>
         </div>
@@ -145,7 +161,7 @@ const Profile: React.FC<ProfileProps> = ({
         </div>
 
         <div className="w-full mt-auto">
-          <div className="text-xs text-[#c4b2c3] space-y-0.5">
+          <div className="text-xs text-[#c4b2c3] space-y-0.5 mb-3">
             <div className="flex items-center justify-center">
               <span className="mr-2">✉</span>
               <span>abim@rejaka.id</span>
@@ -153,6 +169,15 @@ const Profile: React.FC<ProfileProps> = ({
             <div className="flex items-center justify-center">
               <span className="mr-2">📍</span>
               <span>Yogyakarta, ID</span>
+            </div>
+          </div>
+
+          <div className="w-full border-t border-[#574655] pt-2">
+            <div className="text-xs text-center">
+              <div className="text-[#e39fc2] font-medium mb-1">{addressLabel} Address</div>
+              <code className="text-xs bg-[#382736] px-2 py-1 rounded border border-[#574655] text-[#f0e6ef] break-all">
+                {addressToShow}
+              </code>
             </div>
           </div>
         </div>
