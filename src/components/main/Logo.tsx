@@ -29,10 +29,10 @@ const Logo: React.FC<LogoProps> = ({
   const [currentTime, setCurrentTime] = useState<string>("");
   const [startTime] = useState(Date.now());
 
-  const environment = process.env.WEB_ENVIRONMENT || "Clearnet";
-  const clearnetDomain = process.env.CLEARNET_DOMAIN || "rejaka.id";
-  const hiddenDomain = process.env.HIDDEN_DOMAIN || "adsadsad.onion";
-  
+  const environment = process.env.NEXT_PUBLIC_WEB_ENVIRONMENT || "Clearnet";
+  const clearnetDomain = process.env.NEXT_PUBLIC_CLEARNET_DOMAIN || "rejaka.id";
+  const hiddenDomain = process.env.NEXT_PUBLIC_HIDDEN_DOMAIN || "adsadsad.onion";
+
   const websiteToShow = environment === "Clearnet" ? clearnetDomain : hiddenDomain;
 
   const customAsciiArt = `   
