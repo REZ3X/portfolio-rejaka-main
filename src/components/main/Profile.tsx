@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
 import Image from "next/image";
-import { useUser, UserAlias } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
 
 interface ProfileProps {
   fullName: string;
@@ -14,33 +13,27 @@ const Profile: React.FC<ProfileProps> = ({
   fullName,
   alias,
   profileImage,
-  onionAddress,
 }) => {
-  const { activeUser, setActiveUser, themeStyle } = useUser();
-  const [showXiannyaaTip, setShowXiannyaaTip] = useState(false);
-
-  const handleUserChange = (user: UserAlias) => {
-    setActiveUser(user);
-  };
+  const { themeStyle } = useUser();
 
   if (themeStyle === "terminal") {
     return (
       <div className="font-mono theme-bg-primary theme-text-primary p-4 rounded-none border theme-border h-full flex flex-col">
         <div className="flex flex-col items-center md:items-start flex-grow">
-          <div className="mb-4 relative">
+          <div className="mb-3 relative">
             {profileImage ? (
-              <div className="w-24 h-24 md:w-28 md:h-28 border-2 border-[#107f84] overflow-hidden">
+              <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-[#107f84] overflow-hidden">
                 <Image
                   src={profileImage}
                   alt={fullName}
-                  width={112}
-                  height={112}
+                  width={80}
+                  height={80}
                   className="object-cover"
                 />
               </div>
             ) : (
-              <div className="w-24 h-24 md:w-28 md:h-28 border-2 border-[#107f84] bg-[#202832] flex items-center justify-center">
-                <div className="text-[#00adb4] text-3xl">
+              <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-[#107f84] bg-[#202832] flex items-center justify-center">
+                <div className="text-[#00adb4] text-xl">
                   {fullName
                     .split(" ")
                     .map((part) => part[0])
@@ -50,99 +43,61 @@ const Profile: React.FC<ProfileProps> = ({
             )}
           </div>
 
-          <div className="text-center md:text-left mb-3">
-            <h1 className="theme-accent-primary text-xl font-bold">
+          <div className="text-center md:text-left mb-3 w-full">
+            <h1 className="theme-accent-primary text-base font-bold mb-1">
               Rejaka Abimanyu Susanto
             </h1>
-            <div className="flex items-center mt-1">
-              <span className="theme-text-secondary">alias</span>
-              <span className="ml-2 px-2 py-0.5 bg-[#202832] border border-[#107f84] theme-accent-primary">
+            <div className="flex items-center justify-center md:justify-start mb-2">
+              <span className="theme-text-secondary text-xs">alias</span>
+              <span className="ml-2 px-2 py-0.5 bg-[#202832] border border-[#107f84] theme-accent-primary text-xs">
                 {alias}
               </span>
             </div>
+            
+            <div className="text-xs theme-text-secondary leading-relaxed">
+              <p className="theme-accent-primary font-semibold mb-1">Web Developer | Programming</p>
+              <p className="text-[#8b9cbe]">SIJA Student • Slaviors CTO</p>
+            </div>
           </div>
 
-          <div className="mt-2 mb-4 w-full grid grid-cols-3 gap-1">
-            <button
-              onClick={() => handleUserChange("abim")}
-              className={`px-2 py-1 text-xs border ${
-                activeUser === "abim"
-                  ? "bg-[#202832] border-[#00adb4] text-[#00adb4]"
-                  : "border-[#393d46] text-[#e0e0e0] hover:border-[#00adb4]"
-              }`}
-            >
-              abim
-            </button>
-            <button
-              onClick={() => handleUserChange("rez3x")}
-              className={`px-2 py-1 text-xs border ${
-                activeUser === "rez3x"
-                  ? "bg-[#202832] border-[#00adb4] text-[#00adb4]"
-                  : "border-[#393d46] text-[#e0e0e0] hover:border-[#00adb4]"
-              }`}
-            >
-              rez3x
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowXiannyaaTip(true)}
-              className={`px-2 py-1 text-xs border cursor-not-allowed opacity-60 ${
-                activeUser === "xiannyaa"
-                  ? "bg-[#202832] border-[#00adb4] text-[#00adb4]"
-                  : "border-[#393d46] text-[#e0e0e0]"
-              }`}
-              title="This personality is under psychiatrist care, can't be disturbed"
-              tabIndex={0}
-              aria-disabled="true"
-            >
-              xiannyaa
-            </button>
+          <div className="w-full mb-3 border-t theme-border pt-2">
+            <div className="flex items-center mb-2">
+              <span className="text-[#00adb4] mr-2">#</span>
+              <h3 className="text-[#00adb4] font-bold text-xs">Tech Stack</h3>
+            </div>
+            <div className="flex flex-wrap gap-1 pl-4">
+              {["Next.js", "Express", "MongoDB", "TailwindCSS"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-1.5 py-0.5 bg-[#202832] text-[#e0e0e0] border border-[#393d46] text-xs"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
-          {showXiannyaaTip && (
-            <div className="mt-2 text-xs text-[#e39fc2] bg-[#2a1e29] border border-[#e39fc2] rounded p-2 max-w-xs">
-              This personality is under psychiatrist care, can&apos;t be disturbed
-              <button
-                className="ml-2 text-[#00adb4] underline"
-                onClick={() => setShowXiannyaaTip(false)}
-                type="button"
-              >
-                Close
-              </button>
-            </div>
-          )}
-
-          {onionAddress && (
-            <div className="mt-auto pt-3 w-full border-t theme-border">
-              <div className="flex items-center">
-                <div className="text-xs theme-accent-primary mr-2">TOR:</div>
-                <code className="text-xs bg-[#202832] px-2 py-1 border theme-border theme-text-primary font-mono break-all">
-                  {onionAddress}
-                </code>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="theme-bg-primary theme-text-primary p-6 rounded-2xl shadow-md h-full flex flex-col items-center soft-card">
-      <div className="flex flex-col items-center flex-grow text-center">
-        <div className="mb-5 relative">
+    <div className="theme-bg-primary theme-text-primary p-4 rounded-2xl shadow-md h-full flex flex-col items-center soft-card">
+      <div className="flex flex-col items-center flex-grow text-center w-full">
+        <div className="mb-3 relative">
           {profileImage ? (
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-[#574655] shadow-md overflow-hidden">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-[#574655] shadow-md overflow-hidden">
               <Image
                 src={profileImage}
                 alt={fullName}
-                width={144}
-                height={144}
+                width={96}
+                height={96}
                 className="object-cover"
               />
             </div>
           ) : (
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-[#574655] shadow-md theme-bg-secondary flex items-center justify-center">
-              <div className="theme-accent-primary text-4xl">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-[#574655] shadow-md theme-bg-secondary flex items-center justify-center">
+              <div className="theme-accent-primary text-2xl">
                 {fullName
                   .split(" ")
                   .map((part) => part[0])
@@ -152,51 +107,54 @@ const Profile: React.FC<ProfileProps> = ({
           )}
         </div>
 
-        <div className="text-center mb-4">
-          <h1 className="theme-accent-primary text-xl font-medium mb-1">
+        <div className="text-center mb-3 w-full">
+          <h1 className="theme-accent-primary text-base font-medium mb-1">
             Rejaka Abimanyu Susanto
           </h1>
-          <div className="inline-block px-3 py-1 rounded-full theme-bg-secondary theme-text-primary text-sm font-light">
+          <div className="inline-block px-2.5 py-0.5 rounded-full theme-bg-secondary theme-text-primary text-xs font-light mb-2">
             @{alias}
+          </div>
+          
+          <div className="text-xs theme-text-secondary leading-relaxed max-w-xs mx-auto">
+            <p className="text-[#e39fc2] font-medium mb-1">Full Stack Web Developer</p>
+            <p className="mb-1">SIJA Student • Slaviors CTO</p>
+            <p className="text-xs opacity-75">Award-winning developer</p>
           </div>
         </div>
 
-        <div className="text-sm theme-text-secondary mb-6 max-w-xs">
-          Creative writer, artist, and storyteller. Blending technology with art
-          to create unique digital narratives.
+        <div className="w-full mb-3">
+          <h3 className="text-[#e39fc2] font-medium text-xs mb-2">Core Stack</h3>
+          <div className="flex flex-wrap justify-center gap-1">
+            {["Next.js", "TypeScript", "MongoDB", "React"].map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 bg-[#463343] text-[#e39fc2] text-xs rounded-full shadow-sm"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-auto mb-4 w-full flex justify-center gap-2">
-          <button
-            onClick={() => handleUserChange("abim")}
-            className={`px-4 py-1.5 text-xs rounded-full transition-all ${
-              activeUser === "abim"
-                ? "bg-[#b4688f] text-white shadow-md"
-                : "bg-[#463343] text-[#c4b2c3] hover:bg-[#574655]"
-            }`}
-          >
-            abim
-          </button>
-          <button
-            onClick={() => handleUserChange("rez3x")}
-            className={`px-4 py-1.5 text-xs rounded-full transition-all ${
-              activeUser === "rez3x"
-                ? "bg-[#b4688f] text-white shadow-md"
-                : "bg-[#463343] text-[#c4b2c3] hover:bg-[#574655]"
-            }`}
-          >
-            rez3x
-          </button>
-          <button
-            onClick={() => handleUserChange("xiannyaa")}
-            className={`px-4 py-1.5 text-xs rounded-full transition-all ${
-              activeUser === "xiannyaa"
-                ? "bg-[#e39fc2] text-[#2a1e29] shadow-md font-medium"
-                : "bg-[#463343] text-[#c4b2c3] hover:bg-[#574655]"
-            }`}
-          >
-            xiannyaa
-          </button>
+        <div className="w-full mb-3 p-2.5 bg-[#382736] rounded-lg border border-[#574655]">
+          <h3 className="text-[#e39fc2] font-medium text-xs mb-1 text-center">Latest Achievement</h3>
+          <div className="text-xs text-[#f0e6ef] text-center">
+            <div className="font-medium">Silogy Expo Finalist</div>
+            <div className="text-[#c4b2c3] text-xs">National • 2025</div>
+          </div>
+        </div>
+
+        <div className="w-full mt-auto">
+          <div className="text-xs text-[#c4b2c3] space-y-0.5">
+            <div className="flex items-center justify-center">
+              <span className="mr-2">✉</span>
+              <span>abim@rejaka.id</span>
+            </div>
+            <div className="flex items-center justify-center">
+              <span className="mr-2">📍</span>
+              <span>Yogyakarta, ID</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

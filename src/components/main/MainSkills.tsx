@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import ProgrammerModal from "@/components/modals/ProgrammerModal";
 import AcademicModal from "@/components/modals/AcademicModal";
-import CreativeModal from "@/components/modals/CreativeModal";
+// import CreativeModal from "@/components/modals/CreativeModal";
 import XiannyaaProgrammerModal from "@/components/modals/xiannyaa/ProgrammerModal";
 import XiannyaaAcademicModal from "@/components/modals/xiannyaa/AcademicModal";
-import XiannyaaCreativeModal from "@/components/modals/xiannyaa/CreativeModal";
+// import XiannyaaCreativeModal from "@/components/modals/xiannyaa/CreativeModal";
 import { useUser } from "@/context/UserContext";
-import { usersData } from "@/data/UsersData";
 
 interface SkillCardProps {
   title: string;
@@ -14,7 +13,6 @@ interface SkillCardProps {
   icon: string;
   softIcon?: string;
   onClick: () => void;
-  isHighlighted?: boolean;
 }
 
 const SkillCard: React.FC<SkillCardProps> = ({
@@ -23,7 +21,6 @@ const SkillCard: React.FC<SkillCardProps> = ({
   icon,
   softIcon,
   onClick,
-  isHighlighted = false,
 }) => {
   const { themeStyle } = useUser();
 
@@ -32,20 +29,12 @@ const SkillCard: React.FC<SkillCardProps> = ({
   if (themeStyle === "terminal") {
     return (
       <button
-        className={`w-full pl-8 pr-4 py-4 cursor-pointer hover:bg-[#0c1219] transition-colors duration-200 h-full flex flex-col relative ${
-          isHighlighted ? "border-l-2 border-l-[#00adb4] bg-[#0a1520]" : ""
-        }`}
+        className="w-full pl-8 pr-4 py-4 cursor-pointer hover:bg-[#0c1219] transition-colors duration-200 h-full flex flex-col relative"
         onClick={onClick}
       >
-        <div
-          className={`absolute left-0 top-0 bottom-0 w-8 ${
-            isHighlighted ? "bg-[#081118]" : "bg-[#0c1219]"
-          } border-r border-[#393d46] flex items-center justify-center`}
-        >
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-[#0c1219] border-r border-[#393d46] flex items-center justify-center">
           <div
-            className={`vertical-text font-bold text-xs sm:text-sm tracking-wider uppercase ${
-              isHighlighted ? "text-[#00d6e0]" : "text-[#00adb4]"
-            } truncate max-h-full`}
+            className="vertical-text font-bold text-xs sm:text-sm tracking-wider uppercase text-[#00adb4] truncate max-h-full"
             style={{
               writingMode: "vertical-rl",
               transform: "rotate(180deg)",
@@ -62,11 +51,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         <div className="flex items-center mb-3">
           <div className="text-[#00adb4] text-2xl mr-0.5">{displayIcon}</div>
           <div>
-            <h3
-              className={`font-bold text-base ${
-                isHighlighted ? "text-[#00d6e0]" : "text-[#00adb4]"
-              }`}
-            >
+            <h3 className="font-bold text-base text-[#00adb4]">
               {subtitle}
             </h3>
           </div>
@@ -81,49 +66,28 @@ const SkillCard: React.FC<SkillCardProps> = ({
 
   return (
     <button
-      className={`p-3 rounded-lg cursor-pointer transition-all duration-200 h-full w-full flex flex-col relative ${
-        isHighlighted
-          ? "bg-[#4e3a4d] text-[#f5eaf4] border border-[#e6a2ce] soft-glow"
-          : "bg-[#3a2939] hover:bg-[#4e3a4d] border border-transparent hover:border-[#e6a2ce]/20"
-      } ${themeStyle === "soft" ? "mb-2 md:mb-0 shadow-sm" : ""}`}
+      className={`p-4 rounded-lg cursor-pointer transition-all duration-200 h-full w-full flex flex-col relative bg-[#3a2939] hover:bg-[#4e3a4d] border border-transparent hover:border-[#e6a2ce]/20 ${themeStyle === "soft" ? "mb-2 md:mb-0 shadow-sm" : ""}`}
       onClick={onClick}
     >
-      <div className="flex items-center mb-2.5">
-        <div className="mr-2.5 p-1.5 bg-[#2e1e2e] rounded-full shadow-md flex items-center justify-center w-10 h-10">
-          <span className="text-xl">{displayIcon}</span>
+      <div className="flex items-center mb-3">
+        <div className="mr-3 p-2 bg-[#2e1e2e] rounded-full shadow-md flex items-center justify-center w-12 h-12">
+          <span className="text-2xl">{displayIcon}</span>
         </div>
         <div className="flex-1">
-          <h3
-            className={`font-medium text-base ${
-              isHighlighted ? "text-[#f4c6e2]" : "text-[#e6a2ce]"
-            }`}
-          >
+          <h3 className="font-medium text-lg text-[#e6a2ce]">
             {subtitle}
           </h3>
-          <div className="text-xs text-[#d5c0d4] uppercase tracking-wide">
+          <div className="text-sm text-[#d5c0d4] uppercase tracking-wide">
             {title}
           </div>
         </div>
       </div>
 
-      {isHighlighted && (
-        <div className="my-2">
-          <div className="h-0.5 w-16 bg-gradient-to-r from-[#e6a2ce] to-transparent rounded-full"></div>
-        </div>
-      )}
-
-      <div className="mt-auto pt-2 border-t border-[#5d4a5c] text-xs text-[#d5c0d4] text-center">
-        {isHighlighted ? (
-          <span className="text-[#f4c6e2] flex items-center justify-center">
-            <span className="mr-1.5">•</span>My specialty
-            <span className="ml-1.5">•</span>
-          </span>
-        ) : (
-          <span className="flex items-center justify-center">
-            <span className="mr-1.5 text-[#e6a2ce] text-xs">✧</span>
-            Tap to learn more
-          </span>
-        )}
+      <div className="mt-auto pt-3 border-t border-[#5d4a5c] text-sm text-[#d5c0d4] text-center">
+        <span className="flex items-center justify-center">
+          <span className="mr-2 text-[#e6a2ce]">✧</span>
+          Tap to learn more
+        </span>
       </div>
     </button>
   );
@@ -131,13 +95,12 @@ const SkillCard: React.FC<SkillCardProps> = ({
 
 const MainSkills: React.FC = () => {
   const [activeModal, setActiveModal] = useState<
-    "programmer" | "academic" | "creative" | null
+    "programmer" | "academic" | null
   >(null);
 
-  const { activeUser, themeStyle } = useUser();
-  const userFocus = usersData[activeUser].focus;
+  const { themeStyle } = useUser();
 
-  const openModal = (modal: "programmer" | "academic" | "creative") => {
+  const openModal = (modal: "programmer" | "academic") => {
     setActiveModal(modal);
   };
 
@@ -176,20 +139,19 @@ const MainSkills: React.FC = () => {
         </div>
 
         <div
-          className={`grid grid-cols-1 md:grid-cols-3 h-full ${
+          className={`grid grid-cols-1 md:grid-cols-2 h-full ${
             themeStyle === "soft"
-              ? "gap-2 p-3 sm:gap-3 md:gap-0.5 md:p-0.5"
+              ? "gap-3 p-4"
               : ""
           }`}
         >
-          <div className={`relative h-full ${themeStyle === "soft" ? "" : ""}`}>
+          <div className={`relative h-full`}>
             <SkillCard
               title="Academic"
               subtitle="Student"
               icon="🎓"
               softIcon="✨"
               onClick={() => openModal("academic")}
-              isHighlighted={userFocus === "academic"}
             />
             {themeStyle === "terminal" && (
               <div className="hidden md:block absolute top-0 bottom-0 right-0 w-px theme-border pointer-events-none"></div>
@@ -207,25 +169,6 @@ const MainSkills: React.FC = () => {
               icon="💻"
               softIcon="🌸"
               onClick={() => openModal("programmer")}
-              isHighlighted={userFocus === "programmer"}
-            />
-            {themeStyle === "terminal" && (
-              <div className="hidden md:block absolute top-0 bottom-0 right-0 w-px theme-border pointer-events-none"></div>
-            )}
-          </div>
-
-          <div
-            className={`relative h-full ${
-              themeStyle === "soft" ? "" : "border-t md:border-t-0 theme-border"
-            }`}
-          >
-            <SkillCard
-              title="Creative"
-              subtitle="Author"
-              icon="✒️"
-              softIcon="💕"
-              onClick={() => openModal("creative")}
-              isHighlighted={userFocus === "creative"}
             />
           </div>
         </div>
@@ -243,13 +186,6 @@ const MainSkills: React.FC = () => {
           <XiannyaaAcademicModal onClose={closeModal} />
         ) : (
           <AcademicModal onClose={closeModal} />
-        ))}
-
-      {activeModal === "creative" &&
-        (themeStyle === "soft" ? (
-          <XiannyaaCreativeModal onClose={closeModal} />
-        ) : (
-          <CreativeModal onClose={closeModal} />
         ))}
     </>
   );

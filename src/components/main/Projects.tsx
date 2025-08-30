@@ -102,7 +102,7 @@ const Projects: React.FC<ProjectsProps> = ({ openProjectModal }) => {
     bot: themeStyle === "soft" ? "#c47fb0" : "#3498db",
   };
 
-  const itemCount = themeStyle === "soft" ? 2 : 4;
+  const itemCount = themeStyle === "soft" ? 2 : 6;
 
   return (
     <>

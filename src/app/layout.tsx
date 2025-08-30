@@ -259,6 +259,9 @@ export const metadata: Metadata = {
     "msapplication-tap-highlight": "no",
     "theme-color": "#2e1e2e",
     "color-scheme": "dark light",
+    "ads-loading-strategy": "content-first",
+    "content-type": "portfolio",
+    "content-status": "complete"
   },
 };
 

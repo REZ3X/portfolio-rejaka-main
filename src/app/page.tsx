@@ -9,12 +9,12 @@ import LinksContact from "@/components/main/LinksContact";
 import Blog from "@/components/main/Blog";
 import ExperienceAchievement from "@/components/main/ExperienceAchievement";
 import Others from "@/components/main/Others";
-import DevQuotes from "@/components/main/DevQuotes";
-import MiniGame from "@/components/main/MiniGame";
+// import DevQuotes from "@/components/main/DevQuotes";
+// import MiniGame from "@/components/main/MiniGame";
 import Footer from "@/components/shared/Footer";
 import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
-import Terminal from "@/components/terminal/Terminal";
+// import Terminal from "@/components/terminal/Terminal";
 import BotButton from "@/components/main/BotButton";
 import Loader from "./Loader";
 import FeminineLoader from "./FeminineLoader";
@@ -117,22 +117,22 @@ const MainContent = () => {
     }
   }, []);
 
-  const openModal = (modalType: string) => {
-    setActiveModal(modalType);
-    if (typeof window !== "undefined") {
-      const url = new URL(window.location.href);
-      url.searchParams.set("modal", modalType);
-      if (modalType === "projects") {
-        url.searchParams.set("project", "all");
-        setCurrentProjectId("all");
-      } else if (modalType === "blogList") {
-        url.searchParams.set("category", "all");
-        setBlogModalCategory("all");
-        setBlogModalSearch("");
-      }
-      window.history.pushState({}, "", url);
-    }
-  };
+  // const openModal = (modalType: string) => {
+  //   setActiveModal(modalType);
+  //   if (typeof window !== "undefined") {
+  //     const url = new URL(window.location.href);
+  //     url.searchParams.set("modal", modalType);
+  //     if (modalType === "projects") {
+  //       url.searchParams.set("project", "all");
+  //       setCurrentProjectId("all");
+  //     } else if (modalType === "blogList") {
+  //       url.searchParams.set("category", "all");
+  //       setBlogModalCategory("all");
+  //       setBlogModalSearch("");
+  //     }
+  //     window.history.pushState({}, "", url);
+  //   }
+  // };
 
   const openBlogModalWithCategory = (
     category: string = "all",
@@ -275,26 +275,26 @@ const MainContent = () => {
               <div className="lg:col-span-6">
                 <Logo {...osData} />
               </div>
-              <div className="lg:col-span-3">
+              <div className="lg:col-span-6">
                 <Profile {...userData} />
               </div>
-              <div className="lg:col-span-3">
+              {/* <div className="lg:col-span-3">
                 <About />
-              </div>
+              </div> */}
             </>
           )}
         </div>
 
         {themeStyle === "terminal" ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <div className="gap-3">
             <div className="lg:col-span-2 blog-component">
               <Blog
                 openBlogListModal={() => openBlogModalWithCategory("all", "")}
               />
             </div>
-            <div className="lg:col-span-1">
+            {/* <div className="lg:col-span-1">
               <ExperienceAchievement />
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -319,25 +319,27 @@ const MainContent = () => {
           </div>
 
           <div className={`lg:col-span-${themeStyle === "soft" ? "3" : "4"}`}>
-            <LinksContact />
+            {/* <LinksContact /> */}
+            <ExperienceAchievement />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <div className="lg:col-span-1">
             <Others />
           </div>
           <div className="lg:col-span-1">
-            <MiniGame />
+            {/* <MiniGame /> */}
+            <LinksContact />
           </div>
-          <div className="lg:col-span-1">
+          {/* <div className="lg:col-span-1">
             <DevQuotes />
-          </div>
+          </div> */}
         </div>
       </div>
 
       <Footer />
-      <Terminal openModal={openModal} />
+      {/* <Terminal openModal={openModal} /> */}
 
       {activeModal === "voidbot" &&
         (themeStyle === "soft" ? (
