@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { HiPrinter } from "react-icons/hi";
 
 const ResumePage: React.FC = () => {
   const [currentDate, setCurrentDate] = useState<string>("");
@@ -18,9 +19,11 @@ const ResumePage: React.FC = () => {
         <div className="print:hidden fixed top-4 right-4 z-10">
           <button
             onClick={handlePrint}
-            className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded font-medium shadow-lg transition-colors"
+            className="bg-black hover:bg-gray-800 text-white p-3 rounded-full font-medium shadow-lg transition-colors flex items-center justify-center"
+            title="Print Resume"
+            aria-label="Print Resume"
           >
-            Print Resume
+            <HiPrinter className="w-5 h-5" />
           </button>
         </div>
 
@@ -74,12 +77,12 @@ const ResumePage: React.FC = () => {
                   Professional Summary
                 </h2>
                 <p className="text-gray-700 text-xs leading-relaxed">
-                  <strong>Passionate Full Stack Developer</strong> specializing
+                  <strong>Passionate Web Developer</strong> specializing
                   in modern web technologies with proven track record in
                   competitive programming. Expert in <em>Next.js ecosystem</em>,
-                  building scalable applications with API routes, MongoDB
+                  building scalable applications with robust Express based backend, MongoDB
                   integration, and advanced image processing.
-                  <strong>Award-winning developer</strong> with leadership
+                  {""}<strong> Award-winning developer</strong> with leadership
                   experience, combining technical excellence with strong
                   organizational skills. Committed to delivering innovative
                   solutions and contributing to meaningful projects through
@@ -113,7 +116,7 @@ const ResumePage: React.FC = () => {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-gray-800 text-xs">
-                          Lead Full Stack Developer - Slaviors
+                          Chief Technology Officer - Slaviors
                         </h3>
                         <span className="text-xs text-gray-500">
                           Oct 2024 - Present
@@ -122,7 +125,7 @@ const ResumePage: React.FC = () => {
                     </div>
                     <p className="text-gray-700 text-xs mt-0.5">
                       • Leading development team in building web applications
-                      with Next.js, API routes, and MongoDB stack
+                      with Next.js, Express, MongoDB stack
                     </p>
                   </div>
 
@@ -179,23 +182,6 @@ const ResumePage: React.FC = () => {
                     </p>
                   </div>
 
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-semibold text-gray-800 text-xs">
-                          Security Personnel (Volunteer) - Student Discipline
-                          Team, SMKN 2 Depok Sleman
-                        </h3>
-                        <span className="text-xs text-gray-500">
-                          Sep 2024 - Present
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-gray-700 text-xs mt-0.5">
-                      • Volunteer security role supporting student discipline
-                      and school safety initiatives
-                    </p>
-                  </div>
                 </div>
               </section>
 
@@ -223,18 +209,28 @@ const ResumePage: React.FC = () => {
                 </h2>
                 <div className="text-xs text-gray-700 leading-relaxed">
                   <p className="mb-1">
-                    <strong>Frontend:</strong> React.js, Next.js, TypeScript,
-                    HTML5, CSS3, Tailwind CSS
+                    <strong>Frontend:</strong> Next.js, React, CSS3, Tailwind
+                    CSS, Vite
                   </p>
                   <p className="mb-1">
-                    <strong>Backend:</strong> Next.js API Routes, Node.js,
-                    Serverless Functions
+                    <strong>Backend:</strong> Node.js, Express, Next.js API
+                    Routes
                   </p>
                   <p className="mb-1">
-                    <strong>Database:</strong> MongoDB, MySQL
+                    <strong>Database:</strong> MongoDB Atlas, MySQL/Aiven, Redis
+                  </p>
+                  <p className="mb-1">
+                    <strong>Languages:</strong> JavaScript / TypeScript
+                  </p>
+                  <p className="mb-1">
+                    <strong>DevOps:</strong> Git/GitHub/GitLab, Vercel, PM2
+                  </p>
+                  <p className="mb-1">
+                    <strong>Tools:</strong> VS Code, MongoDB Compass, Redis
+                    Insight
                   </p>
                   <p>
-                    <strong>Tools:</strong> Git, VS Code, npm, Postman
+                    <strong>Infrastructure:</strong> Cloudflare, NGINX
                   </p>
                 </div>
               </section>
