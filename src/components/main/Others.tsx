@@ -9,9 +9,10 @@ interface OthersItem {
   icon: string;
   external?: boolean;
   modal?: string;
+  mobileOnly?: boolean;
 }
 
-const othersData: OthersItem[] = [
+const BASE_OTHERS_DATA: OthersItem[] = [
   {
     label: "Resume",
     description: "View my professional resume and CV",
@@ -35,8 +36,37 @@ const othersData: OthersItem[] = [
   },
 ];
 
+const MOBILE_ONLY_DATA: OthersItem[] = [
+  {
+    label: "Privacy Policy",
+    description: "Read the privacy policy and data handling practices",
+    url: "/privacy-policy",
+    icon: "🔒",
+    external: true,
+    mobileOnly: true,
+  },
+];
+
 const Others: React.FC = () => {
   const { themeStyle } = useUser();
+
+  const [othersData, setOthersData] = React.useState(BASE_OTHERS_DATA);
+
+  React.useEffect(() => {
+    const updateData = () => {
+      const isMobile = window.innerWidth < 1024; 
+      if (isMobile) {
+        setOthersData([...BASE_OTHERS_DATA, ...MOBILE_ONLY_DATA]);
+      } else {
+        setOthersData(BASE_OTHERS_DATA);
+      }
+    };
+
+    updateData();
+
+    window.addEventListener('resize', updateData);
+    return () => window.removeEventListener('resize', updateData);
+  }, []);
 
   const handleItemClick = (item: OthersItem) => {
     if (item.modal) {
@@ -73,7 +103,9 @@ const Others: React.FC = () => {
             <button
               key={index}
               onClick={() => handleItemClick(item)}
-              className="w-full text-left border border-[#393d46] p-3 hover:border-[#00adb4] hover:bg-[#0a1017] transition-all duration-200 group"
+              className={`w-full text-left border border-[#393d46] p-3 hover:border-[#00adb4] hover:bg-[#0a1017] transition-all duration-200 group ${
+                item.mobileOnly ? 'lg:hidden' : ''
+              }`}
             >
               <div className="flex items-start space-x-3">
                 <div className="text-lg flex-shrink-0 mt-0.5">{item.icon}</div>
@@ -106,8 +138,7 @@ const Others: React.FC = () => {
 
         <div className="border-t border-[#393d46] p-2.5 text-center">
           <div className="text-[10px] text-[#8b9cbe]">
-            {othersData.length} item{othersData.length !== 1 ? "s" : ""}{" "}
-            available
+            {othersData.length} item{othersData.length !== 1 ? "s" : ""} available
           </div>
         </div>
       </div>
@@ -131,7 +162,9 @@ const Others: React.FC = () => {
           <button
             key={index}
             onClick={() => handleItemClick(item)}
-            className="w-full text-left border theme-border rounded-xl p-4 hover:border-[#e39fc2] hover:shadow-md transition-all duration-200 group bg-[#382736] hover:bg-[#463343]"
+            className={`w-full text-left border theme-border rounded-xl p-4 hover:border-[#e39fc2] hover:shadow-md transition-all duration-200 group bg-[#382736] hover:bg-[#463343] ${
+              item.mobileOnly ? 'lg:hidden' : ''
+            }`}
           >
             <div className="flex items-start space-x-3">
               <div className="text-2xl flex-shrink-0 mt-1">{item.icon}</div>
@@ -164,8 +197,7 @@ const Others: React.FC = () => {
 
       <div className="border-t theme-border p-3 text-center">
         <div className="text-xs theme-text-secondary">
-          {othersData.length} resource{othersData.length !== 1 ? "s" : ""}{" "}
-          available
+          {othersData.length} resource{othersData.length !== 1 ? "s" : ""} available
         </div>
       </div>
     </div>

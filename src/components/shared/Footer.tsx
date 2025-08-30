@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const { themeStyle } = useUser();
 
-  const lastUpdated = "14 April 2025";
+  const lastUpdated = "30 August 2025";
   // const startCode = "6 April 2025";
 
   if (themeStyle === "terminal") {
