@@ -16,9 +16,9 @@ const Profile: React.FC<ProfileProps> = ({
 }) => {
   const { themeStyle } = useUser();
 
-  const environment = process.env.WEB_ENVIRONMENT || "Clearnet";
-  const clearnetDomain = process.env.CLEARNET_DOMAIN || "rejaka.id";
-  const hiddenDomain = process.env.HIDDEN_DOMAIN || "adsadsad.onion";
+  const environment = process.env.NEXT_PUBLIC_WEB_ENVIRONMENT || "Clearnet";
+  const clearnetDomain = process.env.NEXT_PUBLIC_CLEARNET_DOMAIN || "rejaka.id";
+  const hiddenDomain = process.env.NEXT_PUBLIC_HIDDEN_DOMAIN || "adsadsad.onion";
 
   const addressToShow = environment === "Clearnet" ? hiddenDomain : clearnetDomain;
   const addressLabel = environment === "Clearnet" ? "TOR" : "CLEARNET";
