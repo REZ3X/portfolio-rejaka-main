@@ -17,7 +17,6 @@ const Logo: React.FC<LogoProps> = ({
   title,
   location,
   email,
-  website,
   skills,
   os,
   kernelVersion = "5.15.0-portfolio-custom",
@@ -29,6 +28,12 @@ const Logo: React.FC<LogoProps> = ({
   const [uptime, setUptime] = useState("0s");
   const [currentTime, setCurrentTime] = useState<string>("");
   const [startTime] = useState(Date.now());
+
+  const environment = process.env.WEB_ENVIRONMENT || "Clearnet";
+  const clearnetDomain = process.env.CLEARNET_DOMAIN || "rejaka.id";
+  const hiddenDomain = process.env.HIDDEN_DOMAIN || "adsadsad.onion";
+  
+  const websiteToShow = environment === "Clearnet" ? clearnetDomain : hiddenDomain;
 
   const customAsciiArt = `   
     ##############  ######     
@@ -155,7 +160,18 @@ const Logo: React.FC<LogoProps> = ({
               <div className="col-span-3 text-[#e0e0e0]">{email}</div>
 
               <div className="text-[#00adb4] col-span-1">Web:</div>
-              <div className="col-span-3 text-[#e0e0e0]">{website}</div>
+              <div className="col-span-3 text-[#e0e0e0]">{websiteToShow}</div>
+
+              <div className="text-[#00adb4] col-span-1">Environment:</div>
+              <div className="col-span-3 text-[#e0e0e0]">
+                <span className={`px-1.5 py-0.5 text-xs ${
+                  environment === "Clearnet" 
+                    ? "bg-[#1a4d1a] text-[#4ade80] border border-[#22c55e]" 
+                    : "bg-[#4d1a1a] text-[#f87171] border border-[#ef4444]"
+                }`}>
+                  {environment}
+                </span>
+              </div>
 
               <div className="text-[#00adb4] col-span-1">Packages:</div>
               <div className="col-span-3 flex flex-wrap gap-1">
