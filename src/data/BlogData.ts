@@ -14,6 +14,29 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "hiddenServiceTutorial",
+    title:
+      "Deploy Hidden Service Web in Linux: The Complete Guide (with Vanity .onion Domains)",
+    date: "2025-08-31",
+    excerpt:
+      "Complete tutorial for deploying web applications as Tor hidden services on Linux. Learn nginx reverse proxy setup, Tor configuration, and generating custom vanity .onion domains for professional anonymous web services.",
+    coverImage: "/blog/posts/hiddenServiceTutorial/cover.webp",
+    readingTime: 22,
+    tags: [
+      "Tor",
+      "Hidden Service",
+      "Privacy",
+      "Linux",
+      "Nginx",
+      "Security",
+      "Onion Service",
+      "Anonymous Web",
+      "Vanity Domain",
+    ],
+    category: "Tutorial",
+    lastModified: "2025-08-31",
+  },
+  {
     slug: "workEthicsCultureSlaviors",
     title: "Work Ethics & Culture in Tech Teams: Inside Slaviors Development",
     date: "2025-08-26",
