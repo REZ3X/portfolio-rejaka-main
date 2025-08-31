@@ -64,10 +64,10 @@ export const metadata: Metadata = {
   title: {
     template: "%s | Rejaka Abimanyu Susanto | Web Developer & Tech Innovator",
     default:
-      "Rejaka Abimanyu Susanto | Full-Stack Web Developer, Database Engineer & Tech Innovator Portfolio",
+      "Rejaka Abimanyu Susanto | Web Developer Portfolio",
   },
   description:
-    "Explore the comprehensive portfolio of Rejaka Abimanyu Susanto, an award-winning full-stack web developer, database engineer, and tech innovator from Yogyakarta, Indonesia. Specializing in Next.js, TypeScript, React, MongoDB, and modern web technologies. View projects, read technical blog posts, and discover cutting-edge web development solutions.",
+    "Explore Rejaka Abimanyu Susanto’s portfolio: web developer from Yogyakarta, building projects, blogs, and modern web solutions.",
   keywords: [
     "Rejaka Abimanyu Susanto",
     "Full Stack Web Developer Indonesia",
