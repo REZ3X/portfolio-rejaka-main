@@ -120,7 +120,7 @@ server {
     listen 127.0.0.1:8080;
     
     # Local server name (not publicly accessible)
-    server_name portfolio.local;
+    server_name yourwebapp.local;
     
     # Proxy all requests to your web application
     location / {
