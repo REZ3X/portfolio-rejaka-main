@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LinkItem, linksContactData } from "@/data/LinksContactData";
 import MailForm from "@/components/modals/MailForm";
-import XiannyaaMailForm from "@/components/modals/xiannyaa/MailForm";
+// import XiannyaaMailForm from "@/components/modals/xiannyaa/MailForm";
 import { useUser } from "@/context/UserContext";
 
 const LinksContact: React.FC = () => {
@@ -221,17 +221,22 @@ const LinksContact: React.FC = () => {
       </div>
 
       {showMailForm &&
-        (themeStyle === "soft" ? (
-          <XiannyaaMailForm
-            onClose={() => setShowMailForm(false)}
-            recipientEmail={activeEmail}
-          />
-        ) : (
+        // (themeStyle === "soft" ? (
+        //   <XiannyaaMailForm
+        //     onClose={() => setShowMailForm(false)}
+        //     recipientEmail={activeEmail}
+        //   />
+        // ) : (
+        //   <MailForm
+        //     onClose={() => setShowMailForm(false)}
+        //     recipientEmail={activeEmail}
+        //   />
+        // ))
           <MailForm
             onClose={() => setShowMailForm(false)}
             recipientEmail={activeEmail}
           />
-        ))}
+        }
     </>
   );
 };
