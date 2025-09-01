@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ExperienceAchievementModal from "@/components/modals/ExperienceAchievementModal";
-import XiannyaaExperienceAchievementModal from "@/components/modals/xiannyaa/ExperienceAchievementModal";
+// import XiannyaaExperienceAchievementModal from "@/components/modals/xiannyaa/ExperienceAchievementModal";
 import { experienceData } from "@/data/ExperienceData";
 import { useUser } from "@/context/UserContext";
 
@@ -168,13 +168,15 @@ const ExperienceAchievement: React.FC = () => {
       </button>
 
       {showModal &&
-        (themeStyle === "soft" ? (
-          <XiannyaaExperienceAchievementModal
-            onClose={() => setShowModal(false)}
-          />
-        ) : (
-          <ExperienceAchievementModal onClose={() => setShowModal(false)} />
-        ))}
+        // (themeStyle === "soft" ? (
+        //   <XiannyaaExperienceAchievementModal
+        //     onClose={() => setShowModal(false)}
+        //   />
+        // ) : (
+        //   <ExperienceAchievementModal onClose={() => setShowModal(false)} />
+        // ))
+        <ExperienceAchievementModal onClose={() => setShowModal(false)} />
+        }
     </>
   );
 };

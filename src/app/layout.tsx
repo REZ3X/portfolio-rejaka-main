@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   title: {
     template: "%s | Rejaka Abimanyu Susanto | Web Developer & Tech Innovator",
     default:
-      "Rejaka Abimanyu Susanto | Web Developer Portfolio",
+      "Rejaka Abimanyu Susanto | Web Developer & Tech Innovator | Portfolio",
   },
   description:
     "Explore Rejaka Abimanyu Susanto’s portfolio: web developer from Yogyakarta, building projects, blogs, and modern web solutions.",

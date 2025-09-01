@@ -31,10 +31,10 @@ import ExperienceAchievementModal from "@/components/modals/ExperienceAchievemen
 import MailForm from "@/components/modals/MailForm";
 import BlogListModal from "@/components/modals/BlogListModal";
 import VoidBotModal from "@/components/modals/VoidBotModal";
-import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
-import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
+// import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
+// import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
 import TerminalGuestbook from "@/components/modals/TerminalGuestbook";
-import SoftGuestbook from "@/components/modals/xiannyaa/SoftGuestbook";
+// import SoftGuestbook from "@/components/modals/xiannyaa/SoftGuestbook";
 
 const ModalController = ({
   setActiveModal,
@@ -342,24 +342,28 @@ const MainContent = () => {
       {/* <Terminal openModal={openModal} /> */}
 
       {activeModal === "voidbot" &&
-        (themeStyle === "soft" ? (
-          <XiannyaaVoidBotModal onClose={closeModal} />
-        ) : (
-          <VoidBotModal onClose={closeModal} />
-        ))}
+        // (themeStyle === "soft" ? (
+        //   <XiannyaaVoidBotModal onClose={closeModal} />
+        // ) : (
+        //   <VoidBotModal onClose={closeModal} />
+        // ))
+        <VoidBotModal onClose={closeModal} />
+        }
       {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
       {activeModal === "creative" && <CreativeModal onClose={closeModal} />}
       {activeModal === "projects" &&
-        (themeStyle === "soft" ? (
-          <XiannyaaProjectsModal
-            projectId={currentProjectId}
-            onClose={closeModal}
-          />
-        ) : (
-          <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
-        ))}
+        // (themeStyle === "soft" ? (
+        //   <XiannyaaProjectsModal
+        //     projectId={currentProjectId}
+        //     onClose={closeModal}
+        //   />
+        // ) : (
+        //   <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
+        // ))
+        <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
+        }
       {activeModal === "experience" && (
         <ExperienceAchievementModal onClose={closeModal} />
       )}
@@ -376,11 +380,13 @@ const MainContent = () => {
         />
       )}
       {activeModal === "guestbook" &&
-        (themeStyle === "soft" ? (
-          <SoftGuestbook onClose={closeModal} />
-        ) : (
-          <TerminalGuestbook onClose={closeModal} />
-        ))}
+        // (themeStyle === "soft" ? (
+        //   <SoftGuestbook onClose={closeModal} />
+        // ) : (
+        //   <TerminalGuestbook onClose={closeModal} />
+        // ))
+        <TerminalGuestbook onClose={closeModal} />
+        }
       <BotButton />
     </main>
   );

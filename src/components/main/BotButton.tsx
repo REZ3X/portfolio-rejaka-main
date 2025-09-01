@@ -1,14 +1,14 @@
-import { useUser } from "@/context/UserContext";
-import XiannyaaBotButton from "@/components/main/xiannyaa/BotButton";
+// import { useUser } from "@/context/UserContext";
+// import XiannyaaBotButton from "@/components/main/xiannyaa/BotButton";
 import { useRouter } from "next/navigation";
 
 const BotButton: React.FC = () => {
-  const { themeStyle } = useUser();
+  // const { themeStyle } = useUser();
   const router = useRouter();
 
-  if (themeStyle === "soft") {
-    return <XiannyaaBotButton />;
-  }
+  // if (themeStyle === "soft") {
+  //   return <XiannyaaBotButton />;
+  // }
 
   const openVoidBot = () => {
     const url = new URL(window.location.href);
