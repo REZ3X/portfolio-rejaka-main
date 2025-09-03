@@ -30,23 +30,47 @@ const UptimePage: React.FC = () => {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [selectedServer, setSelectedServer] = useState<string>("");
 
-  const serverNames: Record<string, string> = {
-    "http://rez3x.rejaka.id:22222": "REZ3X Server",
-    "http://cyx.rejaka.id:11111": "CYX Server",
-    "http://xian.rejaka.id:33333": "XIAN Server",
-  };
+  const UPTIME_API_URL = process.env.NEXT_PUBLIC_UPTIME_API_URL;
+
+  const serverConfigs = [
+    {
+      url: process.env.NEXT_PUBLIC_REZ3X_SERVER,
+      name: process.env.NEXT_PUBLIC_REZ3X_NAME || "REZ3X Server",
+    },
+    {
+      url: process.env.NEXT_PUBLIC_CYX_SERVER,
+      name: process.env.NEXT_PUBLIC_CYX_NAME || "CYX Server",
+    },
+    {
+      url: process.env.NEXT_PUBLIC_XIAN_SERVER,
+      name: process.env.NEXT_PUBLIC_XIAN_NAME || "XIAN Server",
+    },
+  ].filter((config) => config.url);
+  const serverNames: Record<string, string> = serverConfigs.reduce(
+    (acc, config) => {
+      if (config.url) {
+        acc[config.url] = config.name;
+      }
+      return acc;
+    },
+    {} as Record<string, string>
+  );
 
   const fetchLatestData = useCallback(async () => {
+    if (!UPTIME_API_URL) {
+      console.error("UPTIME_API_URL is not configured");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch("https://server-uptime.rejaka.id/latest");
+      const response = await fetch(`${UPTIME_API_URL}/latest`);
       const data = await response.json();
       setLastUpdated(new Date());
 
       const historyPromises = data.map(async (check: UptimeCheck) => {
         const historyResponse = await fetch(
-          `https://server-uptime.rejaka.id/history/${encodeURIComponent(
-            check.server
-          )}`
+          `${UPTIME_API_URL}/history/${encodeURIComponent(check.server)}`
         );
         const historyData = await historyResponse.json();
         return { server: check.server, history: historyData };
@@ -91,13 +115,13 @@ const UptimePage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedServer]); 
+  }, [selectedServer, UPTIME_API_URL]);
 
   useEffect(() => {
     fetchLatestData();
     const interval = setInterval(fetchLatestData, 30000);
     return () => clearInterval(interval);
-  }, [fetchLatestData]); 
+  }, [fetchLatestData]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -220,6 +244,26 @@ const UptimePage: React.FC = () => {
     );
   };
 
+  if (!UPTIME_API_URL || serverConfigs.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#060a10] text-[#e0e0e0] font-mono flex items-center justify-center">
+        <div className="text-center border border-[#ff4444] p-6 bg-[#0a1017]">
+          <div className="text-[#ff4444] text-2xl mb-4">⚠️</div>
+          <h1 className="text-lg text-[#ff4444] mb-2">Configuration Error</h1>
+          <div className="text-sm text-[#8b9cbe] space-y-1">
+            {!UPTIME_API_URL && (
+              <p>• NEXT_PUBLIC_UPTIME_API_URL is not configured</p>
+            )}
+            {serverConfigs.length === 0 && <p>• No server URLs configured</p>}
+          </div>
+          <p className="text-xs text-[#8b9cbe] mt-3">
+            Please check your environment variables
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (themeStyle !== "terminal") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#2a1f29] to-[#1a1420] text-[#f0e6ef] p-6">
@@ -229,7 +273,7 @@ const UptimePage: React.FC = () => {
               Server Status Dashboard
             </h1>
             <p className="text-[#c4b2c3]">
-              Real-time monitoring of Rejaka infrastructure
+              Time-Shifted monitoring of Rejaka infrastructure
             </p>
           </div>
           <div className="text-center text-[#c4b2c3]">
@@ -259,7 +303,6 @@ const UptimePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#060a10] text-[#e0e0e0] font-mono p-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="border border-[#393d46] bg-[#0a1017] p-4 mb-4">
           <div className="flex items-center justify-between">
             <div>
@@ -267,7 +310,8 @@ const UptimePage: React.FC = () => {
                 ❯ rejaka.id infrastructure status
               </h1>
               <p className="text-xs text-[#8b9cbe]">
-                Real-time monitoring • Auto-refresh every 30s
+                Real-time monitoring • Auto-refresh every 30s •{" "}
+                {serverConfigs.length} servers
               </p>
             </div>
             <div className="text-right">
@@ -284,7 +328,6 @@ const UptimePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Server Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {serverStats.map((stats) => (
             <div
@@ -345,18 +388,33 @@ const UptimePage: React.FC = () => {
           ))}
         </div>
 
-        {/* Detailed Server View */}
+        {serverStats.length === 0 && !loading && (
+          <div className="border border-[#393d46] bg-[#0a1017] p-8 text-center">
+            <div className="text-[#ff8800] text-2xl mb-4">📡</div>
+            <h2 className="text-lg text-[#ff8800] mb-2">
+              No Server Data Available
+            </h2>
+            <p className="text-sm text-[#8b9cbe] mb-4">
+              Unable to fetch server status from the monitoring API.
+            </p>
+            <button
+              onClick={fetchLatestData}
+              className="text-sm text-[#00adb4] hover:text-[#4dd0e1] border border-[#393d46] px-4 py-2 hover:border-[#00adb4]"
+            >
+              Retry Connection
+            </button>
+          </div>
+        )}
+
         {selectedServer && historyData[selectedServer] && (
           <div className="border border-[#393d46] bg-[#0a1017] p-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg text-[#00adb4]">
                 ❯ {serverNames[selectedServer]} - Detailed Metrics
               </h2>
-              <span className="text-xs text-[#8b9cbe]">{selectedServer}</span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Status History */}
               <div>
                 <h3 className="text-sm text-[#00adb4] mb-3">
                   Recent Status History
@@ -395,14 +453,12 @@ const UptimePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Response Time Chart */}
               <div>
                 <h3 className="text-sm text-[#00adb4] mb-3">
                   Response Time Trend
                 </h3>
                 {renderResponseTimeChart(historyData[selectedServer])}
 
-                {/* Statistics */}
                 <div className="mt-4 p-3 bg-[#202832] border border-[#393d46]">
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
@@ -452,7 +508,6 @@ const UptimePage: React.FC = () => {
           </div>
         )}
 
-        {/* Footer */}
         <div className="mt-6 text-center text-xs text-[#8b9cbe]">
           <p>
             Monitoring powered by Cloudflare Workers • Data retention: 50 checks
@@ -461,6 +516,9 @@ const UptimePage: React.FC = () => {
           <p>
             Checks run every 5 minutes • Page auto-refreshes every 30 seconds
           </p>
+          <div className="mt-2 text-[10px] opacity-60">
+            Configured servers: {serverConfigs.map((s) => s.name).join(", ")}
+          </div>
         </div>
       </div>
     </div>
