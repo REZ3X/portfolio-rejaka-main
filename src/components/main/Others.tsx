@@ -36,7 +36,7 @@ const BASE_OTHERS_DATA: OthersItem[] = [
   },
   {
     label: "Server Status",
-    description: "Real-time monitoring of rejaka.id infrastructure",
+    description: "Time-Shifted monitoring of rejaka.id infrastructure",
     url: "/uptime",
     icon: "📊",
     external: true,
