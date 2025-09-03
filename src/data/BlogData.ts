@@ -14,6 +14,31 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ethicalHackingOne",
+    title:
+      "Introduction to Ethical Hacking: Essential Steps and Tools You Must Know",
+    date: "2025-09-03",
+    excerpt:
+      "Complete beginner's guide to ethical hacking - covering the 5 fundamental phases, essential tools like Nmap, VM scanning practice, and best practices in penetration testing. Learn how to become a responsible white hat hacker.",
+    coverImage: "",
+    readingTime: 25,
+    tags: [
+      "Ethical Hacking",
+      "Penetration Testing",
+      "Cybersecurity",
+      "Nmap",
+      "Information Security",
+      "White Hat Hacking",
+      "Network Security",
+      "Security Assessment",
+      "Vulnerability Testing",
+      "Reconnaissance",
+      "Security Tools",
+    ],
+    category: "Tutorial",
+    lastModified: "2025-09-03",
+  },
+  {
     slug: "hiddenServiceTutorial",
     title:
       "Deploy Hidden Service Web in Linux: The Complete Guide (with Vanity .onion Domains)",

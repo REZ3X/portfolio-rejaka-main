@@ -24,6 +24,12 @@
   
   <!-- Blog Posts -->
   <url>
+    <loc>https://rejaka.id/blog/ethicalHackingOne</loc>
+    <lastmod>2025-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://rejaka.id/blog/hiddenServiceTutorial</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>monthly</changefreq>
