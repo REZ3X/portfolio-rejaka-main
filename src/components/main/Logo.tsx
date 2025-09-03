@@ -159,8 +159,12 @@ const Logo: React.FC<LogoProps> = ({
               <div className="text-[#00adb4] col-span-1">Terminal:</div>
               <div className="col-span-3 text-[#e0e0e0]">{email}</div>
 
-              <div className="text-[#00adb4] col-span-1">Web:</div>
-              <div className="col-span-3 text-[#e0e0e0]">{websiteToShow}</div>
+              {environment === "Clearnet" && (
+                <>
+                  <div className="text-[#00adb4] col-span-1">Web:</div>
+                  <div className="col-span-3 text-[#e0e0e0]">{websiteToShow}</div>
+                </>
+              )}
 
               <div className="text-[#00adb4] col-span-1">Environment:</div>
               <div className="col-span-3 text-[#e0e0e0]">
