@@ -5,13 +5,15 @@ export async function GET(request: NextRequest) {
   const endpoint = searchParams.get("endpoint") || "latest";
   const server = searchParams.get("server");
 
+  const UPTIME_API_URL = process.env.NEXT_PUBLIC_UPTIME_API_URL;
+
   try {
-    let url = "https://server-uptime.rejaka.id/latest";
-    
+    let url = `${UPTIME_API_URL}/latest`;
+
     if (endpoint === "history" && server) {
-      url = `https://server-uptime.rejaka.id/history/${encodeURIComponent(server)}`;
+      url = `${UPTIME_API_URL}/history/${encodeURIComponent(server)}`;
     } else if (endpoint === "force") {
-      url = "https://server-uptime.rejaka.id/force";
+      url = `${UPTIME_API_URL}/force`;
     }
 
     const response = await fetch(url, {
@@ -41,8 +43,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST() {
+  const UPTIME_API_URL = process.env.NEXT_PUBLIC_UPTIME_API_URL;
+
   try {
-    const response = await fetch("https://server-uptime.rejaka.id/force", {
+    const response = await fetch(`${UPTIME_API_URL}/force`, {
       method: "GET",
     });
 
