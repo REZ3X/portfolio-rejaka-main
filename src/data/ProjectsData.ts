@@ -33,6 +33,40 @@ interface ProjectsDataType {
 export const projectsData: ProjectsDataType = {
   projects: [
     {
+      id: "rustedquotes",
+      title: "Rusted Quotes",
+      subtitle: "Public quotes website powered by WebAssembly and Rust",
+      category: "web",
+      emoji: "📜",
+      description: [
+        "A high-performance public quotes web application built with WebAssembly and Rust, featuring fast loading times and seamless user experience through modern web technologies.",
+        "The application leverages Rust's performance and safety features, combined with WebAssembly's ability to run code at near-native speed in the browser, to deliver a responsive and efficient platform for sharing and viewing quotes.",
+        "Built with Trunk for asset management, Leptos for reactive UI components, and Axum for the backend API, ensuring a robust and scalable architecture.",
+      ],
+      technologies: ["Rust", "WebAssembly", "Trunk", "Leptos", "Axum"],
+      features: [
+        "High performance: Fast loading times and smooth interactions",
+        "Responsive design: Optimized for both desktop and mobile devices",
+        "User-friendly interface: Intuitive navigation and layout",
+        "Secure backend: Robust API built with Axum",
+      ],
+      year: 2025,
+      links: [
+        {
+          label: "Live Website",
+          url: "https://rusted-quotes.rejaka.id/",
+          icon: "🌐",
+          type: "url",
+        },
+        {
+          label: "GitHub Repo",
+          url: "https://github.com/REZ3X/rusted_quotes",
+          icon: "🔗",
+          type: "url",
+        },
+      ],
+    },
+    {
       id: "ghostchat",
       title: "GhostChat - Anonymous Secure Messaging",
       subtitle: "Ephemeral, encrypted, anonymous chat rooms",
