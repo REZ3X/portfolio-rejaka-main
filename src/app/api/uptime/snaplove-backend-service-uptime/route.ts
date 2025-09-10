@@ -23,6 +23,13 @@ interface SnaploveStats {
   lastStatusChange: Date;
   statusChanges: number;
   history: SnaploveUptimeRecord[];
+  metadata?: {
+    stored: boolean;
+    notified: boolean;
+    freshCheck: boolean;
+    lastStoredStatus?: string | null;
+    lastNotifiedStatus?: string | null;
+  };
 }
 
 interface SnaploveUptimeDocument extends Document {
@@ -567,22 +574,82 @@ async function calculateStats(db: Db): Promise<SnaploveStats | null> {
 
 export async function GET() {
   try {
-    const stats = await withRetry(async (db: Db) => {
-      return await calculateStats(db);
-    });
+    const result = await withRetry(async (db: Db) => {
+      const currentCheck = await checkSnaploveHealth();
 
-    if (!stats) {
-      return NextResponse.json({
-        success: true,
-        data: null,
-        message: "No data available yet. Triggering initial collection...",
-        timestamp: new Date().toISOString(),
-      });
-    }
+      const lastStored = await getLastStoredStatus(db);
+      const lastNotification = await getLastNotificationData(db);
+
+      const shouldStore = await shouldStoreRecord(currentCheck, lastStored);
+      const shouldNotify = await shouldSendDiscordNotification(
+        currentCheck, 
+        lastNotification
+      );
+
+      let stored = false;
+      let notified = false;
+
+      if (shouldStore) {
+        await storeUptimeRecord(db, currentCheck);
+        stored = true;
+      }
+
+      if (shouldNotify) {
+        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const isHeartbeat = !!(lastNotification && 
+          lastNotification.lastNotificationTime < twentyFourHoursAgo &&
+          currentCheck.status === lastNotification.lastNotifiedStatus);
+
+        const discordSuccess = await sendDiscordNotification(
+          currentCheck,
+          lastNotification?.lastNotifiedStatus || null,
+          isHeartbeat
+        );
+
+        if (discordSuccess) {
+          await updateNotificationData(db, currentCheck.status, currentCheck.timestamp);
+          notified = true;
+        }
+      }
+
+      const stats = await calculateStats(db);
+
+      if (!stats) {
+        return {
+          currentStatus: currentCheck.status,
+          uptime: 0,
+          avgResponseTime: currentCheck.responseTime || 0,
+          totalChecks: 1,
+          upChecks: currentCheck.status === "UP" ? 1 : 0,
+          downChecks: currentCheck.status === "DOWN" ? 1 : 0,
+          errorChecks: currentCheck.status === "ERROR" ? 1 : 0,
+          lastCheck: currentCheck,
+          lastStatusChange: currentCheck.timestamp,
+          statusChanges: 0,
+          history: [currentCheck],
+          metadata: {
+            stored,
+            notified,
+            freshCheck: true
+          }
+        };
+      }
+
+      return {
+        ...stats,
+        metadata: {
+          stored,
+          notified,
+          freshCheck: true,
+          lastStoredStatus: lastStored?.status || null,
+          lastNotifiedStatus: lastNotification?.lastNotifiedStatus || null
+        }
+      };
+    });
 
     return NextResponse.json({
       success: true,
-      data: stats,
+      data: result,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
