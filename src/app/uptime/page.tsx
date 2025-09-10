@@ -20,13 +20,40 @@ interface ServerStats {
   lastCheck: UptimeCheck;
 }
 
+interface SnaploveUptimeRecord {
+  status: "UP" | "DOWN" | "ERROR";
+  httpStatus?: number;
+  responseTime?: number;
+  message?: string;
+  timestamp: string;
+  checkedAt: string;
+}
+
+interface SnaploveStats {
+  currentStatus: "UP" | "DOWN" | "ERROR";
+  uptime: number;
+  avgResponseTime: number;
+  totalChecks: number;
+  upChecks: number;
+  downChecks: number;
+  errorChecks: number;
+  lastCheck: SnaploveUptimeRecord;
+  lastStatusChange: string;
+  statusChanges: number;
+  history: SnaploveUptimeRecord[];
+}
+
 const UptimePage: React.FC = () => {
   const { themeStyle } = useUser();
   const [historyData, setHistoryData] = useState<Record<string, UptimeCheck[]>>(
     {}
   );
   const [serverStats, setServerStats] = useState<ServerStats[]>([]);
+  const [snaploveStats, setSnaploveStats] = useState<SnaploveStats | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
+  const [snaploveLoading, setSnaploveLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [selectedServer, setSelectedServer] = useState<string>("");
 
@@ -46,6 +73,7 @@ const UptimePage: React.FC = () => {
       name: process.env.NEXT_PUBLIC_XIAN_NAME || "XIAN Server",
     },
   ].filter((config) => config.url);
+
   const serverNames: Record<string, string> = serverConfigs.reduce(
     (acc, config) => {
       if (config.url) {
@@ -55,6 +83,42 @@ const UptimePage: React.FC = () => {
     },
     {} as Record<string, string>
   );
+
+  const fetchSnaploveData = useCallback(async () => {
+    try {
+      const response = await fetch(
+        "/api/uptime/snaplove-backend-service-uptime"
+      );
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          if (result.data) {
+            setSnaploveStats(result.data);
+          } else {
+            console.log(
+              "No Snaplove data available, triggering initial collection..."
+            );
+            const postResponse = await fetch(
+              "/api/uptime/snaplove-backend-service-uptime",
+              {
+                method: "POST",
+              }
+            );
+            if (postResponse.ok) {
+              const postResult = await postResponse.json();
+              if (postResult.success && postResult.data?.stats) {
+                setSnaploveStats(postResult.data.stats);
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch Snaplove data:", error);
+    } finally {
+      setSnaploveLoading(false);
+    }
+  }, []);
 
   const fetchLatestData = useCallback(async () => {
     if (!UPTIME_API_URL) {
@@ -119,9 +183,15 @@ const UptimePage: React.FC = () => {
 
   useEffect(() => {
     fetchLatestData();
-    const interval = setInterval(fetchLatestData, 30000);
+    fetchSnaploveData();
+
+    const interval = setInterval(() => {
+      fetchLatestData();
+      fetchSnaploveData();
+    }, 30000);
+
     return () => clearInterval(interval);
-  }, [fetchLatestData]);
+  }, [fetchLatestData, fetchSnaploveData]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -181,6 +251,54 @@ const UptimePage: React.FC = () => {
           <div
             key={idx}
             className="w-2 h-4 border border-[#393d46]"
+            style={{
+              backgroundColor:
+                block.count > 0 ? getStatusColor(block.status) : "#202832",
+              opacity: block.count > 0 ? 0.8 : 0.3,
+            }}
+            title={`${block.status} (${block.count} checks)`}
+          />
+        ))}
+        <span className="text-xs text-[#8b9cbe] ml-2">now</span>
+      </div>
+    );
+  };
+
+  const renderSnaploveUptimeGraph = (history: SnaploveUptimeRecord[]) => {
+    if (!history || history.length === 0) return null;
+
+    const blocks = [];
+    const maxBlocks = 24; 
+    const dataPerBlock = Math.max(1, Math.ceil(history.length / maxBlocks));
+
+    for (let i = 0; i < maxBlocks; i++) {
+      const startIdx = i * dataPerBlock;
+      const endIdx = Math.min(startIdx + dataPerBlock, history.length);
+      const segment = history.slice(startIdx, endIdx);
+
+      if (segment.length === 0) {
+        blocks.push({ status: "UNKNOWN", count: 0 });
+        continue;
+      }
+
+      const upCount = segment.filter((s) => s.status === "UP").length;
+      const downCount = segment.filter((s) => s.status === "DOWN").length;
+      const errorCount = segment.filter((s) => s.status === "ERROR").length;
+
+      let status = "UP";
+      if (errorCount > upCount && errorCount > downCount) status = "ERROR";
+      else if (downCount > upCount) status = "DOWN";
+
+      blocks.push({ status, count: segment.length });
+    }
+
+    return (
+      <div className="flex items-center space-x-1 mt-2">
+        <span className="text-xs text-[#8b9cbe] mr-2">history</span>
+        {blocks.map((block, idx) => (
+          <div
+            key={idx}
+            className="w-3 h-4 border border-[#393d46]"
             style={{
               backgroundColor:
                 block.count > 0 ? getStatusColor(block.status) : "#202832",
@@ -273,7 +391,7 @@ const UptimePage: React.FC = () => {
               Server Status Dashboard
             </h1>
             <p className="text-[#c4b2c3]">
-              Time-Shifted monitoring of Rejaka infrastructure
+              Time-shifted monitoring of Rejaka infrastructure
             </p>
           </div>
           <div className="text-center text-[#c4b2c3]">
@@ -319,7 +437,10 @@ const UptimePage: React.FC = () => {
                 Last updated: {lastUpdated?.toLocaleTimeString() || "Never"}
               </div>
               <button
-                onClick={fetchLatestData}
+                onClick={() => {
+                  fetchLatestData();
+                  fetchSnaploveData();
+                }}
                 className="text-xs text-[#00adb4] hover:text-[#4dd0e1] mt-1"
               >
                 [refresh]
@@ -328,6 +449,250 @@ const UptimePage: React.FC = () => {
           </div>
         </div>
 
+        {snaploveLoading ? (
+          <div className="border border-[#393d46] bg-[#0a1017] p-4 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg text-[#00adb4]">
+                ❯ Backend API Service (Snaplove)
+              </h2>
+              <span className="text-xs text-[#8b9cbe]">Initializing...</span>
+            </div>
+            <div className="text-center py-8">
+              <div className="flex items-center justify-center space-x-2 mb-4">
+                <div className="w-2 h-2 bg-[#00adb4] animate-pulse"></div>
+                <div className="w-2 h-2 bg-[#00adb4] animate-pulse delay-75"></div>
+                <div className="w-2 h-2 bg-[#00adb4] animate-pulse delay-150"></div>
+              </div>
+              <p className="text-[#8b9cbe] text-sm">
+                Collecting initial monitoring data...
+              </p>
+            </div>
+          </div>
+        ) : !snaploveStats ? (
+          <div className="border border-[#393d46] bg-[#0a1017] p-4 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg text-[#00adb4]">
+                ❯ Backend API Service (Snaplove)
+              </h2>
+              <span className="text-xs text-[#8b9cbe]">
+                Configuration Required
+              </span>
+            </div>
+            <div className="text-center py-8">
+              <div className="text-[#ff8800] text-2xl mb-4">⚠️</div>
+              <h3 className="text-lg text-[#ff8800] mb-2">
+                Service Not Configured
+              </h3>
+              <p className="text-sm text-[#8b9cbe] mb-4">
+                SNAPLOVE_BACKEND_API environment variable is not set.
+              </p>
+              <button
+                onClick={() => {
+                  setSnaploveLoading(true);
+                  fetchSnaploveData();
+                }}
+                className="text-sm text-[#00adb4] hover:text-[#4dd0e1] border border-[#393d46] px-4 py-2 hover:border-[#00adb4]"
+              >
+                Retry Configuration
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="border border-[#393d46] bg-[#0a1017] p-4 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg text-[#00adb4]">
+                ❯ Backend API Service (Snaplove)
+              </h2>
+              <span className="text-xs text-[#8b9cbe]">
+                MongoDB Storage • Smart Change Detection
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              <div className="border border-[#393d46] bg-[#202832] p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-[#8b9cbe]">Current Status</span>
+                  <span
+                    className="text-lg"
+                    style={{
+                      color: getStatusColor(snaploveStats.currentStatus),
+                    }}
+                  >
+                    {getStatusSymbol(snaploveStats.currentStatus)}
+                  </span>
+                </div>
+                <div className="text-sm text-[#e0e0e0]">
+                  {snaploveStats.currentStatus}
+                </div>
+                {snaploveStats.lastCheck.responseTime && (
+                  <div className="text-xs text-[#8b9cbe] mt-1">
+                    {snaploveStats.lastCheck.responseTime}ms
+                  </div>
+                )}
+              </div>
+
+              <div className="border border-[#393d46] bg-[#202832] p-3">
+                <div className="text-xs text-[#8b9cbe] mb-2">Uptime</div>
+                <div className="text-lg text-[#00adb4]">
+                  {snaploveStats.uptime.toFixed(2)}%
+                </div>
+                <div className="text-xs text-[#8b9cbe]">
+                  {snaploveStats.upChecks}/{snaploveStats.totalChecks} checks
+                </div>
+              </div>
+
+              <div className="border border-[#393d46] bg-[#202832] p-3">
+                <div className="text-xs text-[#8b9cbe] mb-2">Avg Response</div>
+                <div className="text-lg text-[#e0e0e0]">
+                  {Math.round(snaploveStats.avgResponseTime)}ms
+                </div>
+                <div className="text-xs text-[#8b9cbe]">
+                  From UP requests only
+                </div>
+              </div>
+
+              <div className="border border-[#393d46] bg-[#202832] p-3">
+                <div className="text-xs text-[#8b9cbe] mb-2">
+                  Status Changes
+                </div>
+                <div className="text-lg text-[#ff8800]">
+                  {snaploveStats.statusChanges}
+                </div>
+                <div className="text-xs text-[#8b9cbe]">Total transitions</div>
+              </div>
+            </div>
+
+            <div className="border border-[#393d46] bg-[#202832] p-3">
+              <div className="text-sm text-[#00adb4] mb-2">Status History</div>
+              {renderSnaploveUptimeGraph(snaploveStats.history)}
+              <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                <div>
+                  <span className="text-[#8b9cbe]">UP:</span>
+                  <span className="text-[#00adb4] ml-1">
+                    {snaploveStats.upChecks}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[#8b9cbe]">DOWN:</span>
+                  <span className="text-[#ff4444] ml-1">
+                    {snaploveStats.downChecks}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[#8b9cbe]">ERROR:</span>
+                  <span className="text-[#ff8800] ml-1">
+                    {snaploveStats.errorChecks}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[#8b9cbe]">Last Change:</span>
+                  <span className="text-[#e0e0e0] ml-1">
+                    {new Date(snaploveStats.lastStatusChange).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mb-6">
+          <div className="border border-[#393d46] bg-[#0a1017] p-3 mb-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg text-[#00adb4]">
+                ❯ Server Infrastructure
+              </h2>
+              <span className="text-xs text-[#8b9cbe]">
+                External Monitoring • Cloudflare Workers
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {serverStats.map((stats) => (
+              <div
+                key={stats.server}
+                className={`border border-[#393d46] bg-[#0a1017] p-4 cursor-pointer transition-colors
+                  ${
+                    selectedServer === stats.server
+                      ? "border-[#00adb4]"
+                      : "hover:border-[#4dd0e1]"
+                  }`}
+                onClick={() => setSelectedServer(stats.server)}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-[#00adb4] font-bold">
+                    {serverNames[stats.server] || stats.server}
+                  </span>
+                  <span
+                    className="text-lg"
+                    style={{ color: getStatusColor(stats.lastCheck.status) }}
+                  >
+                    {getStatusSymbol(stats.lastCheck.status)}
+                  </span>
+                </div>
+
+                <div className="space-y-1 text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-[#8b9cbe]">Status:</span>
+                    <span
+                      style={{ color: getStatusColor(stats.lastCheck.status) }}
+                    >
+                      {stats.lastCheck.status}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#8b9cbe]">Uptime:</span>
+                    <span className="text-[#e0e0e0]">
+                      {stats.uptime.toFixed(2)}%
+                    </span>
+                  </div>
+                  {stats.lastCheck.responseTime && (
+                    <div className="flex justify-between">
+                      <span className="text-[#8b9cbe]">Response:</span>
+                      <span className="text-[#e0e0e0]">
+                        {stats.lastCheck.responseTime}ms
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span className="text-[#8b9cbe]">Checks:</span>
+                    <span className="text-[#e0e0e0]">
+                      {stats.upChecks}/{stats.totalChecks}
+                    </span>
+                  </div>
+                </div>
+
+                {renderUptimeGraph(historyData[stats.server] || [])}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {serverStats.length === 0 && !loading && (
+          <div className="border border-[#393d46] bg-[#0a1017] p-8 text-center">
+            <div className="text-[#ff8800] text-2xl mb-4">📡</div>
+            <h2 className="text-lg text-[#ff8800] mb-2">
+              No Server Data Available
+            </h2>
+            <p className="text-sm text-[#8b9cbe] mb-4">
+              Unable to fetch server status from the monitoring API.
+            </p>
+            <button
+              onClick={fetchLatestData}
+              className="text-sm text-[#00adb4] hover:text-[#4dd0e1] border border-[#393d46] px-4 py-2 hover:border-[#00adb4]"
+            >
+              Retry Connection
+            </button>
+          </div>
+        )}
+        <div className="border border-[#393d46] bg-[#0a1017] p-3 mb-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg text-[#00adb4]">❯ Server Infrastructure</h2>
+            <span className="text-xs text-[#8b9cbe]">
+              External Monitoring • Cloudflare Workers
+            </span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {serverStats.map((stats) => (
             <div
@@ -510,14 +875,15 @@ const UptimePage: React.FC = () => {
 
         <div className="mt-6 text-center text-xs text-[#8b9cbe]">
           <p>
-            Monitoring powered by Cloudflare Workers • Data retention: 50 checks
-            per server
+            Monitoring powered by Cloudflare Workers & MongoDB • Data retention:
+            50 checks per server
           </p>
           <p>
             Checks run every 5 minutes • Page auto-refreshes every 30 seconds
           </p>
           <div className="mt-2 text-[10px] opacity-60">
-            Configured servers: {serverConfigs.map((s) => s.name).join(", ")}
+            Configured servers: {serverConfigs.map((s) => s.name).join(", ")} +
+            Backend API
           </div>
         </div>
       </div>
