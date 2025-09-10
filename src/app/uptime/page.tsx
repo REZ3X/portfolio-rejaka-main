@@ -685,73 +685,7 @@ const UptimePage: React.FC = () => {
             </button>
           </div>
         )}
-        <div className="border border-[#393d46] bg-[#0a1017] p-3 mb-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg text-[#00adb4]">❯ Server Infrastructure</h2>
-            <span className="text-xs text-[#8b9cbe]">
-              External Monitoring • Cloudflare Workers
-            </span>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {serverStats.map((stats) => (
-            <div
-              key={stats.server}
-              className={`border border-[#393d46] bg-[#0a1017] p-4 cursor-pointer transition-colors
-                ${
-                  selectedServer === stats.server
-                    ? "border-[#00adb4]"
-                    : "hover:border-[#4dd0e1]"
-                }`}
-              onClick={() => setSelectedServer(stats.server)}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-[#00adb4] font-bold">
-                  {serverNames[stats.server] || stats.server}
-                </span>
-                <span
-                  className="text-lg"
-                  style={{ color: getStatusColor(stats.lastCheck.status) }}
-                >
-                  {getStatusSymbol(stats.lastCheck.status)}
-                </span>
-              </div>
-
-              <div className="space-y-1 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-[#8b9cbe]">Status:</span>
-                  <span
-                    style={{ color: getStatusColor(stats.lastCheck.status) }}
-                  >
-                    {stats.lastCheck.status}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#8b9cbe]">Uptime:</span>
-                  <span className="text-[#e0e0e0]">
-                    {stats.uptime.toFixed(2)}%
-                  </span>
-                </div>
-                {stats.lastCheck.responseTime && (
-                  <div className="flex justify-between">
-                    <span className="text-[#8b9cbe]">Response:</span>
-                    <span className="text-[#e0e0e0]">
-                      {stats.lastCheck.responseTime}ms
-                    </span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-[#8b9cbe]">Checks:</span>
-                  <span className="text-[#e0e0e0]">
-                    {stats.upChecks}/{stats.totalChecks}
-                  </span>
-                </div>
-              </div>
-
-              {renderUptimeGraph(historyData[stats.server] || [])}
-            </div>
-          ))}
-        </div>
+        
 
         {serverStats.length === 0 && !loading && (
           <div className="border border-[#393d46] bg-[#0a1017] p-8 text-center">
