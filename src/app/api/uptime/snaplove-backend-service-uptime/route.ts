@@ -526,9 +526,9 @@ export async function POST() {
 
       if (shouldNotify) {
         const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        const isHeartbeat = lastNotification && 
+        const isHeartbeat = !!(lastNotification && 
           lastNotification.lastNotificationTime < twentyFourHoursAgo &&
-          currentCheck.status === lastNotification.lastNotifiedStatus;
+          currentCheck.status === lastNotification.lastNotifiedStatus);
 
         const discordSuccess = await sendDiscordNotification(
           currentCheck,
@@ -609,9 +609,9 @@ export async function PUT() {
 
       if (shouldNotify) {
         const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        const isHeartbeat = lastNotification && 
+        const isHeartbeat = !!(lastNotification && 
           lastNotification.lastNotificationTime < twentyFourHoursAgo &&
-          currentCheck.status === lastNotification.lastNotifiedStatus;
+          currentCheck.status === lastNotification.lastNotifiedStatus);
 
         const discordSuccess = await sendDiscordNotification(
           currentCheck,
