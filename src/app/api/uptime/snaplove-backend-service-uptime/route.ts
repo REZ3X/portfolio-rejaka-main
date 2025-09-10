@@ -34,6 +34,17 @@ interface SnaploveUptimeDocument extends Document {
   checkedAt: string;
 }
 
+interface DiscordNotificationData {
+  lastNotifiedStatus: "UP" | "DOWN" | "ERROR" | null;
+  lastNotificationTime: Date;
+}
+
+interface DiscordNotificationDocument extends Document {
+  service: string;
+  lastNotifiedStatus: "UP" | "DOWN" | "ERROR" | null;
+  lastNotificationTime: Date;
+}
+
 async function checkSnaploveHealth(): Promise<SnaploveUptimeRecord> {
   const SNAPLOVE_API = process.env.SNAPLOVE_BACKEND_API;
 
@@ -103,6 +114,222 @@ async function getLastStoredStatus(
   } catch (error) {
     console.error("Error getting last stored status:", error);
     return null;
+  }
+}
+
+async function getLastNotificationData(
+  db: Db
+): Promise<DiscordNotificationData | null> {
+  try {
+    const collection = db.collection<DiscordNotificationDocument>("discord_notifications");
+    const lastNotification = await collection.findOne({
+      service: "snaplove_backend"
+    });
+
+    if (!lastNotification) return null;
+
+    return {
+      lastNotifiedStatus: lastNotification.lastNotifiedStatus,
+      lastNotificationTime: lastNotification.lastNotificationTime,
+    };
+  } catch (error) {
+    console.error("Error getting last notification data:", error);
+    return null;
+  }
+}
+
+async function updateNotificationData(
+  db: Db,
+  status: "UP" | "DOWN" | "ERROR",
+  timestamp: Date
+): Promise<void> {
+  try {
+    const collection = db.collection<DiscordNotificationDocument>("discord_notifications");
+    await collection.updateOne(
+      { service: "snaplove_backend" },
+      {
+        $set: {
+          service: "snaplove_backend",
+          lastNotifiedStatus: status,
+          lastNotificationTime: timestamp,
+        }
+      },
+      { upsert: true }
+    );
+  } catch (error) {
+    console.error("Error updating notification data:", error);
+    throw error;
+  }
+}
+
+async function shouldSendDiscordNotification(
+  currentCheck: SnaploveUptimeRecord,
+  lastNotification: DiscordNotificationData | null
+): Promise<boolean> {
+  if (!lastNotification) {
+    return true;
+  }
+
+  if (currentCheck.status !== lastNotification.lastNotifiedStatus) {
+    return true;
+  }
+
+  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  if (
+    lastNotification.lastNotificationTime < twentyFourHoursAgo &&
+    (currentCheck.status === "DOWN" || currentCheck.status === "ERROR")
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function getStatusEmoji(status: "UP" | "DOWN" | "ERROR"): string {
+  switch (status) {
+    case "UP":
+      return "✅";
+    case "DOWN":
+      return "❌";
+    case "ERROR":
+      return "⚠️";
+    default:
+      return "❓";
+  }
+}
+
+function getStatusColor(status: "UP" | "DOWN" | "ERROR"): number {
+  switch (status) {
+    case "UP":
+      return 0x00ff00; 
+    case "DOWN":
+      return 0xff0000;
+    case "ERROR":
+      return 0xff8800; 
+    default:
+      return 0x808080; 
+  }
+}
+
+function getNotificationReason(
+  currentStatus: "UP" | "DOWN" | "ERROR",
+  lastNotifiedStatus: "UP" | "DOWN" | "ERROR" | null,
+  isHeartbeat: boolean
+): string {
+  if (!lastNotifiedStatus) {
+    return "Initial monitoring notification";
+  }
+  
+  if (isHeartbeat) {
+    return "24-hour persistence notification";
+  }
+  
+  return `Status changed: ${lastNotifiedStatus} → ${currentStatus}`;
+}
+
+async function sendDiscordNotification(
+  check: SnaploveUptimeRecord,
+  lastNotifiedStatus: "UP" | "DOWN" | "ERROR" | null,
+  isHeartbeat: boolean = false
+): Promise<boolean> {
+  const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+  
+  if (!WEBHOOK_URL) {
+    console.log("Discord webhook URL not configured, skipping notification");
+    return false;
+  }
+
+  try {
+    const emoji = getStatusEmoji(check.status);
+    const color = getStatusColor(check.status);
+    const reason = getNotificationReason(check.status, lastNotifiedStatus, isHeartbeat);
+
+    const shouldTagEveryone = check.status === "DOWN" || check.status === "ERROR";
+    
+    const embed = {
+      title: `${emoji} Snaplove Backend API - ${check.status}`,
+      description: reason,
+      color: color,
+      fields: [
+        {
+          name: "🌐 Service",
+          value: "Snaplove Backend API",
+          inline: true,
+        },
+        {
+          name: "📊 Status",
+          value: `**${check.status}**`,
+          inline: true,
+        },
+        {
+          name: "⏱️ Timestamp",
+          value: `<t:${Math.floor(check.timestamp.getTime() / 1000)}:F>`,
+          inline: true,
+        },
+      ],
+      footer: {
+        text: "Rejaka.id Infrastructure Monitoring",
+        icon_url: "https://rejaka.id/favicon-32x32.png",
+      },
+      timestamp: check.timestamp.toISOString(),
+    };
+
+    if (check.responseTime) {
+      embed.fields.push({
+        name: "⚡ Response Time",
+        value: `${check.responseTime}ms`,
+        inline: true,
+      });
+    }
+
+    if (check.httpStatus) {
+      embed.fields.push({
+        name: "🔢 HTTP Status",
+        value: `${check.httpStatus}`,
+        inline: true,
+      });
+    }
+
+    if (check.message) {
+      embed.fields.push({
+        name: "📝 Details",
+        value: `\`\`\`${check.message}\`\`\``,
+        inline: false,
+      });
+    }
+
+    embed.fields.push({
+      name: "🔗 Quick Actions",
+      value: `• [View Dashboard](https://rejaka.id/uptime)\n• [API Endpoint](${process.env.SNAPLOVE_BACKEND_API})\n• [Portfolio](https://rejaka.id)`,
+      inline: false,
+    });
+
+    const payload = {
+      content: shouldTagEveryone ? "@everyone" : undefined,
+      embeds: [embed],
+      username: "Rejaka Infrastructure Monitor",
+      avatar_url: "https://rejaka.id/favicon-32x32.png",
+    };
+
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Discord webhook failed:", response.status, errorText);
+      return false;
+    }
+
+    console.log(`Discord notification sent successfully for ${check.status} status`);
+    return true;
+  } catch (error) {
+    console.error("Failed to send Discord notification:", error);
+    return false;
   }
 }
 
@@ -280,12 +507,39 @@ export async function POST() {
 
       const lastStored = await getLastStoredStatus(db);
 
+      const lastNotification = await getLastNotificationData(db);
+
       const shouldStore = await shouldStoreRecord(currentCheck, lastStored);
 
+      const shouldNotify = await shouldSendDiscordNotification(
+        currentCheck, 
+        lastNotification
+      );
+
       let stored = false;
+      let notified = false;
+
       if (shouldStore) {
         await storeUptimeRecord(db, currentCheck);
         stored = true;
+      }
+
+      if (shouldNotify) {
+        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const isHeartbeat = lastNotification && 
+          lastNotification.lastNotificationTime < twentyFourHoursAgo &&
+          currentCheck.status === lastNotification.lastNotifiedStatus;
+
+        const discordSuccess = await sendDiscordNotification(
+          currentCheck,
+          lastNotification?.lastNotifiedStatus || null,
+          isHeartbeat
+        );
+
+        if (discordSuccess) {
+          await updateNotificationData(db, currentCheck.status, currentCheck.timestamp);
+          notified = true;
+        }
       }
 
       const stats = await calculateStats(db);
@@ -294,13 +548,23 @@ export async function POST() {
         currentCheck,
         stats,
         stored,
-        reason: !lastStored
-          ? "First record"
-          : currentCheck.status !== lastStored.status
-          ? "Status changed"
-          : shouldStore
-          ? "Heartbeat storage"
-          : "No change, not stored",
+        notified,
+        reasons: {
+          storage: !lastStored 
+            ? "First record" 
+            : currentCheck.status !== lastStored.status 
+              ? "Status changed" 
+              : shouldStore 
+                ? "Heartbeat storage" 
+                : "No change, not stored",
+          notification: !lastNotification
+            ? "First notification"
+            : currentCheck.status !== lastNotification.lastNotifiedStatus
+              ? "Status changed"
+              : shouldNotify
+                ? "24-hour heartbeat"
+                : "No notification needed"
+        }
       };
     });
 
@@ -328,25 +592,49 @@ export async function PUT() {
     const result = await withRetry(async (db: Db) => {
       const currentCheck = await checkSnaploveHealth();
       const lastStored = await getLastStoredStatus(db);
+      const lastNotification = await getLastNotificationData(db);
+      
       const shouldStore = await shouldStoreRecord(currentCheck, lastStored);
+      const shouldNotify = await shouldSendDiscordNotification(
+        currentCheck, 
+        lastNotification
+      );
+
+      const actions = [];
 
       if (shouldStore) {
         await storeUptimeRecord(db, currentCheck);
-        return {
-          action: "stored",
-          status: currentCheck.status,
-          reason: !lastStored
-            ? "First record"
-            : currentCheck.status !== lastStored.status
-            ? "Status changed"
-            : "Heartbeat storage",
-        };
+        actions.push("stored");
+      }
+
+      if (shouldNotify) {
+        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const isHeartbeat = lastNotification && 
+          lastNotification.lastNotificationTime < twentyFourHoursAgo &&
+          currentCheck.status === lastNotification.lastNotifiedStatus;
+
+        const discordSuccess = await sendDiscordNotification(
+          currentCheck,
+          lastNotification?.lastNotifiedStatus || null,
+          isHeartbeat
+        );
+
+        if (discordSuccess) {
+          await updateNotificationData(db, currentCheck.status, currentCheck.timestamp);
+          actions.push("notified");
+        }
       }
 
       return {
-        action: "skipped",
+        actions,
         status: currentCheck.status,
-        reason: "No change detected",
+        reason: !lastStored
+          ? "First record"
+          : currentCheck.status !== lastStored.status
+          ? "Status changed"
+          : actions.length > 0
+          ? "Heartbeat actions"
+          : "No changes detected",
       };
     });
 
