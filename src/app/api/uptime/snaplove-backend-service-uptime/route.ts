@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { withRetry } from "@/lib/mongodb";
-import { Db } from "mongodb";
+import { Db, WithId, Document } from "mongodb";
 
 interface SnaploveUptimeRecord {
   status: "UP" | "DOWN" | "ERROR";
@@ -23,6 +23,15 @@ interface SnaploveStats {
   lastStatusChange: Date;
   statusChanges: number;
   history: SnaploveUptimeRecord[];
+}
+
+interface SnaploveUptimeDocument extends Document {
+  status: "UP" | "DOWN" | "ERROR";
+  httpStatus?: number;
+  responseTime?: number;
+  message?: string;
+  timestamp: Date;
+  checkedAt: string;
 }
 
 async function checkSnaploveHealth(): Promise<SnaploveUptimeRecord> {
@@ -75,13 +84,22 @@ async function getLastStoredStatus(
   db: Db
 ): Promise<SnaploveUptimeRecord | null> {
   try {
-    const collection = db.collection("snaplove_uptime");
+    const collection = db.collection<SnaploveUptimeDocument>("snaplove_uptime");
     const lastRecord = await collection.findOne(
       {},
       { sort: { timestamp: -1 } }
     );
 
-    return lastRecord as SnaploveUptimeRecord | null;
+    if (!lastRecord) return null;
+
+    return {
+      status: lastRecord.status,
+      httpStatus: lastRecord.httpStatus,
+      responseTime: lastRecord.responseTime,
+      message: lastRecord.message,
+      timestamp: lastRecord.timestamp,
+      checkedAt: lastRecord.checkedAt,
+    };
   } catch (error) {
     console.error("Error getting last stored status:", error);
     return null;
@@ -113,8 +131,18 @@ async function storeUptimeRecord(
   record: SnaploveUptimeRecord
 ): Promise<void> {
   try {
-    const collection = db.collection("snaplove_uptime");
-    await collection.insertOne(record);
+    const collection = db.collection<SnaploveUptimeDocument>("snaplove_uptime");
+    
+    const document: SnaploveUptimeDocument = {
+      status: record.status,
+      httpStatus: record.httpStatus,
+      responseTime: record.responseTime,
+      message: record.message,
+      timestamp: record.timestamp,
+      checkedAt: record.checkedAt,
+    };
+    
+    await collection.insertOne(document);
 
     const totalRecords = await collection.countDocuments();
     if (totalRecords > 100) {
@@ -134,18 +162,31 @@ async function storeUptimeRecord(
   }
 }
 
+function convertToUptimeRecord(doc: WithId<SnaploveUptimeDocument>): SnaploveUptimeRecord {
+  return {
+    status: doc.status,
+    httpStatus: doc.httpStatus,
+    responseTime: doc.responseTime,
+    message: doc.message,
+    timestamp: doc.timestamp,
+    checkedAt: doc.checkedAt,
+  };
+}
+
 async function calculateStats(db: Db): Promise<SnaploveStats | null> {
   try {
-    const collection = db.collection("snaplove_uptime");
+    const collection = db.collection<SnaploveUptimeDocument>("snaplove_uptime");
 
-    const allRecords = (await collection
+    const allDocuments = await collection
       .find({})
       .sort({ timestamp: -1 })
-      .toArray()) as SnaploveUptimeRecord[];
+      .toArray();
 
-    if (allRecords.length === 0) {
+    if (allDocuments.length === 0) {
       return null;
     }
+
+    const allRecords = allDocuments.map(convertToUptimeRecord);
 
     const lastCheck = allRecords[0];
     const totalChecks = allRecords.length;
@@ -190,7 +231,7 @@ async function calculateStats(db: Db): Promise<SnaploveStats | null> {
       lastCheck,
       lastStatusChange,
       statusChanges,
-      history: allRecords.slice(0, 50), 
+      history: allRecords.slice(0, 50),
     };
   } catch (error) {
     console.error("Error calculating stats:", error);
