@@ -71,20 +71,96 @@ async function checkSnaploveHealth(): Promise<SnaploveUptimeRecord> {
 
     const responseTime = Date.now() - start;
 
-    return {
-      status: response.ok ? "UP" : "DOWN",
-      httpStatus: response.status,
-      responseTime,
-      timestamp: new Date(),
-      checkedAt: new Date().toISOString(),
-    };
+    if (response.status >= 200 && response.status < 300) {
+      try {
+        const responseText = await response.text();
+        const data = JSON.parse(responseText);
+        
+        if (data.success === true && data.status === "healthy") {
+          return {
+            status: "UP",
+            httpStatus: response.status,
+            responseTime,
+            message: "Backend API healthy",
+            timestamp: new Date(),
+            checkedAt: new Date().toISOString(),
+          };
+        } else {
+          return {
+            status: "ERROR",
+            httpStatus: response.status,
+            responseTime,
+            message: `Unexpected response format: ${responseText.substring(0, 100)}...`,
+            timestamp: new Date(),
+            checkedAt: new Date().toISOString(),
+          };
+        }
+      } catch {
+        return {
+          status: "ERROR",
+          httpStatus: response.status,
+          responseTime,
+          message: "Response is not valid JSON",
+          timestamp: new Date(),
+          checkedAt: new Date().toISOString(),
+        };
+      }
+    } else if (response.status >= 500) {
+      return {
+        status: "DOWN",
+        httpStatus: response.status,
+        responseTime,
+        message: `Server error: ${response.status} ${response.statusText}`,
+        timestamp: new Date(),
+        checkedAt: new Date().toISOString(),
+      };
+    } else if (response.status >= 400) {
+      return {
+        status: "ERROR",
+        httpStatus: response.status,
+        responseTime,
+        message: `Client error: ${response.status} ${response.statusText}`,
+        timestamp: new Date(),
+        checkedAt: new Date().toISOString(),
+      };
+    } else {
+      return {
+        status: "ERROR",
+        httpStatus: response.status,
+        responseTime,
+        message: `Unexpected status: ${response.status} ${response.statusText}`,
+        timestamp: new Date(),
+        checkedAt: new Date().toISOString(),
+      };
+    }
   } catch (error) {
     const responseTime = Date.now() - start;
 
+    let errorMessage = "Unknown error";
+    let status: "DOWN" | "ERROR" = "ERROR";
+    
+    if (error instanceof Error) {
+      errorMessage = error.message;
+
+      if (error.name === "AbortError" || errorMessage.includes("timeout")) {
+        status = "DOWN";
+        errorMessage = "Request timeout";
+      } else if (errorMessage.includes("fetch")) {
+        status = "DOWN";
+        errorMessage = "Network connection failed";
+      } else if (errorMessage.includes("ECONNREFUSED")) {
+        status = "DOWN";
+        errorMessage = "Connection refused";
+      } else if (errorMessage.includes("ENOTFOUND")) {
+        status = "DOWN";
+        errorMessage = "DNS resolution failed";
+      }
+    }
+
     return {
-      status: "ERROR",
+      status,
       responseTime,
-      message: error instanceof Error ? error.message : "Unknown error",
+      message: errorMessage,
       timestamp: new Date(),
       checkedAt: new Date().toISOString(),
     };
@@ -245,9 +321,16 @@ async function sendDiscordNotification(
     const reason = getNotificationReason(check.status, lastNotifiedStatus, isHeartbeat);
 
     const shouldTagEveryone = check.status === "DOWN" || check.status === "ERROR";
+
+    let title = `${emoji} Snaplove Backend API - ${check.status}`;
+    if (check.status === "DOWN" && check.httpStatus) {
+      title = `${emoji} Snaplove Backend API - DOWN (HTTP ${check.httpStatus})`;
+    } else if (check.status === "ERROR" && check.httpStatus) {
+      title = `${emoji} Snaplove Backend API - ERROR (HTTP ${check.httpStatus})`;
+    }
     
     const embed = {
-      title: `${emoji} Snaplove Backend API - ${check.status}`,
+      title,
       description: reason,
       color: color,
       fields: [
@@ -283,9 +366,17 @@ async function sendDiscordNotification(
     }
 
     if (check.httpStatus) {
+      const statusDescription = check.httpStatus === 502 
+        ? "Bad Gateway (Server Error)" 
+        : check.httpStatus === 503 
+        ? "Service Unavailable" 
+        : check.httpStatus === 504 
+        ? "Gateway Timeout" 
+        : `HTTP ${check.httpStatus}`;
+        
       embed.fields.push({
         name: "🔢 HTTP Status",
-        value: `${check.httpStatus}`,
+        value: statusDescription,
         inline: true,
       });
     }
@@ -298,14 +389,22 @@ async function sendDiscordNotification(
       });
     }
 
+    let quickActions = `• [View Dashboard](https://rejaka.id/uptime)\n• [Portfolio](https://rejaka.id)`;
+    
+    if (check.status === "UP") {
+      quickActions = `• [View Dashboard](https://rejaka.id/uptime)\n• [Test API](${process.env.SNAPLOVE_BACKEND_API})\n• [Portfolio](https://rejaka.id)`;
+    } else {
+      quickActions = `• [View Dashboard](https://rejaka.id/uptime)\n• [Check API Status](${process.env.SNAPLOVE_BACKEND_API})\n• [Server Logs](https://dashboard.cloudflare.com)\n• [Portfolio](https://rejaka.id)`;
+    }
+
     embed.fields.push({
       name: "🔗 Quick Actions",
-      value: `• [View Dashboard](https://rejaka.id/uptime)\n• [API Endpoint](${process.env.SNAPLOVE_BACKEND_API})\n• [Portfolio](https://rejaka.id)`,
+      value: quickActions,
       inline: false,
     });
 
     const payload = {
-      content: shouldTagEveryone ? "@everyone" : undefined,
+      content: shouldTagEveryone ? "@everyone 🚨 **Snaplove Backend Alert**" : undefined,
       embeds: [embed],
       username: "Rejaka Infrastructure Monitor",
       avatar_url: "https://rejaka.id/favicon-32x32.png",
@@ -325,7 +424,7 @@ async function sendDiscordNotification(
       return false;
     }
 
-    console.log(`Discord notification sent successfully for ${check.status} status`);
+    console.log(`Discord notification sent successfully for ${check.status} status (HTTP ${check.httpStatus || 'N/A'})`);
     return true;
   } catch (error) {
     console.error("Failed to send Discord notification:", error);
