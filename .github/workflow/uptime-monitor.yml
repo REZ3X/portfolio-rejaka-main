@@ -1,0 +1,177 @@
+name: Uptime Monitoring System
+
+on:
+  schedule:
+    - cron: '*/2 * * * *'
+  workflow_dispatch:
+    inputs:
+      force_check:
+        description: 'Force immediate check'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  MONITORING_URL: https://rejaka.id
+
+jobs:
+  monitor-snaplove-backend:
+    name: Monitor Snaplove Backend API
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: 🔍 Check Snaplove Backend Health
+        id: backend_check
+        run: |
+          echo "🚀 Starting Snaplove Backend monitoring..."
+          echo "⏰ Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          
+          response=$(curl -s -w "\n%{http_code}\n%{time_total}" \
+            -X PUT "${{ env.MONITORING_URL }}/api/uptime/snaplove-backend-service-uptime" \
+            -H "User-Agent: GitHub-Actions-Monitor/1.0" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            --max-time 30)
+          
+          body=$(echo "$response" | head -n -1)
+          http_code=$(echo "$response" | tail -n 2 | head -n 1)
+          response_time=$(echo "$response" | tail -n 1)
+          
+          echo "📊 HTTP Status: $http_code"
+          echo "⚡ Response Time: ${response_time}s"
+
+          echo "http_code=$http_code" >> $GITHUB_OUTPUT
+          echo "response_time=$response_time" >> $GITHUB_OUTPUT
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$body" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+ 
+          if [ "$http_code" -eq 200 ]; then
+            echo "✅ Monitoring request successful"
+   
+            if echo "$body" | jq empty 2>/dev/null; then
+              echo "📋 Response Data:"
+              echo "$body" | jq -r '.data.status // "Unknown status"' | sed 's/^/    Status: /'
+              echo "$body" | jq -r '.data.actions[]? // empty' | sed 's/^/    Action: /'
+              echo "$body" | jq -r '.timestamp // "No timestamp"' | sed 's/^/    Time: /'
+            else
+              echo "⚠️ Response is not valid JSON"
+              echo "Response: $body"
+            fi
+          else
+            echo "❌ Monitoring request failed"
+            echo "Response: $body"
+            exit 1
+          fi
+
+      - name: 📝 Log Monitoring Results
+        if: always()
+        run: |
+          echo "=== MONITORING SUMMARY ==="
+          echo "🎯 Target: Snaplove Backend API"
+          echo "📡 Endpoint: ${{ env.MONITORING_URL }}/api/uptime/snaplove-backend-service-uptime"
+          echo "🔢 HTTP Code: ${{ steps.backend_check.outputs.http_code }}"
+          echo "⏱️ Response Time: ${{ steps.backend_check.outputs.response_time }}s"
+          echo "📅 Executed: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "🤖 Trigger: ${{ github.event_name }}"
+          
+          if [ "${{ steps.backend_check.outputs.http_code }}" = "200" ]; then
+            echo "✅ Status: SUCCESS"
+          else
+            echo "❌ Status: FAILED"
+          fi
+          echo "=========================="
+
+  # monitor-server-infrastructure:
+  #   name: Monitor Server Infrastructure
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   needs: monitor-snaplove-backend
+  #   if: always()
+    
+  #   steps:
+  #     - name: 🖥️ Trigger Server Monitoring
+  #       id: server_check
+  #       run: |
+  #         echo "🌐 Starting server infrastructure monitoring..."
+
+  #         response=$(curl -s -w "\n%{http_code}" \
+  #           -X POST "${{ env.MONITORING_URL }}/api/uptime/trigger-server-checks" \
+  #           -H "User-Agent: GitHub-Actions-Monitor/1.0" \
+  #           -H "Accept: application/json" \
+  #           --max-time 30 || echo "failed\n000")
+          
+  #         body=$(echo "$response" | head -n -1)
+  #         http_code=$(echo "$response" | tail -n 1)
+          
+  #         if [ "$http_code" = "000" ]; then
+  #           echo "⚠️ Server monitoring endpoint not available (expected for now)"
+  #           echo "✅ Backend monitoring completed successfully"
+  #         elif [ "$http_code" -eq 200 ]; then
+  #           echo "✅ Server monitoring triggered successfully"
+  #           echo "Response: $body"
+  #         else
+  #           echo "⚠️ Server monitoring returned HTTP $http_code"
+  #           echo "Response: $body"
+  #         fi
+
+  verify-monitoring:
+    name: Verify Monitoring Status
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    needs: [monitor-snaplove-backend, monitor-server-infrastructure]
+    if: always()
+    
+    steps:
+      - name: 📊 Get Current Status
+        run: |
+          echo "🔍 Fetching current monitoring status..."
+
+          response=$(curl -s -w "\n%{http_code}" \
+            -X GET "${{ env.MONITORING_URL }}/api/uptime/snaplove-backend-service-uptime" \
+            -H "User-Agent: GitHub-Actions-Verify/1.0" \
+            -H "Accept: application/json" \
+            --max-time 20)
+          
+          body=$(echo "$response" | head -n -1)
+          http_code=$(echo "$response" | tail -n 1)
+          
+          if [ "$http_code" -eq 200 ]; then
+            echo "✅ Status verification successful"
+            
+            if echo "$body" | jq empty 2>/dev/null; then
+              echo "📈 Current Stats:"
+              echo "$body" | jq -r '.data.currentStatus // "Unknown"' | sed 's/^/    Status: /'
+              echo "$body" | jq -r '.data.uptime // "Unknown"' | sed 's/^/    Uptime: /'
+              echo "$body" | jq -r '.data.totalChecks // "Unknown"' | sed 's/^/    Total Checks: /'
+              echo "$body" | jq -r '.data.lastCheck.timestamp // "Unknown"' | sed 's/^/    Last Check: /'
+
+              last_check=$(echo "$body" | jq -r '.data.lastCheck.timestamp // ""')
+              if [ -n "$last_check" ]; then
+                current_time=$(date -u +%s)
+                check_time=$(date -d "$last_check" +%s 2>/dev/null || echo "0")
+                time_diff=$((current_time - check_time))
+                
+                if [ $time_diff -le 600 ]; then
+                  echo "✅ Monitoring is active (last check: ${time_diff}s ago)"
+                else
+                  echo "⚠️ Last check was $(($time_diff / 60)) minutes ago"
+                fi
+              fi
+            fi
+          else
+            echo "⚠️ Could not verify status (HTTP $http_code)"
+          fi
+
+      - name: 🎯 Workflow Summary
+        if: always()
+        run: |
+          echo ""
+          echo "🎉 === MONITORING WORKFLOW COMPLETED ==="
+          echo "🕐 Started: ${{ github.event.repository.pushed_at }}"
+          echo "🕑 Finished: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "🔄 Next run: ~5 minutes (if scheduled)"
+          echo "🌐 Dashboard: ${{ env.MONITORING_URL }}/uptime"
+          echo "📺 Logs: https://github.com/${{ github.repository }}/actions"
+          echo "========================================="
