@@ -358,7 +358,7 @@ async function sendDiscordNotification(
         },
       ],
       footer: {
-        text: "Rejaka.id Infrastructure Monitoring",
+        text: "rejaka.id Infrastructure Monitoring",
         icon_url: "https://rejaka.id/favicon-32x32.png",
       },
       timestamp: check.timestamp.toISOString(),
