@@ -327,7 +327,7 @@ async function sendDiscordNotification(
     const color = getStatusColor(check.status);
     const reason = getNotificationReason(check.status, lastNotifiedStatus, isHeartbeat);
 
-    const shouldTagEveryone = check.status === "DOWN" || check.status === "ERROR";
+    const shouldTagEveryone = check.status === "DOWN" || check.status === "ERROR" || check.status === "UP";
 
     let title = `${emoji} Snaplove Backend API - ${check.status}`;
     if (check.status === "DOWN" && check.httpStatus) {
@@ -379,6 +379,16 @@ async function sendDiscordNotification(
         ? "Service Unavailable" 
         : check.httpStatus === 504 
         ? "Gateway Timeout" 
+        : check.httpStatus === 500
+        ? "Internal Server Error"
+        : check.httpStatus === 404
+        ? "Not Found"
+        : check.httpStatus === 403
+        ? "Forbidden"
+        : check.httpStatus === 401
+        ? "Unauthorized"
+        : check.httpStatus === 429
+        ? "Too Many Requests"
         : `HTTP ${check.httpStatus}`;
         
       embed.fields.push({
@@ -413,8 +423,6 @@ async function sendDiscordNotification(
     const payload = {
       content: shouldTagEveryone ? "@everyone 🚨 **Snaplove Backend Alert**" : undefined,
       embeds: [embed],
-      username: "Rejaka Infrastructure Monitor",
-      avatar_url: "https://rejaka.id/favicon-32x32.png",
     };
 
     const response = await fetch(WEBHOOK_URL, {

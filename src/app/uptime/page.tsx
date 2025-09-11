@@ -429,7 +429,8 @@ const UptimePage: React.FC = () => {
               </h1>
               <p className="text-xs text-[#8b9cbe]">
                 Real-time monitoring • Auto-refresh every 30s •{" "}
-                {serverConfigs.length} servers
+                {serverConfigs.length} servers •{" "}
+                1 service
               </p>
             </div>
             <div className="text-right">
