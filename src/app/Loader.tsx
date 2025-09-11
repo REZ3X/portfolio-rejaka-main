@@ -6,6 +6,11 @@ const Loader: React.FC = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   const [rotationY, setRotationY] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     let animationId: number;
@@ -102,8 +107,26 @@ const Loader: React.FC = () => {
     ######  ###############         
   `;
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <div className="fixed inset-0 bg-[#060a10] z-50 font-mono text-[#e0e0e0] p-4 overflow-auto flex flex-col">
+    <div 
+      className="fixed inset-0 bg-[#060a10] z-50 font-mono text-[#e0e0e0] p-4 overflow-auto flex flex-col"
+      data-ad-exclude="true"
+    >
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+        <h1>Rejaka Abimanyu Susanto - Full Stack Developer Portfolio</h1>
+        <p>Welcome to the portfolio of Rejaka Abimanyu Susanto, a full-stack web developer specializing in modern web technologies including Next.js, React, TypeScript, and MongoDB. Explore projects, technical blog articles, and professional experience.</p>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      
       <div className="max-w-3xl mx-auto w-full flex-grow">
         <div className="mb-6 flex flex-col items-center">
           <div className="ascii-container relative mb-4">

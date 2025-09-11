@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, Suspense, useRef } from "react";
+import React, { useState, useEffect, Suspense, useRef, useCallback } from "react";
 import Logo from "@/components/main/Logo";
 import Profile from "@/components/main/Profile";
 import About from "@/components/main/About";
@@ -9,12 +9,9 @@ import LinksContact from "@/components/main/LinksContact";
 import Blog from "@/components/main/Blog";
 import ExperienceAchievement from "@/components/main/ExperienceAchievement";
 import Others from "@/components/main/Others";
-// import DevQuotes from "@/components/main/DevQuotes";
-// import MiniGame from "@/components/main/MiniGame";
 import Footer from "@/components/shared/Footer";
 import Shuttler from "@/components/main/Shuttler";
 import ClockWeather from "@/components/main/xiannyaa/ClockWeather";
-// import Terminal from "@/components/terminal/Terminal";
 import BotButton from "@/components/main/BotButton";
 import Loader from "./Loader";
 import FeminineLoader from "./FeminineLoader";
@@ -31,10 +28,7 @@ import ExperienceAchievementModal from "@/components/modals/ExperienceAchievemen
 import MailForm from "@/components/modals/MailForm";
 import BlogListModal from "@/components/modals/BlogListModal";
 import VoidBotModal from "@/components/modals/VoidBotModal";
-// import XiannyaaVoidBotModal from "@/components/modals/xiannyaa/VoidBotModal";
-// import XiannyaaProjectsModal from "@/components/modals/xiannyaa/ProjectsModal";
 import TerminalGuestbook from "@/components/modals/TerminalGuestbook";
-// import SoftGuestbook from "@/components/modals/xiannyaa/SoftGuestbook";
 
 const ModalController = ({
   setActiveModal,
@@ -57,8 +51,6 @@ const ModalController = ({
     const category = searchParams.get("category");
     const search = searchParams.get("search");
 
-    console.log("ModalController: URL changed", { modal, activeModal });
-
     if (modal === "voidbot") {
       setActiveModal("voidbot");
     } else if (modal === "projects") {
@@ -75,7 +67,6 @@ const ModalController = ({
     } else if (modal === "guestbook") {
       setActiveModal("guestbook");
     } else if (!modal) {
-      console.log("ModalController: No modal in URL, closing all");
       setActiveModal(null);
       setCurrentProjectId("all");
       setBlogModalCategory("all");
@@ -102,46 +93,34 @@ const MainContent = () => {
   const [currentProjectId, setCurrentProjectId] = useState<string>("all");
   const [blogModalCategory, setBlogModalCategory] = useState<string>("all");
   const [blogModalSearch, setBlogModalSearch] = useState<string>("");
+  const [isMounted, setIsMounted] = useState(false);
 
   const hasCompletedInitialLoad = useRef(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (document.readyState === "complete") {
-        setIsPageLoaded(true);
-      } else {
-        const handleLoad = () => setIsPageLoaded(true);
-        window.addEventListener("load", handleLoad);
-        return () => window.removeEventListener("load", handleLoad);
-      }
-    }
+    setIsMounted(true);
   }, []);
 
-  // const openModal = (modalType: string) => {
-  //   setActiveModal(modalType);
-  //   if (typeof window !== "undefined") {
-  //     const url = new URL(window.location.href);
-  //     url.searchParams.set("modal", modalType);
-  //     if (modalType === "projects") {
-  //       url.searchParams.set("project", "all");
-  //       setCurrentProjectId("all");
-  //     } else if (modalType === "blogList") {
-  //       url.searchParams.set("category", "all");
-  //       setBlogModalCategory("all");
-  //       setBlogModalSearch("");
-  //     }
-  //     window.history.pushState({}, "", url);
-  //   }
-  // };
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    if (document.readyState === "complete") {
+      setIsPageLoaded(true);
+    } else {
+      const handleLoad = () => setIsPageLoaded(true);
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, [isMounted]);
 
-  const openBlogModalWithCategory = (
+  const openBlogModalWithCategory = useCallback((
     category: string = "all",
     search: string = ""
   ) => {
     setActiveModal("blogList");
     setBlogModalCategory(category);
     setBlogModalSearch(search);
-    if (typeof window !== "undefined") {
+    if (isMounted) {
       const url = new URL(window.location.href);
       url.searchParams.set("modal", "blogList");
       url.searchParams.set("category", category);
@@ -150,35 +129,31 @@ const MainContent = () => {
       }
       window.history.pushState({}, "", url);
     }
-  };
+  }, [isMounted]);
 
-  const openProjectModal = (projectId: string) => {
+  const openProjectModal = useCallback((projectId: string) => {
     setActiveModal("projects");
     setCurrentProjectId(projectId);
-    if (typeof window !== "undefined") {
+    if (isMounted) {
       const url = new URL(window.location.href);
       url.searchParams.set("modal", "projects");
       url.searchParams.set("project", projectId);
       window.history.pushState({}, "", url);
     }
-  };
+  }, [isMounted]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (isMounted) {
       window.openProjectModal = openProjectModal;
     }
-  }, []);
+  }, [isMounted, openProjectModal]);
 
-  const closeModal = () => {
-    console.log(
-      "MainContent: closeModal called, current activeModal:",
-      activeModal
-    );
+  const closeModal = useCallback(() => {
     setActiveModal(null);
     setCurrentProjectId("all");
     setBlogModalCategory("all");
     setBlogModalSearch("");
-    if (typeof window !== "undefined") {
+    if (isMounted) {
       const url = new URL(window.location.href);
       url.searchParams.delete("modal");
       url.searchParams.delete("project");
@@ -186,11 +161,10 @@ const MainContent = () => {
       url.searchParams.delete("search");
       window.history.pushState({}, "", url);
     }
-    console.log("MainContent: closeModal completed");
-  };
+  }, [isMounted]);
 
   useEffect(() => {
-    if (hasCompletedInitialLoad.current) {
+    if (hasCompletedInitialLoad.current || !isMounted) {
       return;
     }
 
@@ -199,24 +173,29 @@ const MainContent = () => {
       const startTime = Date.now();
 
       const finishLoading = () => {
-        if (typeof window !== "undefined") {
-          setIsApplicationReady(true);
-          hasCompletedInitialLoad.current = true;
+        setIsApplicationReady(true);
+        hasCompletedInitialLoad.current = true;
 
-          if (localStorage.getItem("scrollToBlogComponent") === "true") {
-            localStorage.removeItem("scrollToBlogComponent");
-            setTimeout(() => {
-              const blogComponent = document.querySelector(".blog-component");
-              if (blogComponent) {
-                const yOffset = -50;
-                const y =
-                  blogComponent.getBoundingClientRect().top +
-                  window.pageYOffset +
-                  yOffset;
-                window.scrollTo({ top: y, behavior: "smooth" });
-              }
-            }, 300);
+        const loaders = document.querySelectorAll('[data-ad-exclude="true"]');
+        loaders.forEach(loader => {
+          if (loader instanceof HTMLElement) {
+            loader.style.display = 'none';
           }
+        });
+
+        if (localStorage.getItem("scrollToBlogComponent") === "true") {
+          localStorage.removeItem("scrollToBlogComponent");
+          setTimeout(() => {
+            const blogComponent = document.querySelector(".blog-component");
+            if (blogComponent) {
+              const yOffset = -50;
+              const y =
+                blogComponent.getBoundingClientRect().top +
+                window.pageYOffset +
+                yOffset;
+              window.scrollTo({ top: y, behavior: "smooth" });
+            }
+          }, 300);
         }
       };
 
@@ -233,10 +212,11 @@ const MainContent = () => {
       window.addEventListener("load", handleLoad, { once: true });
       return () => window.removeEventListener("load", handleLoad);
     }
-  }, [isPageLoaded]);
+  }, [isPageLoaded, isMounted]);
 
-  if (!hasCompletedInitialLoad.current && !isApplicationReady) {
-    return themeStyle === "soft" ? <FeminineLoader /> : <Loader />;
+  if (!isMounted || (!hasCompletedInitialLoad.current && !isApplicationReady)) {
+    const LoaderComponent = themeStyle === "soft" ? FeminineLoader : Loader;
+    return <LoaderComponent />;
   }
 
   return (
@@ -278,9 +258,6 @@ const MainContent = () => {
               <div className="lg:col-span-6">
                 <Profile {...userData} />
               </div>
-              {/* <div className="lg:col-span-3">
-                <About />
-              </div> */}
             </>
           )}
         </div>
@@ -292,9 +269,6 @@ const MainContent = () => {
                 openBlogListModal={() => openBlogModalWithCategory("all", "")}
               />
             </div>
-            {/* <div className="lg:col-span-1">
-              <ExperienceAchievement />
-            </div> */}
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -319,7 +293,6 @@ const MainContent = () => {
           </div>
 
           <div className={`lg:col-span-${themeStyle === "soft" ? "3" : "4"}`}>
-            {/* <LinksContact /> */}
             <ExperienceAchievement />
           </div>
         </div>
@@ -329,41 +302,21 @@ const MainContent = () => {
             <Others />
           </div>
           <div className="lg:col-span-1">
-            {/* <MiniGame /> */}
             <LinksContact />
           </div>
-          {/* <div className="lg:col-span-1">
-            <DevQuotes />
-          </div> */}
         </div>
       </div>
 
       <Footer />
-      {/* <Terminal openModal={openModal} /> */}
 
-      {activeModal === "voidbot" &&
-        // (themeStyle === "soft" ? (
-        //   <XiannyaaVoidBotModal onClose={closeModal} />
-        // ) : (
-        //   <VoidBotModal onClose={closeModal} />
-        // ))
-        <VoidBotModal onClose={closeModal} />
-        }
+      {activeModal === "voidbot" && <VoidBotModal onClose={closeModal} />}
       {activeModal === "about" && <AboutModal onClose={closeModal} />}
       {activeModal === "programmer" && <ProgrammerModal onClose={closeModal} />}
       {activeModal === "academic" && <AcademicModal onClose={closeModal} />}
       {activeModal === "creative" && <CreativeModal onClose={closeModal} />}
-      {activeModal === "projects" &&
-        // (themeStyle === "soft" ? (
-        //   <XiannyaaProjectsModal
-        //     projectId={currentProjectId}
-        //     onClose={closeModal}
-        //   />
-        // ) : (
-        //   <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
-        // ))
+      {activeModal === "projects" && (
         <ProjectsModal projectId={currentProjectId} onClose={closeModal} />
-        }
+      )}
       {activeModal === "experience" && (
         <ExperienceAchievementModal onClose={closeModal} />
       )}
@@ -379,14 +332,9 @@ const MainContent = () => {
           onSearchChange={setBlogModalSearch}
         />
       )}
-      {activeModal === "guestbook" &&
-        // (themeStyle === "soft" ? (
-        //   <SoftGuestbook onClose={closeModal} />
-        // ) : (
-        //   <TerminalGuestbook onClose={closeModal} />
-        // ))
+      {activeModal === "guestbook" && (
         <TerminalGuestbook onClose={closeModal} />
-        }
+      )}
       <BotButton />
     </main>
   );
