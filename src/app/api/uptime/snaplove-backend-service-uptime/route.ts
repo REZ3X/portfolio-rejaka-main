@@ -420,8 +420,27 @@ async function sendDiscordNotification(
       inline: false,
     });
 
+    let notificationMessage = "";
+    if (shouldTagEveryone) {
+      notificationMessage = `@everyone 🚨 **Snaplove Backend: ${check.status}**`;
+
+      if (check.status === "DOWN") {
+        notificationMessage += ` - Service is currently down`;
+        if (check.httpStatus) {
+          notificationMessage += ` (HTTP ${check.httpStatus})`;
+        }
+      } else if (check.status === "ERROR") {
+        notificationMessage += ` - Service encountered an error`;
+        if (check.httpStatus) {
+          notificationMessage += ` (HTTP ${check.httpStatus})`;
+        }
+      } else if (check.status === "UP") {
+        notificationMessage += ` - Service is back online!`;
+      }
+    }
+
     const payload = {
-      content: shouldTagEveryone ? "@everyone 🚨 **Snaplove Backend Alert**" : undefined,
+      content: notificationMessage || undefined,
       embeds: [embed],
     };
 
