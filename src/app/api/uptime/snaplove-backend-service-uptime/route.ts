@@ -422,7 +422,7 @@ async function sendDiscordNotification(
 
     let notificationMessage = "";
     if (shouldTagEveryone) {
-      notificationMessage = `@everyone 🚨 **Snaplove Backend: ${check.status}**`;
+      notificationMessage = `🚨 **Snaplove Backend: ${check.status}**`;
 
       if (check.status === "DOWN") {
         notificationMessage += ` - Service is currently down`;
