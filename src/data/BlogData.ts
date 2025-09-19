@@ -13,6 +13,29 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+{
+  slug: "triggerDatabaseSQL",
+  title: "Database Triggers Explained: Automatic SQL Execution Made Simple",
+  date: "2025-09-19",
+  excerpt:
+    "Master database triggers - the automatic SQL code that runs when data changes. Learn BEFORE/AFTER triggers, practical examples, and best practices for maintaining data integrity and automation in MySQL and other databases.",
+  coverImage: "",
+  readingTime: 12,
+  tags: [
+    "Database Triggers",
+    "SQL",
+    "MySQL",
+    "Database Automation",
+    "Data Integrity",
+    "Backend Development",
+    "Database Management",
+    "SQL Events",
+    "Database Design",
+    "Stored Procedures"
+  ],
+  category: "Tutorial",
+  lastModified: "2025-09-19",
+},
   {
     slug: "ethicalHackingOne",
     title:
