@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
+  title:
+    "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
   description:
     "Register for the English Mini Seminar: 'Professionalism in Software Engineering: SDLC and Git Standards' at SMK Negeri 2 Depok. Free workshop on September 26, 2025, featuring industry experts Rizky Fauzan H. (Network Engineer) and Rejaka Abimanyu S. (Web Developer). Learn professional development workflow, Git best practices, and industry standards implementation. Download your QR code ticket instantly.",
   keywords: [
@@ -15,14 +16,14 @@ export const metadata: Metadata = {
     "Software engineering seminar",
     "Development workflow training",
     "Git best practices seminar",
-    
+
     "Rizky Fauzan H network engineer",
     "Rejaka Abimanyu Susanto speaker",
     "MTCNA MTCTCE certified",
     "Slaviors CITO speaker",
     "Industry expert seminar",
     "Professional developer workshop",
-    
+
     "Software Development Life Cycle",
     "Git version control training",
     "Professional development workflow",
@@ -31,27 +32,27 @@ export const metadata: Metadata = {
     "Code management seminar",
     "Version control workshop",
     "SDLC methodology training",
-    
+
     "September 26 2025 seminar",
     "Arjuna Room SMK Negeri 2 Depok",
     "Free tech seminar Yogyakarta",
     "Programming workshop Sleman",
     "Software development event",
     "Tech seminar registration",
-    
+
     "QR code ticket download",
     "Instant registration confirmation",
     "Free seminar ticket",
     "Digital workshop registration",
     "Online seminar booking",
-    
+
     "Programming student workshop",
     "Vocational school seminar",
     "Technical education event",
     "Software engineering education",
     "Professional development training",
     "Career preparation seminar",
-    
+
     "register programming seminar",
     "free software development workshop",
     "Git training registration",
@@ -83,7 +84,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
+    title:
+      "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
     description:
       "Register for the English Mini Seminar on Software Engineering Professionalism. Free workshop on September 26, 2025, at SMK Negeri 2 Depok. Learn SDLC methodology and Git standards from industry experts. Instant QR code ticket download.",
     url: "https://rejaka.id/seminar/register",
@@ -105,7 +107,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: "en_US",
-    type: "event",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -170,7 +172,8 @@ export default function SeminarRegisterLayout({
                 startDate: "2025-09-26T09:30:00+07:00",
                 endDate: "2025-09-26T11:30:00+07:00",
                 eventStatus: "https://schema.org/EventScheduled",
-                eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                eventAttendanceMode:
+                  "https://schema.org/OfflineEventAttendanceMode",
                 location: {
                   "@type": "Place",
                   name: "Arjuna Room, SMK Negeri 2 Depok",
@@ -236,22 +239,26 @@ export default function SeminarRegisterLayout({
                   {
                     "@type": "Thing",
                     name: "Software Development Life Cycle (SDLC)",
-                    description: "Professional methodology for software development projects",
+                    description:
+                      "Professional methodology for software development projects",
                   },
                   {
-                    "@type": "Thing", 
+                    "@type": "Thing",
                     name: "Git Standards & Best Practices",
-                    description: "Version control best practices for collaborative development",
+                    description:
+                      "Version control best practices for collaborative development",
                   },
                   {
                     "@type": "Thing",
                     name: "Professional Development Workflow",
-                    description: "Industry-standard practices for software development teams",
+                    description:
+                      "Industry-standard practices for software development teams",
                   },
                   {
                     "@type": "Thing",
                     name: "Industry Standards Implementation",
-                    description: "How to implement professional standards in software projects",
+                    description:
+                      "How to implement professional standards in software projects",
                   },
                 ],
                 educationalLevel: "Intermediate",
