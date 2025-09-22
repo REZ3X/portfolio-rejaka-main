@@ -84,40 +84,39 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title:
-      "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
-    description:
-      "Register for the English Mini Seminar on Software Engineering Professionalism. Free workshop on September 26, 2025, at SMK Negeri 2 Depok. Learn SDLC methodology and Git standards from industry experts. Instant QR code ticket download.",
-    url: "https://rejaka.id/seminar/register",
-    siteName: "English Mini Seminar - Professional Software Development",
-    images: [
-      {
-        url: "/assets/images/seminar/poster.png",
-        width: 1200,
-        height: 630,
-        alt: "English Mini Seminar: SDLC & Git Standards Workshop Poster",
-        type: "image/png",
-      },
-      {
-        url: "/assets/images/seminar/event-preview.webp",
-        width: 800,
-        height: 600,
-        alt: "English Mini Seminar Event Details",
-        type: "image/webp",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@rejaka",
-    creator: "@rejaka",
-    title: "English Mini Seminar Registration - Free SDLC & Git Workshop",
-    description:
-      "Register now! Free seminar on Software Engineering Professionalism: SDLC & Git Standards. September 26, 2025, at SMK Negeri 2 Depok. Industry experts speaking. Instant QR ticket download.",
-    images: ["/assets/images/seminar/poster.png"],
-  },
+  title: "English Mini Seminar Registration - SDLC & Git Standards | Free Workshop",
+  description:
+    "Register for the English Mini Seminar on Software Engineering Professionalism. Free workshop on September 26, 2025, at SMK Negeri 2 Depok. Learn SDLC methodology and Git standards from industry experts. Instant QR code ticket download.",
+  url: "https://rejaka.id/seminar/register",
+  siteName: "English Mini Seminar - Professional Software Development",
+  images: [
+    {
+      url: "/assets/images/seminar/poster.jpg", 
+      width: 1200,
+      height: 630,
+      alt: "English Mini Seminar: SDLC & Git Standards Workshop Poster",
+      type: "image/jpeg", 
+    },
+    {
+      url: "/assets/images/seminar/poster.jpg", 
+      width: 400,
+      height: 600,
+      alt: "English Mini Seminar Event Poster - Full Size",
+      type: "image/jpeg", 
+    },
+  ],
+  locale: "en_US",
+  type: "website",
+},
+twitter: {
+  card: "summary_large_image",
+  site: "@rejaka",
+  creator: "@rejaka",
+  title: "English Mini Seminar Registration - Free SDLC & Git Workshop",
+  description:
+    "Register now! Free seminar on Software Engineering Professionalism: SDLC & Git Standards. September 26, 2025, at SMK Negeri 2 Depok. Industry experts speaking. Instant QR ticket download.",
+  images: ["/assets/images/seminar/poster.jpg"], 
+},
   alternates: {
     canonical: "https://rejaka.id/seminar/register",
     languages: {
@@ -163,11 +162,11 @@ export default function SeminarRegisterLayout({
                   "Free workshop covering Software Development Life Cycle (SDLC) methodology and Git standards for professional software development. Learn industry best practices from certified experts.",
                 url: "https://rejaka.id/seminar/register",
                 image: {
-                  "@type": "ImageObject",
-                  url: "https://rejaka.id/assets/images/seminar/poster.png",
-                  width: 400,
-                  height: 600,
-                  caption: "English Mini Seminar Event Poster",
+                "@type": "ImageObject",
+                url: "https://rejaka.id/assets/images/seminar/poster.jpg", 
+                width: 400,
+                height: 600,
+                caption: "English Mini Seminar Event Poster",
                 },
                 startDate: "2025-09-26T09:30:00+07:00",
                 endDate: "2025-09-26T11:30:00+07:00",

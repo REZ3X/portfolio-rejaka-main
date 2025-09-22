@@ -236,7 +236,7 @@ const SeminarRegisterPage: React.FC = () => {
             <h2 className="text-[#00adb4] text-lg mb-4">Event Poster</h2>
             <div className="flex justify-center">
               <Image
-                src="/assets/images/seminar/poster.png"
+                src="/assets/images/seminar/poster.jpg"
                 alt="English Mini Seminar Poster"
                 width={400}
                 height={600}
@@ -266,7 +266,7 @@ const SeminarRegisterPage: React.FC = () => {
               <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
                 <span className="text-[#8b9cbe] min-w-[80px]">Venue:</span>
                 <span className="text-[#e0e0e0] font-medium">
-                  Arjuna Room, SMK Negeri 2 Depok
+                  Yudhistira Room, SMK Negeri 2 Depok
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
