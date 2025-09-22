@@ -63,7 +63,7 @@ export const experienceData: ExperienceDataType = {
       technologies: ["Next.js", "MongoDB", "Tailwind CSS", "JavaScript"],
     },
     {
-      title: "Chief Technology Officer",
+      title: "Chief Information Technology Officer",
       company: "Slaviors",
       period: "Oct 2024 – Present",
       responsibilities: [
