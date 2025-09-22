@@ -63,7 +63,7 @@ const Profile: React.FC<ProfileProps> = ({
             
             <div className="text-xs theme-text-secondary leading-relaxed">
               <p className="theme-accent-primary font-semibold mb-1">Web Developer | Programmer</p>
-              <p className="text-[#8b9cbe]">SIJA Student • Slaviors CTO</p>
+              <p className="text-[#8b9cbe]">SIJA Student • Slaviors CITO</p>
             </div>
           </div>
 
@@ -133,7 +133,7 @@ const Profile: React.FC<ProfileProps> = ({
           
           <div className="text-xs theme-text-secondary leading-relaxed max-w-xs mx-auto">
             <p className="text-[#e39fc2] font-medium mb-1">Full Stack Web Developer</p>
-            <p className="mb-1">SIJA Student • Slaviors CTO</p>
+            <p className="mb-1">SIJA Student • Slaviors CITO</p>
             <p className="text-xs opacity-75">Award-winning developer</p>
           </div>
         </div>

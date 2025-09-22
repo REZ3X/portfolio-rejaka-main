@@ -34,6 +34,13 @@ const BASE_OTHERS_DATA: OthersItem[] = [
     icon: "🔗",
     external: true,
   },
+    {
+    label: "Seminar Registration",
+    description: "Mini English Seminar Registration",
+    url: "https://rejaka.id/seminar/register",
+    icon: "[]",
+    external: false,
+  },
   {
     label: "Server Status",
     description: "Time-Shifted monitoring of rejaka.id infrastructure",

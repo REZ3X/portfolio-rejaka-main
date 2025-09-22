@@ -116,7 +116,7 @@ const ResumePage: React.FC = () => {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-gray-800 text-xs">
-                          Chief Technology Officer - Slaviors
+                          Chief Information Technology Officer - Slaviors
                         </h3>
                         <span className="text-xs text-gray-500">
                           Oct 2024 - Present

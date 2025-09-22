@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    env: {
+    NEXT_PUBLIC_SEMINAR_ADMIN_USER: process.env.SEMINAR_ADMIN_USER,
+    NEXT_PUBLIC_SEMINAR_ADMIN_PASSWORD_HASH: process.env.SEMINAR_ADMIN_PASSWORD,
+  },
   images: {
     remotePatterns: [
       {
