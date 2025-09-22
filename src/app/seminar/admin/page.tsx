@@ -911,8 +911,8 @@ Try refreshing the page or use manual check-in below.`;
                         <span
                           className={`px-2 py-1 text-xs rounded font-medium ${
                             reg.attendeeStatus === "attended"
-                              ? "bg-[#00ff88] bg-opacity-20 text-[#00ff88] border border-[#00ff88]"
-                              : "bg-[#ffaa00] bg-opacity-20 text-[#ffaa00] border border-[#ffaa00]"
+                              ? "bg-[#00ff88] bg-opacity-20 text-black border border-[#00ff88]"
+                              : "bg-[#ffaa00] bg-opacity-20 text-white border border-[#ffaa00]"
                           }`}
                         >
                           {reg.attendeeStatus === "attended" ? "✅" : "⏳"}{" "}
