@@ -63,7 +63,7 @@ export async function POST(request: Request) {
 
             pdf.setFontSize(12);
             pdf.setTextColor(0, 0, 0);
-            pdf.text('📅 EVENT DETAILS', 20, 75);
+            pdf.text('EVENT DETAILS', 20, 75);
  
             pdf.setDrawColor(0, 173, 180);
             pdf.setLineWidth(0.5);
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
             pdf.text('09:30 - 11:30 AM WIB', 50, 95);
             
             pdf.text('Venue:', 25, 103);
-            pdf.text('Arjuna Room, SMK Negeri 2 Depok', 50, 103);
+            pdf.text('Yudhistira Room, SMK Negeri 2 Depok', 50, 103);
             
             pdf.text('Fee:', 25, 111);
             pdf.setTextColor(0, 255, 136); 
@@ -85,7 +85,7 @@ export async function POST(request: Request) {
 
             pdf.setFontSize(12);
             pdf.setTextColor(0, 0, 0);
-            pdf.text('👥 SPEAKERS', 20, 125);
+            pdf.text('SPEAKERS', 20, 125);
             
             pdf.setDrawColor(0, 173, 180);
             pdf.line(20, 127, 190, 127);
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
 
             pdf.setFontSize(12);
             pdf.setTextColor(0, 0, 0);
-            pdf.text('🎯 PARTICIPANT INFORMATION', 20, 175);
+            pdf.text('PARTICIPANT INFORMATION', 20, 175);
             
             pdf.setDrawColor(0, 173, 180);
             pdf.line(20, 177, 190, 177);
