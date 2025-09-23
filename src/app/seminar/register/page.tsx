@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ interface RegistrationForm {
 }
 
 interface ExistingUserCheck {
-  name: string;
+  email: string; // Changed from name to email
   pin: string;
 }
 
@@ -27,7 +27,7 @@ const SeminarRegisterPage: React.FC = () => {
     pin: "",
   });
   const [existingUserData, setExistingUserData] = useState<ExistingUserCheck>({
-    name: "",
+    email: "", // Changed from name to email
     pin: "",
   });
   const [loading, setLoading] = useState(false);
@@ -110,8 +110,8 @@ const SeminarRegisterPage: React.FC = () => {
   const handleExistingUser = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!existingUserData.name.trim() || !existingUserData.pin.trim()) {
-      setError("Name and PIN are required");
+    if (!existingUserData.email.trim() || !existingUserData.pin.trim()) {
+      setError("Email and PIN are required");
       return;
     }
 
@@ -147,7 +147,7 @@ const SeminarRegisterPage: React.FC = () => {
           document.body.removeChild(a);
         }
 
-        setExistingUserData({ name: "", pin: "" });
+        setExistingUserData({ email: "", pin: "" }); // Reset form
         setShowExistingUserForm(false);
       } else {
         setError(data.message || "Data not found or incorrect PIN");
@@ -419,19 +419,19 @@ const SeminarRegisterPage: React.FC = () => {
             <form onSubmit={handleExistingUser} className="space-y-4">
               <div>
                 <label className="block text-[#c4d1d9] text-sm mb-2 font-medium">
-                  Full Name *
+                  Email *
                 </label>
                 <input
-                  type="text"
-                  value={existingUserData.name}
+                  type="email"
+                  value={existingUserData.email}
                   onChange={(e) =>
                     setExistingUserData({
                       ...existingUserData,
-                      name: e.target.value,
+                      email: e.target.value,
                     })
                   }
                   className="w-full bg-[#202832] border border-[#393d46] p-3 text-[#e0e0e0] focus:border-[#00adb4] focus:outline-none rounded placeholder-[#6b7280]"
-                  placeholder="Enter your registered name"
+                  placeholder="Enter your registered email"
                 />
               </div>
 
@@ -464,7 +464,7 @@ const SeminarRegisterPage: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setShowExistingUserForm(false);
-                    setExistingUserData({ name: "", pin: "" });
+                    setExistingUserData({ email: "", pin: "" });
                     setError("");
                     setMessage("");
                   }}
@@ -477,13 +477,13 @@ const SeminarRegisterPage: React.FC = () => {
           )}
 
           {error && (
-            <div className="mt-4 p-3 border border-[#ff4444] bg-[#ff4444] bg-opacity-10 text-[#fffff] text-sm rounded">
+            <div className="mt-4 p-3 border border-[#ff4444] bg-[#ff4444] bg-opacity-10 text-[#ff4444] text-sm rounded">
               ⚠️ {error}
             </div>
           )}
 
           {message && (
-            <div className="mt-4 p-3 border border-[#00ff88] bg-[#00ff88] bg-opacity-10 text-black text-sm rounded">
+            <div className="mt-4 p-3 border border-[#00ff88] bg-[#00ff88] bg-opacity-10 text-[#00ff88] text-sm rounded">
               ✅ {message}
             </div>
           )}
