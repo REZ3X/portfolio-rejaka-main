@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ interface RegistrationForm {
 }
 
 interface ExistingUserCheck {
-  email: string; // Changed from name to email
+  email: string; 
   pin: string;
 }
 
@@ -27,7 +27,7 @@ const SeminarRegisterPage: React.FC = () => {
     pin: "",
   });
   const [existingUserData, setExistingUserData] = useState<ExistingUserCheck>({
-    email: "", // Changed from name to email
+    email: "",
     pin: "",
   });
   const [loading, setLoading] = useState(false);
@@ -147,7 +147,7 @@ const SeminarRegisterPage: React.FC = () => {
           document.body.removeChild(a);
         }
 
-        setExistingUserData({ email: "", pin: "" }); // Reset form
+        setExistingUserData({ email: "", pin: "" }); 
         setShowExistingUserForm(false);
       } else {
         setError(data.message || "Data not found or incorrect PIN");

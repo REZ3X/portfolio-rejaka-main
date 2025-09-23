@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { withRetry } from "@/lib/mongodb";
 import { Db } from "mongodb";
 
@@ -41,7 +41,6 @@ export async function POST(request: Request) {
         const result = await withRetry(async (db: Db) => {
             const collection = db.collection<RegistrationData>("seminar_registrations");
 
-            // Check if email already exists (changed from name to email)
             const existingUser = await collection.findOne({
                 email: email.trim().toLowerCase()
             });
@@ -54,7 +53,6 @@ export async function POST(request: Request) {
                 };
             }
 
-            // Generate unique code
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const tomorrow = new Date(today);
@@ -71,10 +69,9 @@ export async function POST(request: Request) {
             const incrementalNumber = String(todayCount + 1).padStart(3, '0');
             const code = `${baseCode}${incrementalNumber}`;
 
-            // Store with normalized email (lowercase)
             const newRegistration: RegistrationData = {
                 name: name.trim(),
-                email: email.trim().toLowerCase(), // Always store email in lowercase
+                email: email.trim().toLowerCase(), 
                 pin: pin,
                 code: code,
                 attendeeStatus: "registered",
