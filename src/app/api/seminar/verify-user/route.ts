@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
         if (!name || !pin) {
             return NextResponse.json(
-                { success: false, message: "Nama dan PIN harus diisi" },
+                { success: false, message: "Name and PIN are required" },
                 { status: 400 }
             );
         }
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
             if (!user) {
                 return {
                     success: false,
-                    message: "Data tidak ditemukan atau PIN salah"
+                    message: "Data not found or PIN is incorrect"
                 };
             }
 
