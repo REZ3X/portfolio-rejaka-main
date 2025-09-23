@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { withRetry } from "@/lib/mongodb";
 import { Db } from "mongodb";
 
@@ -13,11 +13,11 @@ interface RegistrationData {
 
 export async function POST(request: Request) {
     try {
-        const { name, pin } = await request.json();
+        const { email, pin } = await request.json(); // Changed from name to email
 
-        if (!name || !pin) {
+        if (!email || !pin) {
             return NextResponse.json(
-                { success: false, message: "Name and PIN are required" },
+                { success: false, message: "Email and PIN are required" },
                 { status: 400 }
             );
         }
@@ -25,8 +25,9 @@ export async function POST(request: Request) {
         const result = await withRetry(async (db: Db) => {
             const collection = db.collection<RegistrationData>("seminar_registrations");
 
+            // Search by email and PIN (both normalized)
             const user = await collection.findOne({
-                name: name.trim().toLowerCase(),
+                email: email.trim().toLowerCase(), // Normalize email for search
                 pin: pin
             });
 
