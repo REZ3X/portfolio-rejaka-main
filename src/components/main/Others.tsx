@@ -37,7 +37,7 @@ const BASE_OTHERS_DATA: OthersItem[] = [
     {
     label: "Seminar Registration",
     description: "Mini English Seminar Registration",
-    url: "https://rejaka.id/seminar/register",
+    url: "/seminar/register",
     icon: "[]",
     external: false,
   },
