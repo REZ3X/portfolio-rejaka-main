@@ -477,13 +477,13 @@ const SeminarRegisterPage: React.FC = () => {
           )}
 
           {error && (
-            <div className="mt-4 p-3 border border-[#ff4444] bg-[#ff4444] bg-opacity-10 text-[#ff4444] text-sm rounded">
+            <div className="mt-4 p-3 border border-[#ff4444] bg-[#ff4444] bg-opacity-10 text-white text-sm rounded">
               ⚠️ {error}
             </div>
           )}
 
           {message && (
-            <div className="mt-4 p-3 border border-[#00ff88] bg-[#00ff88] bg-opacity-10 text-[#00ff88] text-sm rounded">
+            <div className="mt-4 p-3 border border-[#00ff88] bg-[#00ff88] bg-opacity-10 text-black text-sm rounded">
               ✅ {message}
             </div>
           )}
