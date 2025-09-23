@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { withRetry } from "@/lib/mongodb";
 import { Db } from "mongodb";
 
@@ -41,19 +41,21 @@ export async function POST(request: Request) {
         const result = await withRetry(async (db: Db) => {
             const collection = db.collection<RegistrationData>("seminar_registrations");
 
-                        const existingUser = await collection.findOne({
-                name: name.trim().toLowerCase()
+            // Check if email already exists (changed from name to email)
+            const existingUser = await collection.findOne({
+                email: email.trim().toLowerCase()
             });
 
             if (existingUser) {
                 return {
                     success: false,
                     existing: true,
-                    message: "Nama sudah terdaftar. Gunakan opsi 'Unduh Ulang Ticket' jika Anda sudah pernah mendaftar."
+                    message: "Email sudah terdaftar. Gunakan opsi 'Unduh Ulang Ticket' jika Anda sudah pernah mendaftar."
                 };
             }
 
-                        const today = new Date();
+            // Generate unique code
+            const today = new Date();
             today.setHours(0, 0, 0, 0);
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
@@ -69,9 +71,10 @@ export async function POST(request: Request) {
             const incrementalNumber = String(todayCount + 1).padStart(3, '0');
             const code = `${baseCode}${incrementalNumber}`;
 
-                        const newRegistration: RegistrationData = {
+            // Store with normalized email (lowercase)
+            const newRegistration: RegistrationData = {
                 name: name.trim(),
-                email: email.trim().toLowerCase(),
+                email: email.trim().toLowerCase(), // Always store email in lowercase
                 pin: pin,
                 code: code,
                 attendeeStatus: "registered",
